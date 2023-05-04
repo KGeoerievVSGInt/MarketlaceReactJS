@@ -1,0 +1,22 @@
+@use "variables" as *;
+
+@mixin flex-container(
+  $direction: null,
+  $wrap: null,
+  $justify: null,
+  $align: null
+) {
+  display: flex;
+  @if ($direction!=null) {
+    flex-direction: $direction;
+  }
+  @if ($wrap != null) {
+    flex-wrap: $wrap;
+  }
+  @if ($justify!= null) {
+    justify-content: $justify;
+  }
+  @if ($align !=null) {
+    align-items: $align;
+  }
+}

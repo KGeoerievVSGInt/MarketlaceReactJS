@@ -1,0 +1,71 @@
+@use "../" as *;
+
+.content {
+  flex-grow: 1;
+  padding: $large $medium;
+  @include flex-container($align: stretch);
+  display: flex;
+  gap: $large;
+  overflow: auto;
+  aside {
+    @include flex-container($direction: column, $align: stretch);
+    max-width: 300px;
+    width: 25%;
+    min-width: 250px;
+    background-color: $white;
+    border-radius: $radius-large;
+    animation: 500ms ease-out 0s 1 slideInFromLeft;
+    nav {
+      flex-grow: 1;
+      width: 100%;
+      @include flex-container($align: stretch);
+      ul {
+        width: 100%;
+        padding-top: $large;
+        padding-bottom: $large;
+        list-style-type: none;
+        @include flex-container($direction: column);
+        li {
+          cursor: pointer;
+          margin: $xs $medium + $small;
+          box-sizing: border-box;
+          border-radius: $radius-medium;
+          transition: 750ms;
+          .active-link {
+            background-color: $default-red;
+            color: white;
+            border-radius: $radius-medium;
+            i {
+              color: $white;
+            }
+          }
+          a {
+            padding: $medium;
+            display: block;
+            font-size: $font-links;
+            i {
+              color: $default-red;
+              margin-right: $font-medium;
+            }
+          }
+          &:hover {
+            background-color: $default-red;
+            box-shadow: $shadow-navigation;
+            a {
+              color: $white;
+            }
+            i {
+              color: $white;
+            }
+          }
+        }
+        #logout {
+          margin-top: auto;
+        }
+      }
+    }
+  }
+}
+.aside-show{
+  display: flex !important;
+}

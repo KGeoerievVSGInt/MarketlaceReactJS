@@ -1,0 +1,58 @@
+//fonts
+$roboto: "Roboto", sans-serif;
+$montserrat: "Montserrat", sans-serif;
+$inter: "Inter", sans-serif;
+//units
+$tiny: 2px;
+$xs: 4px;
+$small: 8px;
+$medium: 16px;
+$medium-large: 24px;
+$large: 32px;
+$xl: 48px;
+$xxl: 82px;
+$font-links: 14px;
+$font-small: 12px;
+$font-default: 16px;
+$font-buttons: 18px;
+$font-medium: 20px;
+$font-modal: 22px;
+$font-large: 30px;
+//colors
+$default-red: #ed1c25;
+$default-red-hover: lighten($default-red, 25%);
+$background-main-color: #f0f2f3;
+$button-success: #2e7d32;
+$button-success-hover: lighten($button-success, 25%);
+$button-warning: #ed6c02;
+$button-warning-hover: lighten($button-warning, 25%);
+$button-remove: #ed1c25;
+$button-remove-hover: lighten($button-remove, 25%);
+$pending-header: #dadcdd;
+$white: #ffffff;
+$gray: #9a9a9a;
+$black: #000;
+//shadows
+$shadow-navigation: 2px 2px 10px rgba(0, 0, 0, 0.2);
+$shadow-popup: 0px 0px 10px rgba(0, 0, 0, 0.5);
+$shadow-main-logo: 1px 1px 5px rgba(0, 0, 0, 0.25);
+$shadow-inventory-dropdown: 0px 5px 5px rgba(0, 0, 0, 0.25);
+$shadow-popup-button: $shadow-main-logo;
+$shadow-card-item: 0px 0px 10px rgba(0, 0, 0, 0.1);
+$shadow-table-item: 0px 0px 5px rgba(0, 0, 0, 0.3);
+//borders
+$border-red: 1px solid $default-red;
+$border-black: 1px solid $black;
+$border-gray-pending: 1px solid $pending-header;
+//border-radius
+$radius-small: 6px;
+$radius-medium: 10px;
+$radius-large: 20px;
+$radius-xl: 24px;
+$radius-card-item: 5px 5px 0px 0px;
+$radius-pending-list-first-child: 10px 0 0 10px;
+$radius-pending-list-last-child: 0 10px 10px 0;
+$radius-image-modal: $radius-large $radius-large 0 0;
+//custom units
+$purchase-button-padding: 6px 6px 2px 6px;
+$purchase-modal-item-description-margin: 16px 32px 16px 16px;

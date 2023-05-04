@@ -1,0 +1,181 @@
+@use "../" as *;
+@media only screen and (max-width: 1250px) {
+  .cardItem-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .logo-container {
+    width: 70%;
+    a {
+      font-size: 20px;
+      margin-top: 3em;
+    }
+  }
+  .content {
+    aside {
+      max-width: 100%;
+      flex-grow: 1;
+      display: none;
+      nav {
+        height: 100%;
+      }
+    }
+  }
+  header {
+    p {
+      font-size: 1.125em;
+      font-weight: 700;
+    }
+    ul {
+      display: none;
+    }
+  }
+  .hamburger-lines {
+    display: block;
+  }
+  .main-toggle{
+    display: none;
+  }
+  .cardItem-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card-item {
+    width: 100%;
+  }
+  .confirmation-popup {
+    &.market {
+      left: 0%;
+      bottom: -35%;
+    }
+  }
+  .confirmation-popup.market::before {
+    left: 87%;
+  }
+  .main-content-inventory {
+    align-items: flex-start;
+    .add-new {
+      width: auto;
+      justify-content: flex-start;
+      &-input {
+        input {
+          font-size: $font-links;
+        }
+      }
+    }
+  }
+  .main-content-pending {
+    @include table-media;
+  }
+  .main-content-orders {
+    @include table-media;
+    .pending-orders {
+      .action {
+        padding: 1em;
+        p {
+          display: inline;
+        }
+        button {
+          float: right;
+        }
+        .confirmation-popup {
+          height: auto;
+          width: 75vw;
+          left: 0;
+          bottom: -200%;
+          &::before {
+            left: 93%;
+          }
+        }
+      }
+      td:nth-child(5) {
+        border: none;
+        border-radius: 0;
+        border-top: $border-gray-pending;
+      }
+      td:nth-of-type(1):before {
+        content: "Code";
+      }
+      td:nth-of-type(2):before {
+        content: "Qty";
+      }
+      td:nth-of-type(3):before {
+        content: "Price";
+      }
+      td:nth-of-type(4):before {
+        content: "Ordered by:";
+        @include inline-child();
+      }
+      td:nth-of-type(5):before {
+        content: "Order Date:";
+        @include inline-child();
+      }
+      td:nth-of-type(6):before {
+        content: "Status:";
+      }
+    }
+  }
+  .modal {
+    align-items: stretch;
+    .modal-content {
+      img {
+        height: 25%;
+      }
+      width: 100%;
+      margin: 2em 1em 2em 1em;
+      .bubbles{
+        bottom: -30px;
+      }
+    }
+    .item-management {
+      box-sizing: border-box;
+      margin: 32px 16px;
+      .item-data {
+        &-form {
+          flex-direction: column;
+          &-left {
+            div {
+              label {
+                top: 0;
+              }
+              input:focus ~ label,
+              input:not(:placeholder-shown) ~ label {
+                display: block;
+              }
+            }
+          }
+          &-right {
+            div {
+              flex-direction: row;
+              button{
+                margin: $medium;
+              }
+            }
+
+          }
+          
+        }
+        &-button-container{
+          padding-bottom: $xl;
+        }
+      }
+    }
+  }
+}
+.item-description {
+  margin: 1em;
+}
+.item-info {
+  flex-direction: column;
+  &-left {
+    width: 100%;
+    &-name {
+      font-size: 1.25em;
+    }
+  }
+  &-right {
+    margin-top: 1em;
+    align-items: flex-start;
+  }
+}

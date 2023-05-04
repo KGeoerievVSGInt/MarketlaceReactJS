@@ -1,0 +1,70 @@
+@use "../" as *;
+.main-content-orders {
+  @include main-common;
+  align-items: stretch;
+  overflow: auto;
+  .pending-orders {
+    border-collapse: separate;
+    border-spacing: 0 20px;
+    tr {
+      border: $border-gray-pending;
+    }
+    th {
+      &:first-child {
+        border-radius: $radius-pending-list-first-child;
+      }
+      &:last-child {
+        text-align: center;
+        border-radius: $radius-pending-list-last-child;
+      }
+      background-color: $pending-header;
+      text-align: left;
+      padding: 1em 0.75em;
+    }
+    td {
+      &:first-child {
+        border-radius: $radius-pending-list-first-child;
+        border-left: $border-gray-pending;
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      &:last-child {
+        border-radius: $radius-pending-list-last-child;
+        border-right: $border-gray-pending;
+      }
+      padding: 0.5em 0.75em;
+      border-top: $border-gray-pending;
+      border-bottom: $border-gray-pending;
+    }
+    .action {
+      position: relative;
+      @include flex-container($justify:space-around);
+      button {
+        cursor: pointer;
+        background: none;
+      }
+      .confirmation-popup {
+        @include popup-common;
+        width: 17vw;
+        left:-100%;
+        bottom: -300%;
+        div {
+          @include popup-div;
+        }
+        button {
+          @include popup-button;
+        }
+        button:hover {
+          @include popup-button-hover;
+        }
+      }
+      .confirmation-popup::before {
+        content: "";
+        @include popup-div-before;
+        top: -10px;
+        left: 83%;
+      }
+    }
+  }
+}

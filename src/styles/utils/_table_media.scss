@@ -1,0 +1,90 @@
+@use "variables" as *;
+
+@mixin inline-child {
+  display: inline;
+  margin-right: 1em;
+}
+
+@mixin table-media {
+  .pending-orders {
+    border-spacing: 0;
+
+    thead,
+    tbody,
+    th,
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    tr {
+      display: block;
+    }
+    thead {
+      tr {
+        display: none;
+      }
+    }
+    tr {
+      box-shadow: $shadow-table-item;
+      border-radius: $radius-small;
+      margin-bottom: 1em;
+    }
+    td {
+      border: none;
+    }
+
+    td:nth-child(1) {
+      border: none;
+      width: 50%;
+    }
+    td:nth-child(2) {
+      width: 100%;
+    }
+    td:nth-child(3) {
+      width: 100%;
+    }
+
+    td:nth-child(4) {
+      border-top: $border-gray-pending;
+    }
+    td:nth-child(5) {
+      border-top: $border-gray-pending;
+    }
+    td:nth-child(6) {
+      border: none;
+      border-radius: 0;
+      border-top: $border-gray-pending;
+    }
+    td:before {
+      display: block;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    td:nth-of-type(1):before {
+      content: "Code";
+    }
+    td:nth-of-type(2):before {
+      content: "Qty";
+    }
+    td:nth-of-type(3):before {
+      content: "Price";
+    }
+    td:nth-of-type(4):before {
+      content: "Ordered by:";
+      @include inline-child();
+    }
+    td:nth-of-type(5):before {
+      content: "Order Date:";
+      @include inline-child();
+    }
+
+    .action {
+      padding-top: 1.5em;
+      padding-bottom: 1em;
+      button {
+        float: none;
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+}

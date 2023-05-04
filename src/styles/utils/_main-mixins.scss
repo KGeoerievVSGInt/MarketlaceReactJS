@@ -1,0 +1,14 @@
+@use "variables" as *;
+@use "flex-mixin" as *;
+
+@mixin main-common-primary {
+  flex-grow: 1;
+  background-color: $white;
+  border-radius: $radius-large;
+}
+
+@mixin main-common {
+  @include main-common-primary;
+  padding: 2em 1.25em;
+  @include flex-container($direction:column, $align:flex-end);
+}

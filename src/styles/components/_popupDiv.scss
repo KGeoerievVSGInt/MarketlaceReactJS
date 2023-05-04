@@ -1,0 +1,37 @@
+@use "../" as *;
+.popupCommon {
+  display: block;
+  position: absolute;
+  background-color: $white;
+  box-shadow: $shadow-popup;
+  border-radius: $radius-small;
+  padding: $medium;
+}
+.popupDiv {
+  @include flex-container($justify: flex-end);
+  margin-top: $small;
+  gap: $small + $tiny;
+}
+.popupButton {
+  padding: $xs $medium;
+  background-color: $white;
+  color: $default-red;
+  border: $border-red;
+  border-radius: $radius-small;
+  box-shadow: $shadow-popup-button;
+  transition: 500ms;
+}
+.popupButton:hover {
+  color: $white;
+  background-color: $default-red;
+  border: transparent;
+}
+.popupDivBefore {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 $small $small + $xs $small;
+  border-color: transparent transparent $white transparent;
+}

@@ -1,0 +1,12 @@
+@use "../" as *;
+
+.mainCommonPrimary {
+  flex-grow: 1;
+  background-color: $white;
+  border-radius: $radius-large;
+}
+.mainCommon {
+  @extend .mainCommonPrimary;
+  padding: $large $medium + $xs;
+  @include flex-container($direction: column, $align: flex-end);
+}

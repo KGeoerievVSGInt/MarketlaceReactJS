@@ -1,0 +1,38 @@
+@use "../utils/variables" as *;
+@mixin popup-common {
+  display: block;
+  position: absolute;
+  background-color: $white;
+  box-shadow: $shadow-popup;
+  border-radius: $radius-small;
+  padding: 1em;
+}
+@mixin popup-div {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5em;
+  gap: 10px;
+}
+@mixin popup-button {
+  cursor: pointer;
+  padding: 0.25em 1em;
+  background-color: $white;
+  color: $default-red;
+  border: $border-red;
+  border-radius: $radius-small;
+  box-shadow: $shadow-popup-button;
+  transition: 0.5s;
+}
+@mixin popup-button-hover {
+  color: $white;
+  background-color: $default-red;
+}
+@mixin popup-div-before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0.5em 0.75em 0.5em;
+  border-color: transparent transparent $white transparent;
+}

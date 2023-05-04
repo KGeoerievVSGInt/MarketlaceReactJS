@@ -1,0 +1,271 @@
+@use "../" as *;
+.main-content-inventory {
+  @include main-common;
+  overflow-x: auto;
+}
+.add-new {
+  @include flex-container($justify: flex-end, $align: flex-end);
+  width: 400px;
+  &-input {
+    @include flex-container();
+    flex-grow: 1;
+    border-bottom: $border-black;
+    input {
+      width: 100%;
+      margin-left: 10px;
+      display: inline;
+      font-size: $font-default;
+    }
+    &::before {
+      content: "";
+      background-image: url("./assets/inventory/Vector_magnifying_glass.svg");
+      background-repeat: no-repeat;
+      width: $font-default;
+      height: $font-default;
+      outline: none;
+    }
+    &:focus-within {
+      outline: $border-black;
+    }
+  }
+
+  &-button {
+    cursor: pointer;
+    margin-left: 1.25em;
+    @include flex-container($justify: center, $align: center);
+    padding: $small + $tiny $medium + $xs;
+    border-radius: $radius-small;
+    background-color: $button-success;
+    color: $white;
+    gap: $medium;
+    transition: 500ms;
+    &:hover {
+      background-color: $button-success-hover;
+    }
+    &:active {
+      background-color: $button-success;
+    }
+    &-text {
+      white-space: nowrap;
+      flex-grow: 1;
+      font-size: $medium;
+      height: auto;
+      margin: auto;
+    }
+  }
+}
+.table {
+  @include flex-container($direction: column);
+  flex-grow: 1;
+  width: 100%;
+  margin-top: $large;
+  border: $border-gray-pending;
+  border-radius: $radius-small;
+  overflow: auto;
+}
+.inventory-content {
+  min-width: 900px;
+  border-spacing: 0;
+  border-radius: $radius-small;
+  th {
+    max-height: $xl;
+    text-align: left;
+    padding: $medium $small;
+  }
+
+  td {
+    border-top: $border-gray-pending;
+    border-bottom: $border-gray-pending;
+    padding: $medium $small;
+  }
+}
+
+.actions {
+  position: relative;
+  button {
+    margin-right: $medium;
+    background: none;
+    cursor: pointer;
+  }
+}
+.confirmation-popup {
+  @include popup-common;
+  width: 250px;
+  padding: $medium;
+  left: -140%;
+  bottom: -200%;
+  div {
+    @include popup-div;
+    margin-top: $small;
+  }
+  button {
+    @include popup-button;
+  }
+  button:hover {
+    @include popup-button-hover;
+  }
+}
+.confirmation-popup::before {
+  @include popup-div-before;
+  top: -10px;
+  left: 66%;
+}
+.pagination-container {
+  margin-top: auto;
+  height: $xl;
+  border-top: $border-gray-pending;
+}
+.item-management {
+  box-sizing: border-box;
+  height: 700px;
+  background-color: $white;
+  position: relative;
+  z-index: 5;
+  border-radius: $radius-large;
+  padding: $xl;
+  overflow: auto;
+  @include zoomIn;
+  .modal-out {
+    @include zoomOut;
+  }
+  .item-data {
+    position: relative;
+    height: 100%;
+    @include flex-container($direction: column, $align: center);
+    &-form {
+      width: 100%;
+      @include flex-container();
+      gap: 20px;
+      &-left {
+        .modal-header {
+          font-size: $medium-large;
+          font-weight: 700;
+        }
+        div {
+          position: relative;
+          @include flex-container($direction: column);
+          label {
+            font-size: $font-links;
+            color: $gray;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+          }
+          input[type="number"]::-webkit-inner-spin-button,
+          input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          input[type="number"] {
+            -moz-appearance: textfield;
+          }
+          input:focus ~ label,
+          input:not(:placeholder-shown) ~ label,
+          textarea:focus ~ label,
+          textarea:not(:placeholder-shown) ~ label {
+            display: none;
+          }
+          [for="item-description-area"] {
+            top: 24px;
+          }
+        }
+        flex-grow: 1;
+        @include flex-container($direction: column, $justify: center);
+        input {
+          border-bottom: $border-gray-pending;
+          margin-top: 45px;
+        }
+        textarea {
+          border-bottom: $border-gray-pending;
+          margin-top: 25px;
+          resize: none;
+        }
+        .category-dropdown {
+          margin-top: 62px;
+          position: relative;
+          button {
+            cursor: pointer;
+            background: transparent;
+            @include flex-container($justify: space-between);
+            svg {
+              margin: auto 0;
+              &.arrow-down {
+                transform: rotate(180deg);
+              }
+            }
+            span {
+              color: $gray;
+              &.selected {
+                color: $black;
+              }
+            }
+          }
+          border-bottom: $border-gray-pending;
+          &-child {
+            display: none;
+            width: 100%;
+            background-color: $white;
+            position: absolute;
+            left: 0;
+            top: $medium;
+            z-index: 4;
+            padding: $xs 0;
+            box-shadow: $shadow-inventory-dropdown;
+            .category-option {
+              list-style-type: none;
+              cursor: pointer;
+              margin: $xs;
+              padding: $small;
+              &:hover {
+                background-color: $gray;
+                border-radius: $radius-small;
+                color: $white;
+                transition: 0.5s;
+              }
+            }
+            &.open {
+              display: block;
+            }
+          }
+        }
+      }
+      &-right {
+        flex-grow: 1;
+        @include flex-container(
+          $direction: column,
+          $justify: center,
+          $align: center
+        );
+        img {
+          width: 260px;
+          height: 150px;
+          object-fit: contain;
+        }
+        div {
+          @include flex-container($direction: column);
+          button {
+            margin-top: 20px;
+            width: 120px;
+          }
+        }
+      }
+    }
+    &-button-container {
+      margin: 35px 0;
+      button {
+        width: 150px;
+      }
+    }
+    .close-button {
+      cursor: pointer;
+      background-color: transparent;
+      position: absolute;
+      right: -15px;
+      top: -15px;
+    }
+  }
+}
+
+.modal-out {
+  @include zoomOut;
+}

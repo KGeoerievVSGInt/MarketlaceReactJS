@@ -1,0 +1,35 @@
+@use "../" as *;
+
+.button {
+  cursor: pointer;
+  font-family: $inter;
+  font-size: $font-buttons;
+  font-weight: 700;
+  padding: 8px;
+  color: $white;
+  border-radius: $radius-small;
+  transition: 0.5s;
+}
+
+.button-success {
+  background-color: $button-success;
+  &:hover {
+    background-color: $button-success-hover;
+  }
+}
+.button-warning {
+  background-color: $button-warning;
+  &:hover {
+    background-color: $button-warning-hover;
+  }
+}
+.button-remove {
+  background-color: $button-remove;
+  &:hover {
+    background-color: $button-remove-hover;
+  }
+}
+
+.button-hidden {
+  display: none;
+}
