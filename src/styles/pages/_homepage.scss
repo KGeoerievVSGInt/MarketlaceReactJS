@@ -24,7 +24,7 @@
     padding: $medium $xl;
     border-radius: $radius-small;
     box-shadow: $shadow-popup-button;
-    transition: 1s;
+    transition: 0.5s;
     &:hover {
       background-color: $default-red-hover;
     }

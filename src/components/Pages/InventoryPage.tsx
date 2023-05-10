@@ -1,7 +1,8 @@
-import InventoryTableRow from "../Elements/InventoryElements/InventoryTableRow";
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import InventoryModal from "../Elements/InventoryElements/InventoryModal";
+import InventoryTable from "../Elements/InventoryElements/InventoryTable";
+import { Stack, TextField, Button } from "@mui/material";
+import { Add } from "@mui/icons-material";
 const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const modalHandler = () => {
@@ -9,7 +10,13 @@ const InventoryPage = () => {
   };
   return (
     <main className="main-content-inventory">
-      <form className="add-new">
+      <Stack direction={"row"} marginBottom={3} spacing={2}>
+        <TextField variant="standard"/>
+        <Button variant="contained" color="success" startIcon={<Add />}>
+          Add New
+        </Button>
+      </Stack>
+      {/* <form className="add-new">
         <div className="add-new-input">
           <input type="text" placeholder="Search..." id="new-add" />
         </div>
@@ -17,27 +24,9 @@ const InventoryPage = () => {
           <i className="fa-regular fa-plus"></i>
           <p className="add-new-button-text"> Add New</p>
         </button>
-      </form>
-      <div className="table">
-        <table className="inventory-content">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>For Sale</th>
-              <th>Qty</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <InventoryTableRow onToggle={modalHandler} />
-          </tbody>
-        </table>
-        <div className="pagination-container"></div>
-      </div>
-      {modalVisible &&
-        createPortal(<InventoryModal onToggle={modalHandler} />, document.querySelector("#modal")!)}
+      </form> */}
+      <InventoryTable onToggle={modalHandler} />
+      <InventoryModal open={modalVisible} onClose={modalHandler} />
     </main>
   );
 };

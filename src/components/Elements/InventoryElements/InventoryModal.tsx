@@ -1,106 +1,123 @@
-import InventoryModalInputDiv from "./InventoryModalInputDiv";
-import chevron from "../../../assets/marketPage/chevron_up.svg";
+import {
+  Dialog,
+  TextField,
+  Stack,
+  Autocomplete,
+  Typography,
+  Button,
+  Box,
+  IconButton,
+} from "@mui/material";
+import { Close } from "@mui/icons-material";
 import noImagePlaceholder from "../../../assets/inventory/no_image-placeholder.png";
-import closeIcon from "../../../assets/marketPage/Vector_close.svg";
-import { useModalToggle } from "../../../hooks/useModalToggle";
-import { InvenotryTableRowsProps } from "../../../types";
-const InventoryModal = ({ onToggle }: InvenotryTableRowsProps) => {
-  const {
-    modalRef,
-    backdropRef,
-    backdropClassName,
-    modalClassName,
-    closeAnimationHandler,
-  } = useModalToggle(onToggle);
+import { InvenotryDialogModalProps } from "../../../types";
+
+const InventoryModal = ({ open, onClose }: InvenotryDialogModalProps) => {
   return (
-    <div className="modal">
-      <div className={`item-management ${modalClassName}`} ref={modalRef}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      PaperProps={{
+        style: {
+          borderRadius: "20px",
+          width: "600px",
+          height: "700px",
+        },
+      }}
+    >
+      <div className="item-management">
         <form className="item-data">
-          <div className="item-data-form">
-            <div className="item-data-form-left">
-              <InventoryModalInputDiv
-                id="code"
-                type="text"
-                text="Code *"
-                data={null}
-                name="code"
+          <Stack direction="row" spacing={6}>
+            <Stack direction="column" spacing={2} sx={{ flexGrow: "1" }}>
+              <Typography sx={{ fontSize: "24px", fontWeight: "700" }}>
+                Add New Item
+              </Typography>
+              <TextField variant="standard" label="Code" required />
+              <TextField variant="standard" label="Name" required />
+              <TextField
+                variant="standard"
+                label="Description"
+                multiline
+                rows={4}
               />
-              <InventoryModalInputDiv
-                id="name"
-                type="text"
-                text="Name *"
-                data={null}
-                name="name"
+              <Autocomplete
+                options={["Laptops", "Furniture", "Office tools", "Misc"]}
+                renderInput={(params) => (
+                  <TextField {...params} label="Category" variant="standard" />
+                )}
+                disableClearable={true}
               />
-              <div>
-                <textarea
-                  name="description"
-                  id="item-description-area"
-                  cols={40}
-                  rows={6}
-                  placeholder=" "
-                ></textarea>
-                <label htmlFor="item-description-area">Description</label>
-              </div>
-              <div className="category-dropdown">
-                <button>
-                  <span>Categoty *</span>
-                  <img src={chevron} alt="Category Dropdown Arrow" />
-                  <ul className="dropdown-child">
-                    <li className="dropdown-option">Laptops</li>
-                    <li className="dropdown-option">Furniture</li>
-                    <li className="dropdown-option">Office Tools</li>
-                    <li className="dropdown-option">Misc</li>
-                  </ul>
-                </button>
-              </div>
-              <InventoryModalInputDiv
-                id="qty-for-sale"
+              <TextField
+                variant="standard"
+                label="Qty For Sale"
+                required
                 type="number"
-                text="Qty For Sale"
-                data={null}
-                name="quantityForSale"
               />
-              <InventoryModalInputDiv
-                id="sale-price"
+              <TextField
+                variant="standard"
+                label="Sale Price"
+                required
                 type="number"
-                text="Sale Price"
-                data={null}
-                name="price"
               />
-              <InventoryModalInputDiv
-                id="qty"
+              <TextField
+                variant="standard"
+                label="Qty"
+                required
                 type="number"
-                text="QTY *"
-                data={null}
-                name="quantity"
               />
-            </div>
-            <div className="item-data-form-right">
+            </Stack>
+
+            <Stack
+              direction="column"
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
               <img src={noImagePlaceholder} alt="Hard coded Image Text" />
-              <button className="button button-waring">Upload</button>
-              <input
-                type="file"
-                accept="image/jpeg, image/png, image/jpg"
-                className="button-hidden"
-              />
-              <button className="button button-remove">Remove</button>
-            </div>
-          </div>
-          <div className="item-data-button-container">
-            <button className="button button-success">Add</button>
-          </div>
-          <button type="button" onClick={closeAnimationHandler}>
-            <img
-              src={closeIcon}
-              alt="Close Inventory Modal"
-              className="close-button"
-            />
-          </button>
+              <Button
+                variant="contained"
+                color="warning"
+                sx={{ fontWeight: "700", width: "150px" }}
+                component="label"
+              >
+                Upload
+                <input
+                  type="file"
+                  hidden
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ fontWeight: "700", width: "150px" }}
+              >
+                Delete
+              </Button>
+            </Stack>
+          </Stack>
+          <Box margin="35px 0" paddingBottom="20px">
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ fontWeight: "700", width: "150px" }}
+            >
+              Add
+            </Button>
+          </Box>
+          <IconButton
+            sx={{
+              position: "absolute",
+              right: "-15px",
+              top: "-15px",
+            }}
+            onClick={onClose}
+          >
+            <Close sx={{ color: "#000" }} />
+          </IconButton>
         </form>
       </div>
-      <div className={`backdrop ${backdropClassName}`} ref={backdropRef}></div>
-    </div>
+    </Dialog>
   );
 };
 

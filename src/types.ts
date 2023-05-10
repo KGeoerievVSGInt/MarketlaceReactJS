@@ -16,18 +16,25 @@ export type HeaderObj = {
 export type QuantityDropdownProps = {
   changeValueHandler: (element: React.RefObject<HTMLDivElement>) => void;
 };
-
+export type MarketplacePopupProps = {
+  type: string;
+  onToggle: () => void;
+};
 export type MarketplaceModalProps = {
+  open: boolean;
   onClose: () => void;
 };
 // inventory types
-export type InvenotryTableRowsProps = {
+export type InvenotryTableProps = {
   onToggle: () => void;
 };
-export type InventoryInputDivProps = {
-  id: string;
-  type: string;
-  text: string;
-  data?: string | null | undefined;
-  name: string;
+
+export type InvenotryDialogModalProps = {
+  open: boolean;
+  onClose: () => void;
+};
+//Popup Types
+export type PopupObj = {
+  market: JSX.Element;
+  inventory: JSX.Element;
 };

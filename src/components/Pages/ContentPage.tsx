@@ -15,7 +15,6 @@ const pages: PagesObj = {
 const ContentPage = () => {
   const loc = location.pathname;
 
-  
   return (
     <div className="wrapper">
       <Header />
