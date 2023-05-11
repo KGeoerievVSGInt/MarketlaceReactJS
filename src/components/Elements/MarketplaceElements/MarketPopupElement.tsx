@@ -12,7 +12,12 @@ const MarketPopupElement = ({ onToggle, type }: MarketplacePopupProps) => {
     inventory: <p>Are you sure you want to remove this item ?</p>,
   };
   return (
-    <Box padding={"10px"} maxWidth={"277px"}>
+    <Box
+      padding={"10px"}
+      maxWidth={"277px"}
+      boxSizing={"border-box"}
+      fontSize={"16px"}
+    >
       {typeObj[type as keyof PopupObj]}
 
       <Stack

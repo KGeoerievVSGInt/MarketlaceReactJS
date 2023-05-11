@@ -1,45 +1,73 @@
 import { Paper, TableContainer, IconButton, Stack } from "@mui/material";
 import { Edit, DeleteOutline } from "@mui/icons-material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { InvenotryTableProps } from "../../../types";
 import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 import MarketPopupElement from "../MarketplaceElements/MarketPopupElement";
-const InventoryTable = ({ onToggle }: InvenotryTableProps) => {
+const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
+  console.log("inv table");
+
   const [popupVisible, setPopupVisible] = useState(false);
-  const columns = [
-    { field: "code", headerName: "Code", width: 100, disableColumnMenu: true },
-    { field: "name", headerName: "Name", width: 320, disableColumnMenu: true },
+  const columns: GridColDef[] = [
+    {
+      field: "code",
+      renderHeader: () => <strong>Code</strong>,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: "name",
+      renderHeader: () => <strong>Name</strong>,
+      disableColumnMenu: true,
+      flex: 4,
+    },
     {
       field: "category",
-      headerName: "Category",
-      width: 250,
+      renderHeader: () => <strong>Category</strong>,
       disableColumnMenu: true,
+      flex: 2,
     },
     {
       field: "forSale",
-      headerName: "For Sale",
-      width: 160,
+      renderHeader: () => <strong>For Sale</strong>,
       disableColumnMenu: true,
+      flex: 2,
     },
-    { field: "qty", headerName: "Qty", width: 160, disableColumnMenu: true },
+    {
+      field: "qty",
+      renderHeader: () => <strong>QTY</strong>,
+      disableColumnMenu: true,
+      flex: 2,
+    },
     {
       field: "actions",
-      headerName: "Actions",
-      width: 140,
+      renderHeader: () => <strong>Actions</strong>,
       sortable: false,
       disableColumnMenu: true,
-      renderCell: () => {
+      flex: 1,
+      renderCell: ({ id }) => {
         return (
           <Stack direction={"row"}>
-            <IconButton onClick={onToggle} size="small">
+            <IconButton
+              onClick={() => {
+                console.log(id);
+
+                onToggle(id);
+              }}
+              size="small"
+            >
               <Edit
                 sx={{
                   color: "#ed1c25",
                 }}
               />
             </IconButton>
-            <IconButton size="small" data-tooltip-id="my-tooltip" onClick={togglePopup}>
+            <IconButton
+              size="small"
+              data-tooltip-id="my-tooltip"
+              onClick={togglePopup}
+            >
               <DeleteOutline
                 sx={{
                   color: "#ed1c25",
@@ -51,16 +79,7 @@ const InventoryTable = ({ onToggle }: InvenotryTableProps) => {
       },
     },
   ];
-  const rows = [
-    {
-      id: 1,
-      code: "1",
-      name: "Laptop Macbook Pro 16” M1 Max",
-      category: "Laptops",
-      forSale: "2",
-      qty: "5",
-    },
-  ];
+
   const togglePopup = () => {
     setPopupVisible((prevState) => !prevState);
   };
@@ -70,11 +89,12 @@ const InventoryTable = ({ onToggle }: InvenotryTableProps) => {
       sx={{
         flexGrow: "1",
         width: "100%",
+        boxShadow: "none",
       }}
     >
       <DataGrid
         columns={columns}
-        rows={rows}
+        rows={data}
         pageSizeOptions={[10]}
         disableRowSelectionOnClick
         disableColumnSelector

@@ -12,11 +12,13 @@ import { Close } from "@mui/icons-material";
 import noImagePlaceholder from "../../../assets/inventory/no_image-placeholder.png";
 import { InvenotryDialogModalProps } from "../../../types";
 
-const InventoryModal = ({ open, onClose }: InvenotryDialogModalProps) => {
+const InventoryModal = ({ open, onClose, data }: InvenotryDialogModalProps) => {
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={() => {
+        onClose();
+      }}
       PaperProps={{
         style: {
           borderRadius: "20px",
@@ -30,7 +32,7 @@ const InventoryModal = ({ open, onClose }: InvenotryDialogModalProps) => {
           <Stack direction="row" spacing={6}>
             <Stack direction="column" spacing={2} sx={{ flexGrow: "1" }}>
               <Typography sx={{ fontSize: "24px", fontWeight: "700" }}>
-                Add New Item
+                {data ? "Edit New Item" : "Add New Item"}
               </Typography>
               <TextField variant="standard" label="Code" required />
               <TextField variant="standard" label="Name" required />
@@ -111,7 +113,9 @@ const InventoryModal = ({ open, onClose }: InvenotryDialogModalProps) => {
               right: "-15px",
               top: "-15px",
             }}
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+            }}
           >
             <Close sx={{ color: "#000" }} />
           </IconButton>
