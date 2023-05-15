@@ -6,9 +6,6 @@ import ProtectedLogin from "./routes/ProtectedLogin";
 import ProtectedAdmin from "./routes/ProtectedAdmin";
 
 const App = () => {
-  fetch(`https://localhost:7245/Inventory`)
-    .then((data) => data.json())
-    .then((data) => console.log(data));
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />

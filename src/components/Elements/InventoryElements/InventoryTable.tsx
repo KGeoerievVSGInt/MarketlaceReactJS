@@ -6,7 +6,6 @@ import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 import MarketPopupElement from "../MarketplaceElements/MarketPopupElement";
 const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
-  console.log("inv table");
 
   const [popupVisible, setPopupVisible] = useState(false);
   const columns: GridColDef[] = [
@@ -51,7 +50,6 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
           <Stack direction={"row"}>
             <IconButton
               onClick={() => {
-                console.log(id);
 
                 onToggle(id);
               }}

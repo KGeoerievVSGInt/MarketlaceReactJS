@@ -15,14 +15,15 @@ export type HeaderObj = {
   "/myorders": string;
 };
 //Markeplace types
+export type FetcherDataType = {
+  code: number;
+  imageUrl: string;
+  price: number;
+  category: string;
+  quantityForSale: number;
+};
 export type MarketplaceCardItemProps = {
-  data: {
-    code: number;
-    imageUrl: string;
-    price: number;
-    category: string;
-    quantityForSale: number;
-  };
+  data: FetcherDataType;
 };
 export type QuantityDropdownProps = {
   changeValueHandler: (element: React.RefObject<HTMLDivElement>) => void;
@@ -48,11 +49,20 @@ export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;
   data: InventoryItemType[];
 };
+export type InventoryModalDataType = {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  forSale: number;
+  qty: number;
+  img: string;
+} | null;
 
 export type InvenotryDialogModalProps = {
   open: boolean;
-  onClose: (val?:GridRowId) => void;
-  data: InventoryItemType | null;
+  onClose: (val?: GridRowId) => void;
+  productId: number | null;
 };
 //Popup Types
 export type PopupObj = {

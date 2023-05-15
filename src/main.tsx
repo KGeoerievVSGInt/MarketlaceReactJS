@@ -5,11 +5,11 @@ import { BrowserRouter } from "react-router-dom";
 import AuthCtxProvider from "./context/authCtx.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <AuthCtxProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </AuthCtxProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

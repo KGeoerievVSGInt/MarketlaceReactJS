@@ -4,7 +4,6 @@ import InventoryTable from "../Elements/InventoryElements/InventoryTable";
 import { Stack, TextField, Button, InputAdornment } from "@mui/material";
 import { Add, Search } from "@mui/icons-material";
 import { GridRowId } from "@mui/x-data-grid";
-import { InventoryItemType } from "../../types";
 
 const rows = [
   {
@@ -27,14 +26,14 @@ const rows = [
 
 const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<InventoryItemType | null>(null);
+  const [modalData, setModalData] = useState<number | null>(null);
   const modalHandler = (num?: GridRowId) => {
     setModalVisible((prevState) => !prevState);
     if (num) {
       if (typeof num === "number") {
-        setModalData(rows[num - 1]);
+        setModalData(rows[num - 1].id);
       } else {
-        setModalData(rows[Number(num) - 1]);
+        setModalData(rows[Number(num) - 1].id);
       }
     }
   };
@@ -62,6 +61,7 @@ const InventoryPage = () => {
           startIcon={<Add />}
           onClick={() => {
             setModalVisible((prevState) => !prevState);
+            setModalData(null);
           }}
         >
           Add New
@@ -71,7 +71,7 @@ const InventoryPage = () => {
       <InventoryModal
         open={modalVisible}
         onClose={modalHandler}
-        data={modalData}
+        productId={modalData}
       />
     </main>
   );

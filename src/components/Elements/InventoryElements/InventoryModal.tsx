@@ -2,17 +2,29 @@ import {
   Dialog,
   TextField,
   Stack,
-  Autocomplete,
+  InputLabel,
+  MenuItem,
+  Select,
   Typography,
   Button,
   Box,
   IconButton,
+  FormControl,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import noImagePlaceholder from "../../../assets/inventory/no_image-placeholder.png";
 import { InvenotryDialogModalProps } from "../../../types";
+import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
 
-const InventoryModal = ({ open, onClose, data }: InvenotryDialogModalProps) => {
+const InventoryModal = ({
+  open,
+  onClose,
+  productId,
+}: InvenotryDialogModalProps) => {
+  const { register, control } = useForm();
+  console.log(productId);
+
   return (
     <Dialog
       open={open}
@@ -30,42 +42,58 @@ const InventoryModal = ({ open, onClose, data }: InvenotryDialogModalProps) => {
       <div className="item-management">
         <form className="item-data">
           <Stack direction="row" spacing={6}>
-            <Stack direction="column" spacing={2} sx={{ flexGrow: "1" }}>
+            <Stack direction="column" spacing={2} flexGrow={1}>
               <Typography sx={{ fontSize: "24px", fontWeight: "700" }}>
-                {data ? "Edit New Item" : "Add New Item"}
+                {productId ? "Edit New Item" : "Add New Item"}
               </Typography>
-              <TextField variant="standard" label="Code" required />
-              <TextField variant="standard" label="Name" required />
+              <TextField
+                variant="standard"
+                label="Code"
+                {...register("code")}
+              />
+              <TextField
+                variant="standard"
+                label="Name"
+                {...register("name")}
+              />
               <TextField
                 variant="standard"
                 label="Description"
                 multiline
                 rows={4}
+                {...register("description")}
               />
-              <Autocomplete
-                options={["Laptops", "Furniture", "Office tools", "Misc"]}
-                renderInput={(params) => (
-                  <TextField {...params} label="Category" variant="standard" />
-                )}
-                disableClearable={true}
-              />
+              <FormControl variant="standard">
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  label="Category"
+                  variant="standard"
+                >
+                  <MenuItem value={"Laptops"}>Laptops</MenuItem>
+                  <MenuItem value={"Furniture"}>Furniture</MenuItem>
+                  <MenuItem value={"Office tools"}>Office tools</MenuItem>
+                  <MenuItem value={"Misc"}>Misc</MenuItem>
+                </Select>
+              </FormControl>
               <TextField
                 variant="standard"
                 label="Qty For Sale"
-                required
                 type="number"
+                {...register("qty-for-sale")}
               />
               <TextField
                 variant="standard"
                 label="Sale Price"
                 required
                 type="number"
+                {...register("price")}
               />
               <TextField
                 variant="standard"
                 label="Qty"
-                required
                 type="number"
+                {...register("quantity")}
               />
             </Stack>
 
@@ -75,7 +103,11 @@ const InventoryModal = ({ open, onClose, data }: InvenotryDialogModalProps) => {
               alignItems="center"
               justifyContent="center"
             >
-              <img src={noImagePlaceholder} alt="Hard coded Image Text" />
+              <img
+                src={noImagePlaceholder}
+                alt="Hard coded Image Text"
+                className="item-image"
+              />
               <Button
                 variant="contained"
                 color="warning"
@@ -110,8 +142,8 @@ const InventoryModal = ({ open, onClose, data }: InvenotryDialogModalProps) => {
           <IconButton
             sx={{
               position: "absolute",
-              right: "-15px",
-              top: "-15px",
+              right: "-10px",
+              top: "-10px",
             }}
             onClick={() => {
               onClose();
@@ -121,6 +153,7 @@ const InventoryModal = ({ open, onClose, data }: InvenotryDialogModalProps) => {
           </IconButton>
         </form>
       </div>
+      <DevTool control={control} />
     </Dialog>
   );
 };
