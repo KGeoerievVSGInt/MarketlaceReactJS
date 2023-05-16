@@ -14,7 +14,7 @@
     min-width: 250px;
     background-color: $white;
     border-radius: $radius-large;
-    animation: 500ms ease-out 0s 1 slideInFromLeft;
+    animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) 0s 1 anim8;
     nav {
       flex-grow: 1;
       width: 100%;

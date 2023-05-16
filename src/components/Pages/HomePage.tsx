@@ -13,20 +13,20 @@ const HomePage = () => {
         <Link
           to="/marketplace"
           onClick={() => {
-            typeSetter("1");
-            nameSetter("Mike");
-          }}
-        >
-          LOGIN Admin{" "}
-        </Link>
-        <Link
-          to="/marketplace"
-          onClick={() => {
             typeSetter("2");
             nameSetter("George");
           }}
         >
           LOGIN{" "}
+        </Link>
+        <Link
+          to="/marketplace"
+          onClick={() => {
+            typeSetter("1");
+            nameSetter("Mike");
+          }}
+        >
+          LOGIN ADMIN
         </Link>
       </div>
     </div>

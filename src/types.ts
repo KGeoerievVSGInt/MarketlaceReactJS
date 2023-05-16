@@ -1,4 +1,5 @@
 import { GridRowId } from "@mui/x-data-grid";
+import { FieldValues } from "react-hook-form";
 
 //content page types
 export type PagesObj = {
@@ -15,6 +16,13 @@ export type HeaderObj = {
   "/myorders": string;
 };
 //Markeplace types
+export type CardItemProps = {
+  code: number;
+  price: number;
+  category: string;
+  quantityForSale: number;
+  imageURL: string;
+};
 export type FetcherDataType = {
   code: number;
   imageUrl: string;
@@ -29,10 +37,13 @@ export type QuantityDropdownProps = {
   changeValueHandler: (element: React.RefObject<HTMLDivElement>) => void;
 };
 export type MarketplacePopupProps = {
+  quantity: number;
+  price: number;
   type: string;
   onToggle: () => void;
 };
 export type MarketplaceModalProps = {
+  code: number;
   open: boolean;
   onClose: () => void;
 };
@@ -48,6 +59,16 @@ export type InventoryItemType = {
 export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;
   data: InventoryItemType[];
+};
+export type InventoryModalPostType = FieldValues & {
+  code: string;
+  name: string;
+  category: string;
+  description?: string;
+  quantity: number | null;
+  "qty-for-sale": number | null;
+  price: number | null;
+  imageUrl?: File | string | null;
 };
 export type InventoryModalDataType = {
   id: number;

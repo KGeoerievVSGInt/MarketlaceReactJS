@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthCtx } from "../context/authCtx";
 
 const ProtectedLogin = ({ children }: ProtectedProps) => {
-  const { type } = useContext(AuthCtx);
+  const { type } = useContext(AuthCtx); 
   if (!type) {
     return <Navigate to="/" replace />;
   }

@@ -3,6 +3,8 @@ import { Close } from "@mui/icons-material";
 import { MarketplaceModalProps } from "../../../types";
 import defaultImage from "../../../assets/marketPage/product-image.png";
 import bubbles from "../../../assets/marketPage/bubbles.png";
+import { useEffect } from "react";
+import useGetData from "../../../hooks/useGetData";
 
 const MarketModal = ({ open, onClose }: MarketplaceModalProps) => {
   return (

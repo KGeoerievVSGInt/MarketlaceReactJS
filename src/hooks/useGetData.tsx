@@ -5,7 +5,7 @@ const useGetData = (url: string) => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`${url}`);
+      const res = await fetch(`https://localhost:7245${url}`);
       if (!res.ok) {
         throw new Error(await res.json());
       }

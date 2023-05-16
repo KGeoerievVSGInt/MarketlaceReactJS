@@ -16,6 +16,7 @@ const Header = () => {
   const loc = location.pathname;
   const { name, logout } = useContext(AuthCtx);
 
+
   return (
     <header>
       <Link to="/" onClick={logout}>

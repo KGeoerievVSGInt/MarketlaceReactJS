@@ -1,12 +1,17 @@
 import { Box, Stack, Button } from "@mui/material";
 import { MarketplacePopupProps, PopupObj } from "../../../types";
 
-const MarketPopupElement = ({ onToggle, type }: MarketplacePopupProps) => {
+const MarketPopupElement = ({
+  onToggle,
+  type,
+  price,
+  quantity,
+}: MarketplacePopupProps) => {
   const typeObj = {
     market: (
       <p>
-        Are you sure you want to buy <strong>2</strong> item for{" "}
-        <strong>5000BGN</strong>
+        Are you sure you want to buy <strong>{quantity}</strong> item for{" "}
+        <strong>{price * quantity}BGN</strong>
       </p>
     ),
     inventory: <p>Are you sure you want to remove this item ?</p>,

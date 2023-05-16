@@ -1,20 +1,29 @@
-import defaultProductImage from "../../../assets/marketPage/product-image.png";
-import { IconButton, Stack, Autocomplete, TextField } from "@mui/material";
+import {
+  IconButton,
+  Stack,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  SelectChangeEvent,
+} from "@mui/material";
 import { Tooltip } from "react-tooltip";
 import dollar from "../../../assets/marketPage/Vector_dollar.svg";
 import { useState } from "react";
 import MarketModal from "./MarketModal";
 import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
-const CardItem = () => {
-  const [value, setValue] = useState("1");
+import { CardItemProps } from "../../../types";
+const CardItem = ({
+  code,
+  price,
+  category,
+  quantityForSale,
+  imageURL,
+}: CardItemProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
-  const changeValueHandler = (e: any, newVal: string | null) => {
-    if (newVal) {
-      setValue(newVal);
-    }
-  };
+  const [selectVal, setSelectVal] = useState("1");
   const toggleModal = () => {
     setModalVisible((prevState) => !prevState);
   };
@@ -24,12 +33,12 @@ const CardItem = () => {
   return (
     <div className="card-item">
       <a href="#" onClick={toggleModal}>
-        <img src={defaultProductImage} alt="Product Image" />
+        <img src={imageURL} alt="Product Image" />
       </a>
       <div className="item-options">
         <div className="item-options-info">
-          <span>5000BGN</span>
-          <span className="item-options-info-category">Laptops</span>
+          <span>{`${price}BGN`}</span>
+          <span className="item-options-info-category">{category}</span>
         </div>
         <Stack
           direction={"row"}
@@ -38,20 +47,23 @@ const CardItem = () => {
           marginRight={"8px"}
           gap={2}
         >
-          <Autocomplete
-            value={value}
-            onChange={changeValueHandler}
-            options={["1", "2", "3", "4"]}
-            size="small"
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="standard"
-                sx={{ width: "20px" }}
-              />
-            )}
-            disableClearable={true}
-          />
+          <FormControl>
+            <Select
+              variant="standard"
+              defaultValue={"1"}
+              onChange={(e: SelectChangeEvent) => {
+                setSelectVal(e.target.value);
+              }}
+            >
+              {[...Array(quantityForSale)].map((num: null, i) => {
+                return (
+                  <MenuItem key={i} value={i + 1}>
+                    {i + 1}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
           <IconButton
             sx={{
               background: "#ED1C25",
@@ -75,11 +87,16 @@ const CardItem = () => {
             className="tooltip"
             clickable={true}
           >
-            <MarketPopupElement onToggle={togglePopup} type="market" />
+            <MarketPopupElement
+              onToggle={togglePopup}
+              type="market"
+              quantity={Number(selectVal)}
+              price={price}
+            />
           </Tooltip>
         </Stack>
       </div>
-      <MarketModal open={modalVisible} onClose={toggleModal} />
+      <MarketModal open={modalVisible} onClose={toggleModal} code={code} />
     </div>
   );
 };
