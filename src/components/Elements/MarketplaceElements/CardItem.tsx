@@ -14,6 +14,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
 import { CardItemProps } from "../../../types";
 const CardItem = ({
+  id,
   code,
   price,
   category,
@@ -98,7 +99,7 @@ const CardItem = ({
         </Stack>
       </div>
       {modalVisible && (
-        <MarketModal open={modalVisible} onClose={toggleModal} code={code} />
+        <MarketModal open={modalVisible} onClose={toggleModal} id={id} />
       )}
     </div>
   );

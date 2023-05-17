@@ -4,33 +4,37 @@ const useGetData = <T extends object>(url: string): T | T[] => {
   const [data, setData] = useState<T | T[]>([]);
 
   useEffect(() => {
-    let isMounted = true;
+    console.log('here1');
+    // let isMounted = true;
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://localhost:7245${url}`);
+        console.log('here2');
+        const res = await fetch(`https://fakestoreapi.com${url}`);
         if (!res.ok) {
           throw new Error(await res.json());
         }
         const fetchedData = await res.json();
-
-        if (
-          isMounted &&
-          (fetchedData.length > 0 || Object.keys(fetchedData).length > 0)
-        ) {
+        console.log('here3');
+        // if (
+        //   isMounted &&
+        //   (fetchedData.length > 0 || Object.keys(fetchedData).length > 0)
+        // ) {
           setData(fetchedData);
-        }
+        // }
       } catch (error) {
         console.log(error);
       }
     };
-    if (Array.isArray(data) && data.length === 0) {
+    // if (Array.isArray(data) && data.length === 0) {
       fetchData();
-    }
+    // }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [data, url]);
+    // return () => {
+      // isMounted = false;
+    // };
+    console.log('here4');
+  }, []);
+  console.log('return1');
   return data;
 };
 

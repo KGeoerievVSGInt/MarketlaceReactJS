@@ -4,8 +4,11 @@ import { InventoryItemType, MarketplaceModalProps } from "../../../types";
 import bubbles from "../../../assets/marketPage/bubbles.png";
 import useGetData from "../../../hooks/useGetData";
 
-const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
-  const fetched = useGetData<InventoryItemType>(`/Marketplace/${code}`);
+const MarketModal = ({ open, onClose, id }: MarketplaceModalProps) => {
+  console.log(id);
+  
+  console.log('tttt1');
+  const fetched = useGetData<InventoryItemType>(`/products/${id}`);
 
   if (!Array.isArray(fetched)) {
     return (
