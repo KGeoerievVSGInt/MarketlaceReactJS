@@ -17,7 +17,7 @@ const HomePage = () => {
             nameSetter("George");
           }}
         >
-          LOGIN{" "}
+          LOGIN
         </Link>
         <Link
           to="/marketplace"

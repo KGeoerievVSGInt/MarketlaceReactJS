@@ -6,7 +6,6 @@ import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 import MarketPopupElement from "../MarketplaceElements/MarketPopupElement";
 const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
-
   const [popupVisible, setPopupVisible] = useState(false);
   const columns: GridColDef[] = [
     {
@@ -28,13 +27,13 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
       flex: 2,
     },
     {
-      field: "forSale",
+      field: "quantityForSale",
       renderHeader: () => <strong>For Sale</strong>,
       disableColumnMenu: true,
       flex: 2,
     },
     {
-      field: "qty",
+      field: "quantity",
       renderHeader: () => <strong>QTY</strong>,
       disableColumnMenu: true,
       flex: 2,
@@ -50,7 +49,6 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
           <Stack direction={"row"}>
             <IconButton
               onClick={() => {
-
                 onToggle(id);
               }}
               size="small"

@@ -37,8 +37,8 @@ export type QuantityDropdownProps = {
   changeValueHandler: (element: React.RefObject<HTMLDivElement>) => void;
 };
 export type MarketplacePopupProps = {
-  quantity: number;
-  price: number;
+  quantity?: number;
+  price?: number;
   type: string;
   onToggle: () => void;
 };
@@ -49,26 +49,19 @@ export type MarketplaceModalProps = {
 };
 // inventory types
 export type InventoryItemType = {
-  id: number;
-  code: string;
-  name: string;
+  id:number;
   category: string;
-  forSale: string;
-  qty: string;
+  code: number;
+  description: string;
+  imageURL: string;
+  name: string;
+  price: number;
+  quantityForSale: number;
+  quantity: number;
 };
 export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;
   data: InventoryItemType[];
-};
-export type InventoryModalPostType = FieldValues & {
-  code: string;
-  name: string;
-  category: string;
-  description?: string;
-  quantity: number | null;
-  "qty-for-sale": number | null;
-  price: number | null;
-  imageUrl?: File | string | null;
 };
 export type InventoryModalDataType = {
   id: number;
@@ -83,7 +76,7 @@ export type InventoryModalDataType = {
 export type InvenotryDialogModalProps = {
   open: boolean;
   onClose: (val?: GridRowId) => void;
-  productId: number | null;
+  product: InventoryItemType | null;
 };
 //Popup Types
 export type PopupObj = {

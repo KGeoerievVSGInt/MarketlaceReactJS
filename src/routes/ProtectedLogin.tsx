@@ -1,14 +1,10 @@
-import { Navigate } from "react-router-dom";
-import { ProtectedProps } from "../types";
+import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { AuthCtx } from "../context/authCtx";
 
-const ProtectedLogin = ({ children }: ProtectedProps) => {
-  const { type } = useContext(AuthCtx); 
-  if (!type) {
-    return <Navigate to="/" replace />;
-  }
-  return <>{children}</>;
+const ProtectedLogin = () => {
+  const { type } = useContext(AuthCtx);
+  return !type ? <Navigate to="/" replace /> : <Outlet />;
 };
 
 export default ProtectedLogin;

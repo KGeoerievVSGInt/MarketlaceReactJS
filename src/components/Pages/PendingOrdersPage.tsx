@@ -1,6 +1,9 @@
 import PendingOrdersTableRow from "../Elements/PendingOrdersElements/PendingOrdersTableRow";
-
+import useGetData from "../../hooks/useGetData";
 const PendingOrdersPage = () => {
+  const data = useGetData("/PendingOrders");
+  console.log(data);
+
   return (
     <main className="main-content-pending">
       <table className="pending-orders">

@@ -14,10 +14,7 @@ import {
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import noImagePlaceholder from "../../../assets/inventory/no_image-placeholder.png";
-import {
-  InvenotryDialogModalProps,
-  InventoryModalPostType,
-} from "../../../types";
+import { InvenotryDialogModalProps, InventoryItemType } from "../../../types";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect, useState } from "react";
@@ -25,24 +22,36 @@ import { useEffect, useState } from "react";
 const InventoryModal = ({
   open,
   onClose,
-  productId,
+  product,
 }: InvenotryDialogModalProps) => {
-  const [image, setImage] = useState(noImagePlaceholder);
+  const [image, setImage] = useState(
+    product ? product.imageURL : noImagePlaceholder
+  );
+  const [productData, setProductData] = useState<InventoryItemType | null>(
+    product
+  );
+  useEffect(() => {
+    setProductData(product);
+  }, [product]);
+  const defaultData = {
+    id: 0,
+    category: "",
+    code: 0,
+    description: "",
+    imageURL: "",
+    name: "",
+    price: 0,
+    quantityForSale: 0,
+    quantity: 0,
+  };
   const { register, control, handleSubmit, formState, reset } =
-    useForm<InventoryModalPostType>({
-      defaultValues: {
-        code: "",
-        name: "",
-        description: "",
-        category: "",
-        "qty-for-sale": null,
-        price: null,
-        quantity: null,
-        imageUrl: null,
-      },
+    useForm<InventoryItemType>({
+      defaultValues: defaultData,
+      values: productData ?? undefined,
     });
+
   const { errors, isSubmitSuccessful } = formState;
-  const onSubmit = (data: InventoryModalPostType) => {
+  const onSubmit = (data: InventoryItemType) => {
     console.log(data);
     onClose();
   };
@@ -54,7 +63,6 @@ const InventoryModal = ({
       open={open}
       onClose={() => {
         onClose();
-        reset();
       }}
       PaperProps={{
         style: {
@@ -73,7 +81,7 @@ const InventoryModal = ({
           <Stack direction="row" spacing={6}>
             <Stack direction="column" spacing={2} flexGrow={1}>
               <Typography sx={{ fontSize: "24px", fontWeight: "700" }}>
-                {productId ? "Edit New Item" : "Add New Item"}
+                {product ? "Edit New Item" : "Add New Item"}
               </Typography>
               <TextField
                 error={!!errors.code}
@@ -125,7 +133,7 @@ const InventoryModal = ({
                 variant="standard"
                 label="Qty For Sale"
                 type="number"
-                {...register("qty-for-sale", {
+                {...register("quantityForSale", {
                   valueAsNumber: true,
                 })}
               />
@@ -173,7 +181,7 @@ const InventoryModal = ({
                   type="file"
                   hidden
                   accept="image/jpeg, image/png, image/jpg"
-                  {...register("imageUrl", {
+                  {...register("imageURL", {
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.files) {
                         const newImg = URL.createObjectURL(e.target.files[0]);
@@ -210,6 +218,7 @@ const InventoryModal = ({
             }}
             onClick={() => {
               onClose();
+              setProductData(defaultData);
             }}
           >
             <Close sx={{ color: "#000" }} />

@@ -4,37 +4,23 @@ import InventoryTable from "../Elements/InventoryElements/InventoryTable";
 import { Stack, TextField, Button, InputAdornment } from "@mui/material";
 import { Add, Search } from "@mui/icons-material";
 import { GridRowId } from "@mui/x-data-grid";
-
-const rows = [
-  {
-    id: 1,
-    code: "1",
-    name: "Laptop Macbook Pro 16” M1 Max",
-    category: "Laptops",
-    forSale: "2",
-    qty: "5",
-  },
-  {
-    id: 2,
-    code: "1",
-    name: "Laptop Macbook Pro 16” M1 Max",
-    category: "Laptops",
-    forSale: "2",
-    qty: "5",
-  },
-];
+import useGetData from "../../hooks/useGetData";
+import { InventoryItemType } from "../../types";
 
 const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<number | null>(null);
+  const [modalData, setModalData] = useState<InventoryItemType | null>(null);
+  const data: InventoryItemType[] = useGetData("/Inventory");
+  const rows: InventoryItemType[] = [];
+  data.forEach((el) => {
+    rows.push({ ...el, id: el.code });
+  });
+
   const modalHandler = (num?: GridRowId) => {
     setModalVisible((prevState) => !prevState);
     if (num) {
-      if (typeof num === "number") {
-        setModalData(rows[num - 1].id);
-      } else {
-        setModalData(rows[Number(num) - 1].id);
-      }
+      const rowData = rows.find((el) => el.id === num);
+      if (rowData) setModalData(rowData);
     }
   };
   return (
@@ -71,7 +57,7 @@ const InventoryPage = () => {
       <InventoryModal
         open={modalVisible}
         onClose={modalHandler}
-        productId={modalData}
+        product={modalData}
       />
     </main>
   );

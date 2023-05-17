@@ -11,7 +11,7 @@ const MarketPopupElement = ({
     market: (
       <p>
         Are you sure you want to buy <strong>{quantity}</strong> item for{" "}
-        <strong>{price * quantity}BGN</strong>
+        <strong>{price && quantity && price * quantity}BGN</strong>
       </p>
     ),
     inventory: <p>Are you sure you want to remove this item ?</p>,

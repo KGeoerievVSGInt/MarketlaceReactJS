@@ -3,7 +3,6 @@ import {
   Stack,
   Select,
   MenuItem,
-  InputLabel,
   FormControl,
   SelectChangeEvent,
 } from "@mui/material";
@@ -73,30 +72,34 @@ const CardItem = ({
             }}
             size="small"
             className="tooltip-popup"
-            data-tooltip-id="my-tooltip"
+            data-tooltip-id={`my-tooltip-${code}`}
             onClick={togglePopup}
           >
             <img src={dollar} alt="Purchase Button" />
           </IconButton>
-          <Tooltip
-            id="my-tooltip"
-            isOpen={popupVisible}
-            place="bottom"
-            closeOnEsc
-            variant="light"
-            className="tooltip"
-            clickable={true}
-          >
-            <MarketPopupElement
-              onToggle={togglePopup}
-              type="market"
-              quantity={Number(selectVal)}
-              price={price}
-            />
-          </Tooltip>
+          {popupVisible && (
+            <Tooltip
+              id={`my-tooltip-${code}`}
+              isOpen={popupVisible}
+              place="bottom"
+              closeOnEsc
+              variant="light"
+              className="tooltip"
+              clickable={true}
+            >
+              <MarketPopupElement
+                onToggle={togglePopup}
+                type="market"
+                quantity={Number(selectVal)}
+                price={price}
+              />
+            </Tooltip>
+          )}
         </Stack>
       </div>
-      <MarketModal open={modalVisible} onClose={toggleModal} code={code} />
+      {modalVisible && (
+        <MarketModal open={modalVisible} onClose={toggleModal} code={code} />
+      )}
     </div>
   );
 };
