@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 
 const useGetData = <T extends object>(url: string): T | T[] => {
   const [data, setData] = useState<T | T[]>([]);
+  console.log("element mount");
 
   useEffect(() => {
-    let isMounted = true;
+    console.log("useEffect mount");
+
     const fetchData = async () => {
+      console.log("fetchData execute");
       try {
         const res = await fetch(`https://localhost:7245${url}`);
         if (!res.ok) {
@@ -13,24 +16,14 @@ const useGetData = <T extends object>(url: string): T | T[] => {
         }
         const fetchedData = await res.json();
 
-        if (
-          isMounted &&
-          (fetchedData.length > 0 || Object.keys(fetchedData).length > 0)
-        ) {
-          setData(fetchedData);
-        }
+        setData(fetchedData);
+        console.log("data set");
       } catch (error) {
         console.log(error);
       }
     };
-    if (Array.isArray(data) && data.length === 0) {
-      fetchData();
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [data, url]);
+    fetchData();
+  }, []);
   return data;
 };
 

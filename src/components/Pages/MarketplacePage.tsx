@@ -13,5 +13,6 @@ const MarketplacePage = () => {
         </div>
       </main>
     );
+  return null;
 };
 export default MarketplacePage;
