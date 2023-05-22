@@ -18,6 +18,10 @@ import { InvenotryDialogModalProps, InventoryItemType } from "../../../types";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect, useState } from "react";
+import {
+  usePostInventoryDataMutation,
+  useUpdateInventoryDataMutation,
+} from "../../../redux/inventorySlice";
 
 const InventoryModal = ({
   open,
@@ -27,9 +31,12 @@ const InventoryModal = ({
   const [image, setImage] = useState(
     product ? product.imageURL : noImagePlaceholder
   );
+
   const [productData, setProductData] = useState<InventoryItemType | null>(
     product
   );
+  const [addItem] = usePostInventoryDataMutation();
+  const [editItem] = useUpdateInventoryDataMutation();
   useEffect(() => {
     setProductData(product);
   }, [product]);
@@ -46,13 +53,16 @@ const InventoryModal = ({
   };
   const { register, control, handleSubmit, formState, reset } =
     useForm<InventoryItemType>({
-      defaultValues: defaultData,
       values: productData ?? undefined,
     });
 
   const { errors, isSubmitSuccessful } = formState;
   const onSubmit = (data: InventoryItemType) => {
-    console.log(data);
+    addItem(data);
+    onClose();
+  };
+  const onEdit = (data: InventoryItemType) => {
+    editItem(data);
     onClose();
   };
   useEffect(() => {
@@ -201,14 +211,27 @@ const InventoryModal = ({
             </Stack>
           </Stack>
           <Box margin="35px 0" paddingBottom="20px">
-            <Button
-              variant="contained"
-              color="success"
-              sx={{ fontWeight: "700", width: "150px" }}
-              type="submit"
-            >
-              Add
-            </Button>
+            {!product && (
+              <Button
+                variant="contained"
+                color="success"
+                sx={{ fontWeight: "700", width: "150px" }}
+                type="submit"
+              >
+                Add
+              </Button>
+            )}
+            {product && (
+              <Button
+                variant="contained"
+                color="success"
+                sx={{ fontWeight: "700", width: "150px" }}
+                type="button"
+                onClick={handleSubmit(onEdit)}
+              >
+                Modify
+              </Button>
+            )}
           </Box>
           <IconButton
             sx={{

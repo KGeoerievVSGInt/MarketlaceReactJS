@@ -1,13 +1,14 @@
 import CardItem from "../Elements/MarketplaceElements/CardItem";
-import useGetData from "../../hooks/useGetData";
-import { CardItemProps } from "../../types";
+import { useGetMarketDataQuery } from "../../redux/marketSlice";
+
 const MarketplacePage = () => {
-  const data = useGetData<CardItemProps>("/Marketplace");
-  if (Array.isArray(data))
+  const { data } = useGetMarketDataQuery("");
+
+  if (data && Array.isArray(data))
     return (
       <main className="main-content">
         <div className="cardItem-container">
-          {data.map((item: CardItemProps) => (
+          {data.map((item) => (
             <CardItem key={item.code} {...item} />
           ))}
         </div>

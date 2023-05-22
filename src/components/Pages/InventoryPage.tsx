@@ -4,17 +4,18 @@ import InventoryTable from "../Elements/InventoryElements/InventoryTable";
 import { Stack, TextField, Button, InputAdornment } from "@mui/material";
 import { Add, Search } from "@mui/icons-material";
 import { GridRowId } from "@mui/x-data-grid";
-import useGetData from "../../hooks/useGetData";
 import { InventoryItemType } from "../../types";
+import { useGetInventoryDataQuery } from "../../redux/inventorySlice";
 
 const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState<InventoryItemType | null>(null);
-  const data: InventoryItemType[] = useGetData("/Inventory");
+  const { data } = useGetInventoryDataQuery("");
   const rows: InventoryItemType[] = [];
-  data.forEach((el) => {
-    rows.push({ ...el, id: el.code });
-  });
+  if (data)
+    data.forEach((el) => {
+      rows.push({ ...el, id: el.code });
+    });
 
   const modalHandler = (num?: GridRowId) => {
     setModalVisible((prevState) => !prevState);
@@ -54,11 +55,13 @@ const InventoryPage = () => {
         </Button>
       </Stack>
       <InventoryTable onToggle={modalHandler} data={rows} />
-      <InventoryModal
-        open={modalVisible}
-        onClose={modalHandler}
-        product={modalData}
-      />
+      {modalVisible && (
+        <InventoryModal
+          open={modalVisible}
+          onClose={modalHandler}
+          product={modalData}
+        />
+      )}
     </main>
   );
 };

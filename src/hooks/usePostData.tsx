@@ -1,20 +1,21 @@
 import { FetcherDataType } from "../types";
+import { serialize } from "object-to-formdata";
 
-const usePostData = (url: string, data: FetcherDataType) => {
-  const fetchPost = async () => {
-    try {
-      const res = await fetch(url, {
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        throw new Error(await res.json());
-      }
-    } catch (error) {
-      console.log(error);
+const usePostData = async (url: string, data: FetcherDataType) => {
+  const formData = serialize(data);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) {
+      throw new Error(await res.json());
     }
+  } catch (error) {
+    console.log(error);
+  }
 
-    return;
-  };
+  return;
 };
 
 export default usePostData;

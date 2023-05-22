@@ -1,7 +1,8 @@
 import HomePage from "./components/Pages/HomePage";
-import ContentPage from "./components/Pages/ContentPage";
+import ContentPage from "./pages/ContentPage";
 import { Routes, Route } from "react-router-dom";
 import Protected from "./routes/Protected";
+
 const App = () => {
   return (
     <Routes>

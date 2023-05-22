@@ -1,12 +1,14 @@
 import { Paper, TableContainer, IconButton, Stack } from "@mui/material";
 import { Edit, DeleteOutline } from "@mui/icons-material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
 import { InvenotryTableProps } from "../../../types";
 import { Tooltip } from "react-tooltip";
 import { useState } from "react";
-import MarketPopupElement from "../MarketplaceElements/MarketPopupElement";
+import InventoryPopupElement from "./InventoryPopupElement";
+
 const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
   const [popupVisible, setPopupVisible] = useState(false);
+  const [rowId, setRowId] = useState<GridRowId | null>(null);
   const columns: GridColDef[] = [
     {
       field: "code",
@@ -62,7 +64,10 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
             <IconButton
               size="small"
               data-tooltip-id="my-tooltip"
-              onClick={togglePopup}
+              onClick={() => {
+                togglePopup();
+                setRowId(id);
+              }}
             >
               <DeleteOutline
                 sx={{
@@ -100,18 +105,20 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
           },
         }}
       />
-      <Tooltip
-        id="my-tooltip"
-        isOpen={popupVisible}
-        place="bottom"
-        closeOnEsc
-        variant="light"
-        className="tooltip"
-        clickable={true}
-      >
-        {" "}
-        <MarketPopupElement onToggle={togglePopup} type="inventory" />
-      </Tooltip>
+      {popupVisible && (
+        <Tooltip
+          id="my-tooltip"
+          isOpen={popupVisible}
+          place="bottom"
+          closeOnEsc
+          variant="light"
+          className="tooltip"
+          clickable={true}
+        >
+          {" "}
+          <InventoryPopupElement onToggle={togglePopup} id={rowId} />
+        </Tooltip>
+      )}
     </TableContainer>
   );
 };

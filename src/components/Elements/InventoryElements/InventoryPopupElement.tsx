@@ -1,16 +1,13 @@
 import { Box, Stack, Button } from "@mui/material";
-import { MarketplacePopupProps } from "../../../types";
+import { useDeleteInventoryDataMutation } from "../../../redux/inventorySlice";
+import { InventoryPopupProps } from "../../../types";
 
-const MarketPopupElement = ({
-  onToggle,
-  price,
-  quantity,
-}: MarketplacePopupProps) => {
-
-  const marketPurchaseHandler = () => {
-    console.log("market");
+const InventoryPopupElement = ({ onToggle, id }: InventoryPopupProps) => {
+  const [deleteItem] = useDeleteInventoryDataMutation();
+  const deleteItemHandler = () => {
+    deleteItem(id);
+    onToggle();
   };
-
   return (
     <Box
       padding={"10px"}
@@ -18,10 +15,7 @@ const MarketPopupElement = ({
       boxSizing={"border-box"}
       fontSize={"16px"}
     >
-      <p>
-        Are you sure you want to buy <strong>{quantity}</strong> item for{" "}
-        <strong>{price && quantity && price * quantity}BGN</strong>
-      </p>
+      <p>Are You sure you want to delete this item</p>
 
       <Stack
         marginTop={"16px"}
@@ -30,7 +24,7 @@ const MarketPopupElement = ({
         justifyContent={"flex-end"}
       >
         <Button
-          onClick={marketPurchaseHandler}
+          onClick={deleteItemHandler}
           variant="contained"
           size="small"
           sx={{
@@ -64,4 +58,4 @@ const MarketPopupElement = ({
   );
 };
 
-export default MarketPopupElement;
+export default InventoryPopupElement;

@@ -12,14 +12,14 @@ import { useState } from "react";
 import MarketModal from "./MarketModal";
 import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
-import { CardItemProps } from "../../../types";
+import { FetcherDataType } from "../../../types";
 const CardItem = ({
   code,
   price,
   category,
   quantityForSale,
   imageURL,
-}: CardItemProps) => {
+}: FetcherDataType) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectVal, setSelectVal] = useState("1");
@@ -89,7 +89,6 @@ const CardItem = ({
             >
               <MarketPopupElement
                 onToggle={togglePopup}
-                type="market"
                 quantity={Number(selectVal)}
                 price={price}
               />

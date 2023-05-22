@@ -1,5 +1,4 @@
 import { GridRowId } from "@mui/x-data-grid";
-import { FieldValues } from "react-hook-form";
 
 //content page types
 export type PagesObj = {
@@ -25,7 +24,7 @@ export type CardItemProps = {
 };
 export type FetcherDataType = {
   code: number;
-  imageUrl: string;
+  imageURL: string;
   price: number;
   category: string;
   quantityForSale: number;
@@ -39,7 +38,6 @@ export type QuantityDropdownProps = {
 export type MarketplacePopupProps = {
   quantity?: number;
   price?: number;
-  type: string;
   onToggle: () => void;
 };
 export type MarketplaceModalProps = {
@@ -49,14 +47,14 @@ export type MarketplaceModalProps = {
 };
 // inventory types
 export type InventoryItemType = {
-  id:number;
+  id: number;
+  name: string;
   category: string;
   code: number;
   description: string;
   imageURL: string;
-  name: string;
   price: number;
-  quantityForSale: number;
+  quantityForSale?: number;
   quantity: number;
 };
 export type InvenotryTableProps = {
@@ -78,10 +76,9 @@ export type InvenotryDialogModalProps = {
   onClose: (val?: GridRowId) => void;
   product: InventoryItemType | null;
 };
-//Popup Types
-export type PopupObj = {
-  market: JSX.Element;
-  inventory: JSX.Element;
+export type InventoryPopupProps = {
+  onToggle: () => void;
+  id: GridRowId | null;
 };
 //Context Types
 
@@ -96,7 +93,3 @@ export type ContextType = {
   logout: () => void;
 };
 //Protect Types
-
-export type ProtectedProps = {
-  children: React.ReactNode;
-};
