@@ -98,12 +98,17 @@ export type PendingOrdersRowType = {
 // My Orders Types
 
 export type MyOrdersRowType = {
+  i: number;
   name: string;
   orderDate: string;
   orderPrice: number;
   quantity: number;
   status: string;
 };
+export type MyOrdersPopupType = {
+  onToggle:()=>void;
+  
+}
 //Context Types
 export type ProviderProps = {
   children: React.ReactNode;

@@ -74,6 +74,12 @@ export const marketAPI = createApi({
     getPendingOrders: builder.query<PendingOrdersRowType[], string>({
       query: () => "/PendingOrders",
     }),
+    completeOrder: builder.mutation({
+      query: (id) => ({
+        url: `/PendingOrders/Complete/${id}`,
+        method: "PUT",
+      }),
+    }),
     getMyOrders: builder.query<MyOrdersRowType[], string>({
       query: () => "/MyOrders",
     }),
@@ -90,4 +96,5 @@ export const {
   useDeleteInventoryDataMutation,
   useGetPendingOrdersQuery,
   useGetMyOrdersQuery,
+  useCompleteOrderMutation,
 } = marketAPI;

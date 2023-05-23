@@ -1,14 +1,12 @@
 import { Paper, TableContainer, IconButton, Stack } from "@mui/material";
 import { Edit, DeleteOutline } from "@mui/icons-material";
-import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { InvenotryTableProps } from "../../../types";
 import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 import InventoryPopupElement from "./InventoryPopupElement";
 
 const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
-  const [popupVisible, setPopupVisible] = useState(false);
-  const [rowId, setRowId] = useState<GridRowId | null>(null);
   const columns: GridColDef[] = [
     {
       field: "code",
@@ -47,6 +45,10 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
       disableColumnMenu: true,
       flex: 1,
       renderCell: ({ id }) => {
+        const [isVisible, setIsVisible] = useState(false);
+        const togglePopup = () => {
+          setIsVisible((prevState) => !prevState);
+        };
         return (
           <Stack direction={"row"}>
             <IconButton
@@ -63,11 +65,8 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
             </IconButton>
             <IconButton
               size="small"
-              data-tooltip-id="my-tooltip"
-              onClick={() => {
-                togglePopup();
-                setRowId(id);
-              }}
+              data-tooltip-id={`my-tooltip-${id}`}
+              onClick={togglePopup}
             >
               <DeleteOutline
                 sx={{
@@ -75,15 +74,29 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
                 }}
               />
             </IconButton>
+            {isVisible && (
+              <Tooltip
+                id={`my-tooltip-${id}`}
+                isOpen={isVisible}
+                place="bottom"
+                closeOnEsc
+                variant="light"
+                className="tooltip"
+                clickable={true}
+                style={{
+                  whiteSpace: "normal",
+                  zIndex: "5",
+                }}
+              >
+                <InventoryPopupElement onToggle={togglePopup} id={id} />
+              </Tooltip>
+            )}
           </Stack>
         );
       },
     },
   ];
 
-  const togglePopup = () => {
-    setPopupVisible((prevState) => !prevState);
-  };
   return (
     <TableContainer
       component={Paper}
@@ -105,20 +118,6 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
           },
         }}
       />
-      {popupVisible && (
-        <Tooltip
-          id="my-tooltip"
-          isOpen={popupVisible}
-          place="bottom"
-          closeOnEsc
-          variant="light"
-          className="tooltip"
-          clickable={true}
-        >
-          {" "}
-          <InventoryPopupElement onToggle={togglePopup} id={rowId} />
-        </Tooltip>
-      )}
     </TableContainer>
   );
 };

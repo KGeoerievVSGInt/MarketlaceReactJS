@@ -18,7 +18,8 @@ const MyOrdersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {data && data.map((row, i) => <MyOrdersTableRow key={i} {...row} />)}
+          {data &&
+            data.map((row, i) => <MyOrdersTableRow key={i} {...row} i={i} />)}
         </tbody>
       </table>
     </main>

@@ -1,5 +1,6 @@
 import { PendingOrdersRowType } from "../../../types";
 import { dateFormat } from "../../../utils/dataFormat";
+import { useCompleteOrderMutation } from "../../../redux/dataSlice";
 
 const PendingOrdersTableRow = ({
   code,
@@ -8,6 +9,10 @@ const PendingOrdersTableRow = ({
   orderedBy,
   quantity,
 }: PendingOrdersRowType) => {
+  const [completeOrder] = useCompleteOrderMutation();
+  const completeOrderHandler = () => {
+    completeOrder(code);
+  };
   return (
     <tr>
       <td>{code}</td>
@@ -16,7 +21,7 @@ const PendingOrdersTableRow = ({
       <td>{orderedBy}</td>
       <td>{dateFormat(orderDate)}</td>
       <td className="action">
-        <button>Complete</button>
+        <button onClick={completeOrderHandler}>Complete</button>
       </td>
     </tr>
   );
