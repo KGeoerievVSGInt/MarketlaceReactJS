@@ -5,7 +5,7 @@ import { Stack, TextField, Button, InputAdornment } from "@mui/material";
 import { Add, Search } from "@mui/icons-material";
 import { GridRowId } from "@mui/x-data-grid";
 import { InventoryItemType } from "../../types";
-import { useGetInventoryDataQuery } from "../../redux/inventorySlice";
+import { useGetInventoryDataQuery } from "../../redux/dataSlice";
 
 const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);

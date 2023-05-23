@@ -1,15 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { marketAPI } from "./marketSlice";
-import { inventoryAPI } from "./inventorySlice";
+import { marketAPI } from "./dataSlice";
 
 export const store = configureStore({
   reducer: {
     [marketAPI.reducerPath]: marketAPI.reducer,
-    [inventoryAPI.reducerPath]: inventoryAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      marketAPI.middleware,
-      inventoryAPI.middleware
-    ),
+    getDefaultMiddleware().concat(marketAPI.middleware),
 });

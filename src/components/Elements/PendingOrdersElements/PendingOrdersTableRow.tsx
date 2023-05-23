@@ -1,11 +1,20 @@
-const PendingOrdersTableRow = () => {
+import { PendingOrdersRowType } from "../../../types";
+import { dateFormat } from "../../../utils/dataFormat";
+
+const PendingOrdersTableRow = ({
+  code,
+  orderPrice,
+  orderDate,
+  orderedBy,
+  quantity,
+}: PendingOrdersRowType) => {
   return (
     <tr>
-      <td>1</td>
-      <td>1</td>
-      <td>5000BGN</td>
-      <td>smechkov@vsgbg.com</td>
-      <td>2023-03-13 16:30</td>
+      <td>{code}</td>
+      <td>{quantity}</td>
+      <td>{orderPrice}BGN</td>
+      <td>{orderedBy}</td>
+      <td>{dateFormat(orderDate)}</td>
       <td className="action">
         <button>Complete</button>
       </td>

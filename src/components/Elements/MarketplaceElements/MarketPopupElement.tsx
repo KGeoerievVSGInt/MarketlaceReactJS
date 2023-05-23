@@ -2,14 +2,11 @@ import { Box, Stack, Button } from "@mui/material";
 import { MarketplacePopupProps } from "../../../types";
 
 const MarketPopupElement = ({
+  onBuy,
   onToggle,
   price,
   quantity,
 }: MarketplacePopupProps) => {
-
-  const marketPurchaseHandler = () => {
-    console.log("market");
-  };
 
   return (
     <Box
@@ -30,7 +27,7 @@ const MarketPopupElement = ({
         justifyContent={"flex-end"}
       >
         <Button
-          onClick={marketPurchaseHandler}
+          onClick={onBuy}
           variant="contained"
           size="small"
           sx={{

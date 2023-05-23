@@ -13,6 +13,8 @@ import MarketModal from "./MarketModal";
 import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
 import { FetcherDataType } from "../../../types";
+import { usePostNewOrderMutation } from "../../../redux/dataSlice";
+import { useNavigate } from "react-router-dom";
 const CardItem = ({
   code,
   price,
@@ -23,10 +25,28 @@ const CardItem = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectVal, setSelectVal] = useState("1");
+  const [newOrder] = usePostNewOrderMutation();
+  const navigate = useNavigate();
   const toggleModal = () => {
     setModalVisible((prevState) => !prevState);
   };
   const togglePopup = () => {
+    setPopupVisible((prevState) => !prevState);
+  };
+  const buyHandler = () => {
+    console.log(selectVal);
+    console.log(code);
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parced = JSON.parse(user);
+      const email = parced.username;
+      newOrder({
+        itemCode: code,
+        quantity: Number(selectVal),
+        userEmail: email,
+      });
+      navigate("/myorders");
+    }
     setPopupVisible((prevState) => !prevState);
   };
   return (
@@ -91,6 +111,7 @@ const CardItem = ({
                 onToggle={togglePopup}
                 quantity={Number(selectVal)}
                 price={price}
+                onBuy={buyHandler}
               />
             </Tooltip>
           )}

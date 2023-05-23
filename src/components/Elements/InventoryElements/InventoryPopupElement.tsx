@@ -1,5 +1,5 @@
 import { Box, Stack, Button } from "@mui/material";
-import { useDeleteInventoryDataMutation } from "../../../redux/inventorySlice";
+import { useDeleteInventoryDataMutation } from "../../../redux/dataSlice";
 import { InventoryPopupProps } from "../../../types";
 
 const InventoryPopupElement = ({ onToggle, id }: InventoryPopupProps) => {

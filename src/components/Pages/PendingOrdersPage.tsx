@@ -1,9 +1,8 @@
 import PendingOrdersTableRow from "../Elements/PendingOrdersElements/PendingOrdersTableRow";
-import useGetData from "../../hooks/useGetData";
+import { useGetPendingOrdersQuery } from "../../redux/dataSlice";
+import { PendingOrdersRowType } from "../../types";
 const PendingOrdersPage = () => {
-  const data = useGetData("/PendingOrders");
-  console.log(data);
-
+  const { data, isLoading } = useGetPendingOrdersQuery("");
   return (
     <main className="main-content-pending">
       <table className="pending-orders">
@@ -18,7 +17,11 @@ const PendingOrdersPage = () => {
           </tr>
         </thead>
         <tbody>
-          <PendingOrdersTableRow />
+          {isLoading && <tr> Please wait</tr>}
+          {data &&
+            data.map((order: PendingOrdersRowType) => (
+              <PendingOrdersTableRow key={order.code} {...order} />
+            ))}
         </tbody>
       </table>
     </main>

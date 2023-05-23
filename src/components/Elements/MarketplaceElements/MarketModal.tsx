@@ -2,7 +2,7 @@ import { Dialog, Stack, Box, Typography, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { MarketplaceModalProps } from "../../../types";
 import bubbles from "../../../assets/marketPage/bubbles.png";
-import { useGetMarketModalDataQuery } from "../../../redux/marketSlice";
+import { useGetMarketModalDataQuery } from "../../../redux/dataSlice";
 
 const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
   const { data } = useGetMarketModalDataQuery(code);

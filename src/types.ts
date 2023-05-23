@@ -39,11 +39,17 @@ export type MarketplacePopupProps = {
   quantity?: number;
   price?: number;
   onToggle: () => void;
+  onBuy: () => void;
 };
 export type MarketplaceModalProps = {
   code: number;
   open: boolean;
   onClose: () => void;
+};
+export type MarketOrderType = {
+  itemCode: number;
+  quantity: number;
+  userEmail: string;
 };
 // inventory types
 export type InventoryItemType = {
@@ -80,16 +86,31 @@ export type InventoryPopupProps = {
   onToggle: () => void;
   id: GridRowId | null;
 };
-//Context Types
 
+//Pending Orders Types
+export type PendingOrdersRowType = {
+  code: number;
+  orderDate: string;
+  orderPrice: number;
+  orderedBy: string;
+  quantity: number;
+};
+// My Orders Types
+
+export type MyOrdersRowType = {
+  name: string;
+  orderDate: string;
+  orderPrice: number;
+  quantity: number;
+  status: string;
+};
+//Context Types
 export type ProviderProps = {
   children: React.ReactNode;
 };
 export type ContextType = {
-  name: string | null;
-  type: string | null;
-  typeSetter: (val: string) => void;
-  nameSetter: (val: string) => void;
+  user: string | null;
+  userSetter: (val: string) => void;
   logout: () => void;
 };
 //Protect Types

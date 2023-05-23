@@ -3,12 +3,18 @@ import { AuthCtx } from "../context/authCtx";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const Protected = () => {
-    const { type } = useContext(AuthCtx);
-    const location = useLocation().pathname;
+  const { user } = useContext(AuthCtx);
+  const location = useLocation().pathname;
 
-    if (!type) return <Navigate to="/" replace />;
-    else if (type === "2" && (location === '/inventory' || location === '/pending')) return <Navigate to="/marketplace" replace />;
-    else return <Outlet />;
+  if (!user) return <Navigate to="/" replace />;
+
+  const typeArr = user ? JSON.parse(user).idTokenClaims.groups : [];
+  if (
+    !typeArr.includes("f2123818-3d51-4fe4-990b-b072a80da143") &&
+    (location === "/inventory" || location === "/pending")
+  )
+    return <Navigate to="/marketplace" replace />;
+  else return <Outlet />;
 };
 
 export default Protected;

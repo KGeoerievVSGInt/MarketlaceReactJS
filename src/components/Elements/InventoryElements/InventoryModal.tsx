@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import {
   usePostInventoryDataMutation,
   useUpdateInventoryDataMutation,
-} from "../../../redux/inventorySlice";
+} from "../../../redux/dataSlice";
 
 const InventoryModal = ({
   open,

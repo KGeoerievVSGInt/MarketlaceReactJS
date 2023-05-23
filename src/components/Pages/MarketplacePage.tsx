@@ -1,5 +1,5 @@
 import CardItem from "../Elements/MarketplaceElements/CardItem";
-import { useGetMarketDataQuery } from "../../redux/marketSlice";
+import { useGetMarketDataQuery } from "../../redux/dataSlice";
 
 const MarketplacePage = () => {
   const { data } = useGetMarketDataQuery("");

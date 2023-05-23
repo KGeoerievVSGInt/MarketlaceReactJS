@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { AuthCtx } from "../../context/authCtx";
 import { useContext } from "react";
 const Navigation = () => {
-  const { type, logout } = useContext(AuthCtx);
-
+  const { user, logout } = useContext(AuthCtx);
+  const typeArr = user ? JSON.parse(user).idTokenClaims.groups : [];
   return (
     <aside>
       <nav>
@@ -13,7 +13,7 @@ const Navigation = () => {
               <i className="fa-solid fa-store"></i> Marketplace
             </Link>
           </li>
-          {type === "1" && (
+          {typeArr.includes("f2123818-3d51-4fe4-990b-b072a80da143") && (
             <>
               <li>
                 <Link to="/inventory">
