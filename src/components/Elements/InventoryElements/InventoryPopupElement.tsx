@@ -15,7 +15,7 @@ const InventoryPopupElement = ({ onToggle, id }: InventoryPopupProps) => {
       boxSizing={"border-box"}
       fontSize={"16px"}
     >
-      <p>Are You sure you want to delete this item</p>
+      <p>Are You sure you want to delete this item?</p>
 
       <Stack
         marginTop={"16px"}

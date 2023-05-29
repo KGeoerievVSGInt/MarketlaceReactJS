@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  FetcherDataType,
   InventoryItemType,
   MarketOrderType,
   MyOrdersRowType,
   PendingOrdersRowType,
 } from "../types";
 import { objToFormData } from "../utils/objToFormData";
-const token = localStorage.getItem("token");
+const token = sessionStorage.getItem("token"); 
 export const marketAPI = createApi({
   reducerPath: "marketAPI",
   baseQuery: fetchBaseQuery({
@@ -17,13 +16,11 @@ export const marketAPI = createApi({
       return headers;
     },
   }),
-
+  tagTypes: ["Market", "Inventory", "Pending", "MyOrders"],
   endpoints: (builder) => ({
-    getMarketData: builder.query<FetcherDataType[], string>({
-      query: () => "/",
-    }),
-    getMarketModalData: builder.query<InventoryItemType, number>({
+    getMarketData: builder.query<InventoryItemType, string | number>({
       query: (name) => `/Marketplace/${name}`,
+      providesTags: ["Market"],
     }),
 
     postNewOrder: builder.mutation<MarketOrderType, Partial<MarketOrderType>>({
@@ -35,9 +32,11 @@ export const marketAPI = createApi({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["Market", "MyOrders", "Inventory", "Pending"],
     }),
     getInventoryData: builder.query<InventoryItemType[], string>({
       query: () => "/Inventory",
+      providesTags: ["Inventory"],
     }),
     postInventoryData: builder.mutation<
       InventoryItemType,
@@ -51,6 +50,7 @@ export const marketAPI = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ["Market", "Inventory"],
     }),
     updateInventoryData: builder.mutation<
       InventoryItemType,
@@ -64,31 +64,42 @@ export const marketAPI = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ["Market", "Inventory"],
     }),
     deleteInventoryData: builder.mutation({
       query: (id) => ({
         url: `/DeleteItem/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Market", "Inventory"],
     }),
     getPendingOrders: builder.query<PendingOrdersRowType[], string>({
       query: () => "/PendingOrders",
+      providesTags: ["Pending"],
     }),
     completeOrder: builder.mutation({
       query: (id) => ({
         url: `/PendingOrders/Complete/${id}`,
         method: "PUT",
       }),
+      invalidatesTags: ["MyOrders", "Pending"],
     }),
     getMyOrders: builder.query<MyOrdersRowType[], string>({
       query: () => "/MyOrders",
+      providesTags: ["MyOrders"],
+    }),
+    deleteMyOrder: builder.mutation({
+      query: (id) => ({
+        url: `/MyOrders/DeleteOrder/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["MyOrders", "Pending"],
     }),
   }),
 });
 
 export const {
   useGetMarketDataQuery,
-  useGetMarketModalDataQuery,
   usePostNewOrderMutation,
   useGetInventoryDataQuery,
   usePostInventoryDataMutation,
@@ -97,4 +108,5 @@ export const {
   useGetPendingOrdersQuery,
   useGetMyOrdersQuery,
   useCompleteOrderMutation,
+  useDeleteMyOrderMutation,
 } = marketAPI;

@@ -1,6 +1,13 @@
 import { Box, Stack, Button } from "@mui/material";
 import { MyOrdersPopupType } from "../../../types";
-const MyOrdersPopup = ({ onToggle }: MyOrdersPopupType) => {
+import { useDeleteMyOrderMutation } from "../../../redux/dataSlice";
+const MyOrdersPopup = ({ onToggle, code }: MyOrdersPopupType) => {
+  const [deleteMyOrder] = useDeleteMyOrderMutation();
+
+  const deleteItemHandler = () => {
+    deleteMyOrder(code);
+    onToggle();
+  };
   return (
     <Box
       padding={"10px"}
@@ -8,7 +15,7 @@ const MyOrdersPopup = ({ onToggle }: MyOrdersPopupType) => {
       boxSizing={"border-box"}
       fontSize={"16px"}
     >
-      <p>Are You sure you want to delete this item</p>
+      <p>Are You sure you want to delete this item?</p>
 
       <Stack
         marginTop={"16px"}
@@ -17,12 +24,13 @@ const MyOrdersPopup = ({ onToggle }: MyOrdersPopupType) => {
         justifyContent={"flex-end"}
       >
         <Button
+          onClick={deleteItemHandler}
           variant="contained"
           size="small"
           sx={{
-            backgroundColor: "#ED1C25",
+            background: "#ED1C25",
             ":hover": {
-              backgroundColor: "#f69296",
+              bgcolor: "#f69296",
             },
           }}
         >

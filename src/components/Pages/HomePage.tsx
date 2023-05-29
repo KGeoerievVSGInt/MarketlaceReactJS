@@ -19,9 +19,7 @@ const HomePage = () => {
   }
   if (isAuthenticated) {
     instance.acquireTokenSilent(accessTokenRequest).then((tokenData) => {
-      localStorage.setItem("token", tokenData.accessToken);
-      console.log("working");
-      console.log("auth");
+      sessionStorage.setItem("token", tokenData.accessToken);
       userSetter(JSON.stringify(accounts[0]));
 
     });

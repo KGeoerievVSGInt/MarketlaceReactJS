@@ -3,7 +3,6 @@ import { useGetMyOrdersQuery } from "../../redux/dataSlice";
 
 const MyOrdersPage = () => {
   const { data } = useGetMyOrdersQuery("");
-  console.log(data);
 
   return (
     <main className="main-content-orders">
@@ -19,7 +18,9 @@ const MyOrdersPage = () => {
         </thead>
         <tbody>
           {data &&
-            data.map((row, i) => <MyOrdersTableRow key={i} {...row} i={i} />)}
+            data.map((row) => {
+              return <MyOrdersTableRow key={row.code} {...row} />;
+            })}
         </tbody>
       </table>
     </main>

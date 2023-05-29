@@ -8,13 +8,14 @@ import {
 } from "@mui/material";
 import { Tooltip } from "react-tooltip";
 import dollar from "../../../assets/marketPage/Vector_dollar.svg";
-import { useState } from "react";
+import React, { useState } from "react";
 import MarketModal from "./MarketModal";
 import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
 import { FetcherDataType } from "../../../types";
 import { usePostNewOrderMutation } from "../../../redux/dataSlice";
 import { useNavigate } from "react-router-dom";
+import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 const CardItem = ({
   code,
   price,
@@ -27,7 +28,8 @@ const CardItem = ({
   const [selectVal, setSelectVal] = useState("1");
   const [newOrder] = usePostNewOrderMutation();
   const navigate = useNavigate();
-  const toggleModal = () => {
+  const toggleModal = (e: React.MouseEvent) => {
+    e.preventDefault();
     setModalVisible((prevState) => !prevState);
   };
   const togglePopup = () => {
@@ -51,8 +53,8 @@ const CardItem = ({
   };
   return (
     <div className="card-item">
-      <a href="#" onClick={toggleModal}>
-        <img src={imageURL} alt="Product Image" />
+      <a href="" onClick={toggleModal}>
+        <img src={imageURL ?? defaultImage} alt="Product Image" />
       </a>
       <div className="item-options">
         <div className="item-options-info">

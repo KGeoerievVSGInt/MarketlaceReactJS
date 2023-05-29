@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthCtx } from "../../context/authCtx";
 import { useContext } from "react";
 const Navigation = () => {
@@ -9,33 +9,45 @@ const Navigation = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/marketplace">
+            <NavLink
+              to="/marketplace"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <i className="fa-solid fa-store"></i> Marketplace
-            </Link>
+            </NavLink>
           </li>
           {typeArr.includes("f2123818-3d51-4fe4-990b-b072a80da143") && (
             <>
               <li>
-                <Link to="/inventory">
+                <NavLink
+                  to="/inventory"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <i className="fa-regular fa-clipboard"></i> Inventory
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/pending">
+                <NavLink
+                  to="/pending"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <i className="fa-regular fa-clock"></i> Pending Orders
-                </Link>
+                </NavLink>
               </li>
             </>
           )}
           <li>
-            <Link to="/myorders">
+            <NavLink
+              to="/myorders"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               <i className="fa-solid fa-bag-shopping"></i> My Orders
-            </Link>
+            </NavLink>
           </li>
           <li id="logout">
-            <Link to="/" onClick={logout}>
+            <NavLink to="/" onClick={logout}>
               <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>

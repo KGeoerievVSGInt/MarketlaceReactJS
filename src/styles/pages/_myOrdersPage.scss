@@ -39,31 +39,10 @@
     }
     .action {
       position: relative;
-      @include flex-container($justify:space-around);
-      button {
+      @include flex-container($justify: space-around);
+      .delete-button {
         cursor: pointer;
         background: none;
-      }
-      .confirmation-popup {
-        @include popup-common;
-        width: 17vw;
-        left:-100%;
-        bottom: -300%;
-        div {
-          @include popup-div;
-        }
-        button {
-          @include popup-button;
-        }
-        button:hover {
-          @include popup-button-hover;
-        }
-      }
-      .confirmation-popup::before {
-        content: "";
-        @include popup-div-before;
-        top: -10px;
-        left: 83%;
       }
     }
   }

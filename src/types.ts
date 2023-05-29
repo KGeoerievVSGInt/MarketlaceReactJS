@@ -1,4 +1,5 @@
 import { GridRowId } from "@mui/x-data-grid";
+import React from "react";
 
 //content page types
 export type PagesObj = {
@@ -44,7 +45,7 @@ export type MarketplacePopupProps = {
 export type MarketplaceModalProps = {
   code: number;
   open: boolean;
-  onClose: () => void;
+  onClose: (e: React.MouseEvent) => void;
 };
 export type MarketOrderType = {
   itemCode: number;
@@ -62,6 +63,7 @@ export type InventoryItemType = {
   price: number;
   quantityForSale?: number;
   quantity: number;
+  imageModified?: boolean;
 };
 export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;
@@ -98,7 +100,7 @@ export type PendingOrdersRowType = {
 // My Orders Types
 
 export type MyOrdersRowType = {
-  i: number;
+  code: number;
   name: string;
   orderDate: string;
   orderPrice: number;
@@ -106,9 +108,9 @@ export type MyOrdersRowType = {
   status: string;
 };
 export type MyOrdersPopupType = {
-  onToggle:()=>void;
-  
-}
+  code: number;
+  onToggle: () => void;
+};
 //Context Types
 export type ProviderProps = {
   children: React.ReactNode;

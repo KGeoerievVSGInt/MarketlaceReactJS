@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InventoryModal from "../Elements/InventoryElements/InventoryModal";
 import InventoryTable from "../Elements/InventoryElements/InventoryTable";
 import { Stack, TextField, Button, InputAdornment } from "@mui/material";
@@ -6,17 +6,19 @@ import { Add, Search } from "@mui/icons-material";
 import { GridRowId } from "@mui/x-data-grid";
 import { InventoryItemType } from "../../types";
 import { useGetInventoryDataQuery } from "../../redux/dataSlice";
-
+import { Navigate } from "react-router-dom";
 const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState<InventoryItemType | null>(null);
-  const { data } = useGetInventoryDataQuery("");
-  const rows: InventoryItemType[] = [];
-  if (data)
-    data.forEach((el) => {
-      rows.push({ ...el, id: el.code });
-    });
+  const { data, error } = useGetInventoryDataQuery("");
+  const [rows, setRows] = useState<InventoryItemType[]>([]);
 
+  useEffect(() => {
+    if (data) {
+      const moddedRows = data.map((row) => ({ ...row, id: row.code }));
+      setRows(moddedRows);
+    }
+  }, [data]);
   const modalHandler = (num?: GridRowId) => {
     setModalVisible((prevState) => !prevState);
     if (num) {
@@ -24,6 +26,9 @@ const InventoryPage = () => {
       if (rowData) setModalData(rowData);
     }
   };
+  if (error && "data" in error && error.status === 401) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <main className="main-content-inventory">
       <Stack direction={"row"} marginBottom={3} spacing={2}>

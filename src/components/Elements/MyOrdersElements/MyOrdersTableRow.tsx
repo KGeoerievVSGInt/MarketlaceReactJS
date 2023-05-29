@@ -5,7 +5,7 @@ import { dateFormat } from "../../../utils/dataFormat";
 import { useState } from "react";
 import MyOrdersPopup from "./MyOrdersPopup";
 const MyOrdersTableRow = ({
-  i,
+  code,
   name,
   orderDate,
   orderPrice,
@@ -27,13 +27,17 @@ const MyOrdersTableRow = ({
       <td className="action">
         <p>{status}</p>
         {status === "Pending" && (
-          <button data-tooltip-id={`my-tooltip-${i}`} onClick={togglePopup}>
+          <button
+            data-tooltip-id={`my-tooltip-${code}`}
+            onClick={togglePopup}
+            className="delete-button"
+          >
             <img src={delIcon} alt="Delete Pending Order Button" />
           </button>
         )}
         {visible && (
           <Tooltip
-            id={`my-tooltip-${i}`}
+            id={`my-tooltip-${code}`}
             isOpen={visible}
             place="bottom"
             closeOnEsc
@@ -44,7 +48,7 @@ const MyOrdersTableRow = ({
               zIndex: "5",
             }}
           >
-            <MyOrdersPopup onToggle={togglePopup} />
+            <MyOrdersPopup onToggle={togglePopup} code={code} />
           </Tooltip>
         )}
       </td>

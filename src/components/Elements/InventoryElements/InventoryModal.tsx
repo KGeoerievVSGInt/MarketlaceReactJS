@@ -51,19 +51,23 @@ const InventoryModal = ({
     quantityForSale: 0,
     quantity: 0,
   };
-  const { register, control, handleSubmit, formState, reset } =
+  const { register, control, handleSubmit, formState, reset, setValue } =
     useForm<InventoryItemType>({
       values: productData ?? undefined,
     });
 
-  const { errors, isSubmitSuccessful } = formState;
+  const { errors, isSubmitSuccessful, dirtyFields } = formState;
   const onSubmit = (data: InventoryItemType) => {
     addItem(data);
     onClose();
   };
   const onEdit = (data: InventoryItemType) => {
-    editItem(data);
+    editItem({ ...data, imageModified: dirtyFields.imageURL });
     onClose();
+  };
+  const onImageDelete = () => {
+    setValue("imageURL", "", { shouldTouch: true });
+    setImage(noImagePlaceholder);
   };
   useEffect(() => {
     isSubmitSuccessful && reset();
@@ -126,8 +130,8 @@ const InventoryModal = ({
                   labelId="demo-simple-select-label"
                   required
                   label="Category "
+                  defaultValue={product ? product.category : ""}
                   variant="standard"
-                  defaultValue=""
                   {...register("category", {
                     required: "Please, select category!",
                   })}
@@ -202,6 +206,7 @@ const InventoryModal = ({
                 />
               </Button>
               <Button
+                onClick={onImageDelete}
                 variant="contained"
                 color="error"
                 sx={{ fontWeight: "700", width: "150px" }}
