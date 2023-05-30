@@ -3,6 +3,7 @@ import { Close } from "@mui/icons-material";
 import { MarketplaceModalProps } from "../../../types";
 import bubbles from "../../../assets/marketPage/bubbles.png";
 import { useGetMarketDataQuery } from "../../../redux/dataSlice";
+import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 
 const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
   const { data } = useGetMarketDataQuery(code);
@@ -19,7 +20,7 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
       }}
     >
       <img
-        src={data?.imageURL}
+        src={data?.imageURL ?? defaultImage}
         alt="Hard Coded Text"
         className="dialog-image"
       />

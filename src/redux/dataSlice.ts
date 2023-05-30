@@ -6,7 +6,7 @@ import {
   PendingOrdersRowType,
 } from "../types";
 import { objToFormData } from "../utils/objToFormData";
-const token = sessionStorage.getItem("token"); 
+const token = sessionStorage.getItem("token");
 export const marketAPI = createApi({
   reducerPath: "marketAPI",
   baseQuery: fetchBaseQuery({
@@ -95,6 +95,9 @@ export const marketAPI = createApi({
       }),
       invalidatesTags: ["MyOrders", "Pending"],
     }),
+    getLocations: builder.query<string[], string>({
+      query: () => "/GetLocations",
+    }),
   }),
 });
 
@@ -109,4 +112,5 @@ export const {
   useGetMyOrdersQuery,
   useCompleteOrderMutation,
   useDeleteMyOrderMutation,
+  useGetLocationsQuery,
 } = marketAPI;

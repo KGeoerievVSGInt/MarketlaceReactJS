@@ -1,11 +1,15 @@
 import { Box, Stack, Button } from "@mui/material";
 import { useDeleteInventoryDataMutation } from "../../../redux/dataSlice";
 import { InventoryPopupProps } from "../../../types";
+import { toast } from "react-toastify";
 
 const InventoryPopupElement = ({ onToggle, id }: InventoryPopupProps) => {
   const [deleteItem] = useDeleteInventoryDataMutation();
   const deleteItemHandler = () => {
-    deleteItem(id);
+    deleteItem(id)
+      .unwrap()
+      .then(() => toast.success("Item successfully deleted"))
+      .catch((e) => console.log(e));
     onToggle();
   };
   return (

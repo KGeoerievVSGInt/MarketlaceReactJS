@@ -9,6 +9,8 @@ import { msalConfig } from "./auth/authConfig.tsx";
 import App from "./App.tsx";
 import "./styles.scss";
 import { PublicClientApplication } from "@azure/msal-browser";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const msalInstance = new PublicClientApplication(msalConfig);
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -18,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <AuthCtxProvider>
           <BrowserRouter>
             <App />
+            <ToastContainer position="bottom-right" />
           </BrowserRouter>
         </AuthCtxProvider>
       </Provider>

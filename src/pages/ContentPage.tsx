@@ -12,11 +12,9 @@ const pages: PagesObj = {
   "/pending": <PendingOrdersPage />,
   "/myorders": <MyOrdersPage />,
 };
+
 const ContentPage = () => {
-
   const loc = useLocation();
-
-
 
   return (
     <div className="wrapper">

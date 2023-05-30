@@ -16,6 +16,9 @@ import { FetcherDataType } from "../../../types";
 import { usePostNewOrderMutation } from "../../../redux/dataSlice";
 import { useNavigate } from "react-router-dom";
 import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
+import { numbersToArr } from "../../../utils/numberToArr";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { toast } from "react-toastify";
 const CardItem = ({
   code,
   price,
@@ -35,9 +38,8 @@ const CardItem = ({
   const togglePopup = () => {
     setPopupVisible((prevState) => !prevState);
   };
+
   const buyHandler = () => {
-    console.log(selectVal);
-    console.log(code);
     const user = localStorage.getItem("user");
     if (user) {
       const parced = JSON.parse(user);
@@ -46,9 +48,15 @@ const CardItem = ({
         itemCode: code,
         quantity: Number(selectVal),
         userEmail: email,
-      });
-      navigate("/myorders");
+      })
+        .unwrap()
+        .then(() => {
+          toast.success("item bought succsessfuly");
+          navigate("/myorders");
+        })
+        .catch((error) => console.log(error));
     }
+
     setPopupVisible((prevState) => !prevState);
   };
   return (
@@ -76,10 +84,10 @@ const CardItem = ({
                 setSelectVal(e.target.value);
               }}
             >
-              {[...Array(quantityForSale)].map((num: null, i) => {
+              {numbersToArr(quantityForSale).map((num) => {
                 return (
-                  <MenuItem key={i} value={i + 1}>
-                    {i + 1}
+                  <MenuItem key={num} value={num + 1}>
+                    {num + 1}
                   </MenuItem>
                 );
               })}

@@ -22,7 +22,7 @@ import {
   usePostInventoryDataMutation,
   useUpdateInventoryDataMutation,
 } from "../../../redux/dataSlice";
-
+import { toast } from "react-toastify";
 const InventoryModal = ({
   open,
   onClose,
@@ -58,11 +58,17 @@ const InventoryModal = ({
 
   const { errors, isSubmitSuccessful, dirtyFields } = formState;
   const onSubmit = (data: InventoryItemType) => {
-    addItem(data);
+    addItem(data)
+      .unwrap()
+      .then(() => toast.success("Item successfully added"))
+      .catch((e) => console.log(e));
     onClose();
   };
   const onEdit = (data: InventoryItemType) => {
-    editItem({ ...data, imageModified: dirtyFields.imageURL });
+    editItem({ ...data, imageModified: dirtyFields.imageURL })
+      .unwrap()
+      .then(() => toast.success("Item successfully updated"))
+      .catch((e) => console.log(e));
     onClose();
   };
   const onImageDelete = () => {

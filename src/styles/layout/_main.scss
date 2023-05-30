@@ -8,5 +8,5 @@
 .mainCommon {
   @extend .mainCommonPrimary;
   padding: $large $medium + $xs;
-  @include flex-container($direction: column, $align: flex-end);
+  // @include flex-container($direction: column, $align: center);
 }

@@ -2,10 +2,11 @@
 .main-content-inventory {
   @include main-common;
   overflow-x: auto;
+  align-items: stretch;
 }
 //Search and Add New Button Properties
 .add-new {
-  @include flex-container($justify: flex-end, $align: flex-end);
+  // @include flex-container($justify: flex-end, $align: flex-end);
   width: 400px;
   margin-bottom: $xl;
   &-input {

@@ -4,5 +4,7 @@ export const dateFormat = (data: string) => {
     dateObj.getMinutes() < 10
       ? `0${dateObj.getMinutes()}`
       : dateObj.getMinutes();
-  return `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()} ${dateObj.getHours()}:${minutes}`;
+  return `${dateObj.getFullYear()}-${
+    dateObj.getMonth() + 1
+  }-${dateObj.getDate()} ${dateObj.getHours()}:${minutes}`;
 };

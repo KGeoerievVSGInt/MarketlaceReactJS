@@ -20,7 +20,7 @@ const AuthCtxProvider = ({ children }: ProviderProps) => {
 
   const logout = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setUser(null);
   };
   return (

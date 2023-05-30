@@ -52,6 +52,7 @@ export type MarketOrderType = {
   quantity: number;
   userEmail: string;
 };
+
 // inventory types
 export type InventoryItemType = {
   id: number;
@@ -92,6 +93,7 @@ export type InventoryPopupProps = {
 //Pending Orders Types
 export type PendingOrdersRowType = {
   code: number;
+  itemCode: number;
   orderDate: string;
   orderPrice: number;
   orderedBy: string;

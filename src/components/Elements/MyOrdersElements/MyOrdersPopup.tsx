@@ -1,11 +1,15 @@
 import { Box, Stack, Button } from "@mui/material";
 import { MyOrdersPopupType } from "../../../types";
 import { useDeleteMyOrderMutation } from "../../../redux/dataSlice";
+import { toast } from "react-toastify";
 const MyOrdersPopup = ({ onToggle, code }: MyOrdersPopupType) => {
   const [deleteMyOrder] = useDeleteMyOrderMutation();
 
   const deleteItemHandler = () => {
-    deleteMyOrder(code);
+    deleteMyOrder(code)
+      .unwrap()
+      .then(() => toast.success("Order successfully deleted"))
+      .catch((e) => console.log(e));
     onToggle();
   };
   return (

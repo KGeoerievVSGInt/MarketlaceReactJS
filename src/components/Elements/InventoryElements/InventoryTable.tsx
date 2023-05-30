@@ -112,6 +112,7 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
         pageSizeOptions={[1]}
         disableRowSelectionOnClick
         disableColumnSelector
+        getRowId={(row) => row.code}
         sx={{
           "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
             outline: "none !important",
