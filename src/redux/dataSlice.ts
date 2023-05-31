@@ -58,8 +58,10 @@ export const marketAPI = createApi({
     >({
       query: (data) => {
         const formData = objToFormData(data);
+        console.log(data);
+
         return {
-          url: `/Inventory/Modify/${data.code}`,
+          url: `/Inventory/Modify/${data.oldCode}`,
           method: "PUT",
           body: formData,
         };

@@ -52,8 +52,9 @@ const InventoryPage = () => {
   //Modal Visibility Handler
   const modalHandler = (num?: GridRowId) => {
     setModalVisible((prevState) => !prevState);
+
     if (num) {
-      const rowData = rows.find((el) => el.id === num);
+      const rowData = rows.find((el) => el.code === num);
       if (rowData) setModalData(rowData);
     }
   };

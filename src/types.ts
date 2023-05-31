@@ -64,7 +64,9 @@ export type InventoryItemType = {
   price: number;
   quantityForSale?: number;
   quantity: number;
+  location: string;
   imageModified?: boolean;
+  oldCode?: number;
 };
 export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;

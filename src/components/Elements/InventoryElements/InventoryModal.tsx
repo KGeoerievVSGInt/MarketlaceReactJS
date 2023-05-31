@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import {
   usePostInventoryDataMutation,
   useUpdateInventoryDataMutation,
+  useGetLocationsQuery,
 } from "../../../redux/dataSlice";
 import { toast } from "react-toastify";
 const InventoryModal = ({
@@ -35,8 +36,13 @@ const InventoryModal = ({
   const [productData, setProductData] = useState<InventoryItemType | null>(
     product
   );
+  const [locations, setLocation] = useState<string[]>([]);
+  const { data } = useGetLocationsQuery("");
   const [addItem] = usePostInventoryDataMutation();
   const [editItem] = useUpdateInventoryDataMutation();
+  useEffect(() => {
+    if (data) setLocation(data);
+  }, [data]);
   useEffect(() => {
     setProductData(product);
   }, [product]);
@@ -45,6 +51,7 @@ const InventoryModal = ({
     category: "",
     code: 0,
     description: "",
+    location: "Plovdiv",
     imageURL: "",
     name: "",
     price: 0,
@@ -65,7 +72,11 @@ const InventoryModal = ({
     onClose();
   };
   const onEdit = (data: InventoryItemType) => {
-    editItem({ ...data, imageModified: dirtyFields.imageURL })
+    editItem({
+      ...data,
+      imageModified: dirtyFields.imageURL,
+      oldCode: productData?.code,
+    })
       .unwrap()
       .then(() => toast.success("Item successfully updated"))
       .catch((e) => console.log(e));
@@ -101,7 +112,7 @@ const InventoryModal = ({
           <Stack direction="row" spacing={6}>
             <Stack direction="column" spacing={2} flexGrow={1}>
               <Typography sx={{ fontSize: "24px", fontWeight: "700" }}>
-                {product ? "Edit New Item" : "Add New Item"}
+                {product ? "Edit Item" : "Add New Item"}
               </Typography>
               <TextField
                 error={!!errors.code}
@@ -148,6 +159,30 @@ const InventoryModal = ({
                   <MenuItem value={"Misc"}>Misc</MenuItem>
                 </Select>
                 <FormHelperText>{errors.category?.message}</FormHelperText>
+              </FormControl>
+              <FormControl variant="standard" error={!!errors.category}>
+                <InputLabel id="demo-simple-select-label">Location</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  required
+                  label="Category "
+                  defaultValue={product ? product.location : ""}
+                  variant="standard"
+                  {...register("location", {
+                    required: "Please, select location!",
+                  })}
+                >
+                  {locations.map((location, i) => (
+                    <MenuItem
+                      key={i}
+                      value={location}
+                      selected={location === "Plovdiv"}
+                    >
+                      {location}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>{errors.location?.message}</FormHelperText>
               </FormControl>
               <TextField
                 variant="standard"
