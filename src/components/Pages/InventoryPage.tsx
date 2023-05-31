@@ -27,7 +27,7 @@ const InventoryPage = () => {
   const [modalData, setModalData] = useState<InventoryItemType | null>(null);
   const [rows, setRows] = useState<InventoryItemType[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [locale, setLocale] = useState<string>("All");
+  const [currentLocation, setCurrentLocation] = useState<string>("All");
 
   //RTK Query
   const { data, error } = useGetInventoryDataQuery("");
@@ -37,17 +37,24 @@ const InventoryPage = () => {
   useEffect(() => {
     if (data) {
       setRows(
-        data.filter((row) => {
-          if (searchValue === "") return true;
-          return (
-            row.code.toString().includes(searchValue) ||
-            row.name.includes(searchValue) ||
-            row.category.includes(searchValue)
-          );
-        })
+        data
+          //search filter
+          .filter((row) => {
+            if (searchValue === "") return true;
+            return (
+              row.code.toString().includes(searchValue) ||
+              row.name.includes(searchValue) ||
+              row.category.includes(searchValue)
+            );
+          })
+          //location filter
+          .filter((row) => {
+            if (currentLocation === "All") return true;
+            return row.location === currentLocation;
+          })
       );
     }
-  }, [data, searchValue]);
+  }, [data, searchValue, currentLocation]);
 
   //Modal Visibility Handler
   const modalHandler = (num?: GridRowId) => {
@@ -59,10 +66,7 @@ const InventoryPage = () => {
     }
   };
 
-  const searchChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-
+  // token exporation check
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
   }
@@ -85,9 +89,9 @@ const InventoryPage = () => {
             <Select
               labelId="location-select-label"
               variant="standard"
-              value={locale}
+              value={currentLocation}
               onChange={(e: SelectChangeEvent) =>
-                setLocale(e.target.value as string)
+                setCurrentLocation(e.target.value as string)
               }
             >
               <MenuItem defaultChecked value={"All"}>
@@ -105,7 +109,9 @@ const InventoryPage = () => {
           <TextField
             id="standard-start-adornment"
             value={searchValue}
-            onChange={searchChangeHandler}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchValue(e.target.value);
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

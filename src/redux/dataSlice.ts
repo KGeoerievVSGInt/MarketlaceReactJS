@@ -57,8 +57,15 @@ export const marketAPI = createApi({
       Partial<InventoryItemType>
     >({
       query: (data) => {
-        const formData = objToFormData(data);
-        console.log(data);
+        console.log({
+          ...data,
+          imageURL: data.imageModified ? data.imageURL : null,
+        });
+
+        const formData = objToFormData({
+          ...data,
+          imageURL: data.imageModified ? data.imageURL : null,
+        });
 
         return {
           url: `/Inventory/Modify/${data.oldCode}`,

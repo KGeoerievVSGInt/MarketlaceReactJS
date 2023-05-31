@@ -60,7 +60,7 @@ export type InventoryItemType = {
   category: string;
   code: number;
   description: string;
-  imageURL: string;
+  imageURL: string | null;
   price: number;
   quantityForSale?: number;
   quantity: number;

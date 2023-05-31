@@ -74,7 +74,7 @@ const InventoryModal = ({
   const onEdit = (data: InventoryItemType) => {
     editItem({
       ...data,
-      imageModified: dirtyFields.imageURL,
+      imageModified: dirtyFields.imageURL ?? false,
       oldCode: productData?.code,
     })
       .unwrap()
@@ -221,7 +221,7 @@ const InventoryModal = ({
               justifyContent="center"
             >
               <img
-                src={image}
+                src={image ?? noImagePlaceholder}
                 alt="Hard coded Image Text"
                 className="item-image"
               />
