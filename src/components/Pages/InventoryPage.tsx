@@ -66,7 +66,7 @@ const InventoryPage = () => {
     }
   };
 
-  // token exporation check
+  // token expiration check
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
   }

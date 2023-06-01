@@ -1,10 +1,12 @@
 import CardItem from "../Elements/MarketplaceElements/CardItem";
 import { useGetMarketDataQuery } from "../../redux/dataSlice";
+import { useContext } from "react";
+import { HamburgerCtx } from "../../context/hamburgerCtx";
 
 const MarketplacePage = () => {
   const { data } = useGetMarketDataQuery("");
-
-  if (data && Array.isArray(data))
+  const { isMenuShown } = useContext(HamburgerCtx);
+  if (data && Array.isArray(data) && !isMenuShown)
     return (
       <main className="main-content">
         <div className="cardItem-container">

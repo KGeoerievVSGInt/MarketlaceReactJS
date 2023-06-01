@@ -27,28 +27,3 @@ header {
     }
   }
 }
-.hamburger-lines {
-  display: none;
-  height: 100%;
-  margin-top: $small;
-  cursor: pointer;
-}
-.lines {
-  height: $xs;
-  width: $large + $small;
-  background-color: $default-red;
-  margin: $xs + $tiny $medium-large;
-  padding: 0;
-  border: $border-red;
-  border-radius: $radius-small;
-}
-.hamburger-menu {
-  display: "none";
-  flex-direction: column;
-  background-color: $white;
-  left: $medium;
-  top: $xxl;
-  z-index: 4;
-  justify-content: stretch;
-  flex-grow: 1;
-}

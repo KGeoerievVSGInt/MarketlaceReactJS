@@ -1,17 +1,23 @@
 import { NavLink } from "react-router-dom";
 import { AuthCtx } from "../../context/authCtx";
+import { HamburgerCtx } from "../../context/hamburgerCtx";
 import { useContext } from "react";
 const Navigation = () => {
   const { user, logout } = useContext(AuthCtx);
+  const { isMenuShown, menuToggle } = useContext(HamburgerCtx);
   const typeArr = user ? JSON.parse(user).idTokenClaims.groups : [];
+  const toggleMenu = () => {
+    if (window.innerWidth < 600) menuToggle();
+  };
   return (
-    <aside>
+    <aside className={isMenuShown ? "aside-show" : ""}>
       <nav>
         <ul>
           <li>
             <NavLink
               to="/marketplace"
               className={({ isActive }) => (isActive ? "active-link" : "")}
+              onClick={toggleMenu}
             >
               <i className="fa-solid fa-store"></i> Marketplace
             </NavLink>
@@ -20,6 +26,7 @@ const Navigation = () => {
             <>
               <li>
                 <NavLink
+                  onClick={toggleMenu}
                   to="/inventory"
                   className={({ isActive }) => (isActive ? "active-link" : "")}
                 >
@@ -28,6 +35,7 @@ const Navigation = () => {
               </li>
               <li>
                 <NavLink
+                  onClick={toggleMenu}
                   to="/pending"
                   className={({ isActive }) => (isActive ? "active-link" : "")}
                 >
@@ -38,6 +46,7 @@ const Navigation = () => {
           )}
           <li>
             <NavLink
+              onClick={toggleMenu}
               to="/myorders"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >

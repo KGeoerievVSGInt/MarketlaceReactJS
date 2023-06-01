@@ -107,6 +107,9 @@ export const marketAPI = createApi({
     getLocations: builder.query<string[], string>({
       query: () => "/GetLocations",
     }),
+    getCategory: builder.query<string[], string>({
+      query: () => "/GetCategories",
+    }),
   }),
 });
 
@@ -122,4 +125,5 @@ export const {
   useCompleteOrderMutation,
   useDeleteMyOrderMutation,
   useGetLocationsQuery,
+  useGetCategoryQuery,
 } = marketAPI;

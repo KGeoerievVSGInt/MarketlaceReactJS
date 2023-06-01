@@ -22,6 +22,7 @@ import {
   usePostInventoryDataMutation,
   useUpdateInventoryDataMutation,
   useGetLocationsQuery,
+  useGetCategoryQuery,
 } from "../../../redux/dataSlice";
 import { toast } from "react-toastify";
 const InventoryModal = ({
@@ -29,41 +30,25 @@ const InventoryModal = ({
   onClose,
   product,
 }: InvenotryDialogModalProps) => {
+  //states
   const [image, setImage] = useState(
     product ? product.imageURL : noImagePlaceholder
   );
 
-  const [productData, setProductData] = useState<InventoryItemType | null>(
-    product
-  );
-  const [locations, setLocation] = useState<string[]>([]);
-  const { data } = useGetLocationsQuery("");
+  //fetchers
+  const { data: locations } = useGetLocationsQuery("");
+  const { data: categories } = useGetCategoryQuery("");
   const [addItem] = usePostInventoryDataMutation();
   const [editItem] = useUpdateInventoryDataMutation();
-  useEffect(() => {
-    if (data) setLocation(data);
-  }, [data]);
-  useEffect(() => {
-    setProductData(product);
-  }, [product]);
-  const defaultData = {
-    id: 0,
-    category: "",
-    code: 0,
-    description: "",
-    location: "Plovdiv",
-    imageURL: "",
-    name: "",
-    price: 0,
-    quantityForSale: 0,
-    quantity: 0,
-  };
+
   const { register, control, handleSubmit, formState, reset, setValue } =
     useForm<InventoryItemType>({
-      values: productData ?? undefined,
+      values: product ?? undefined,
     });
 
   const { errors, isSubmitSuccessful, dirtyFields } = formState;
+
+  //Handlers
   const onSubmit = (data: InventoryItemType) => {
     addItem(data)
       .unwrap()
@@ -71,21 +56,25 @@ const InventoryModal = ({
       .catch((e) => console.log(e));
     onClose();
   };
+
   const onEdit = (data: InventoryItemType) => {
     editItem({
       ...data,
       imageModified: dirtyFields.imageURL ?? false,
-      oldCode: productData?.code,
+      oldCode: product?.code,
     })
       .unwrap()
       .then(() => toast.success("Item successfully updated"))
       .catch((e) => console.log(e));
     onClose();
   };
+
   const onImageDelete = () => {
-    setValue("imageURL", "", { shouldTouch: true });
+    setValue("imageURL", "", { shouldDirty: true });
     setImage(noImagePlaceholder);
   };
+
+  //Form reset
   useEffect(() => {
     isSubmitSuccessful && reset();
   }, [isSubmitSuccessful]);
@@ -99,7 +88,7 @@ const InventoryModal = ({
         style: {
           borderRadius: "20px",
           width: "600px",
-          height: "700px",
+          height: "760px",
         },
       }}
     >
@@ -109,7 +98,7 @@ const InventoryModal = ({
           onSubmit={handleSubmit(onSubmit)}
           noValidate
         >
-          <Stack direction="row" spacing={6}>
+          <Stack direction="row" spacing={6} width={"100%"}>
             <Stack direction="column" spacing={2} flexGrow={1}>
               <Typography sx={{ fontSize: "24px", fontWeight: "700" }}>
                 {product ? "Edit Item" : "Add New Item"}
@@ -142,9 +131,9 @@ const InventoryModal = ({
                 {...register("description")}
               />
               <FormControl variant="standard" error={!!errors.category}>
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <InputLabel id="category-select-label">Category</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
+                  labelId="category-select-label"
                   required
                   label="Category "
                   defaultValue={product ? product.category : ""}
@@ -153,17 +142,19 @@ const InventoryModal = ({
                     required: "Please, select category!",
                   })}
                 >
-                  <MenuItem value={"Laptops"}>Laptops</MenuItem>
-                  <MenuItem value={"Furniture"}>Furniture</MenuItem>
-                  <MenuItem value={"Office tools"}>Office tools</MenuItem>
-                  <MenuItem value={"Misc"}>Misc</MenuItem>
+                  {categories &&
+                    categories.map((category, i) => (
+                      <MenuItem key={i} value={category}>
+                        {category}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <FormHelperText>{errors.category?.message}</FormHelperText>
               </FormControl>
-              <FormControl variant="standard" error={!!errors.category}>
-                <InputLabel id="demo-simple-select-label">Location</InputLabel>
+              <FormControl variant="standard" error={!!errors.location}>
+                <InputLabel id="location-select-label">Location</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
+                  labelId="location-select-label"
                   required
                   label="Category "
                   defaultValue={product ? product.location : ""}
@@ -172,15 +163,12 @@ const InventoryModal = ({
                     required: "Please, select location!",
                   })}
                 >
-                  {locations.map((location, i) => (
-                    <MenuItem
-                      key={i}
-                      value={location}
-                      selected={location === "Plovdiv"}
-                    >
-                      {location}
-                    </MenuItem>
-                  ))}
+                  {locations &&
+                    locations.map((location, i) => (
+                      <MenuItem key={i} value={location}>
+                        {location}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <FormHelperText>{errors.location?.message}</FormHelperText>
               </FormControl>
@@ -256,7 +244,7 @@ const InventoryModal = ({
               </Button>
             </Stack>
           </Stack>
-          <Box margin="35px 0" paddingBottom="20px">
+          <Box marginTop="35px" paddingBottom="20px">
             {!product && (
               <Button
                 variant="contained"
@@ -287,7 +275,8 @@ const InventoryModal = ({
             }}
             onClick={() => {
               onClose();
-              setProductData(defaultData);
+              // setProductData(defaultData);
+              reset();
             }}
           >
             <Close sx={{ color: "#000" }} />

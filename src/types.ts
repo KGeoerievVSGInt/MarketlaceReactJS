@@ -9,6 +9,7 @@ export type PagesObj = {
   "/myorders": JSX.Element;
 };
 //header types
+
 export type HeaderObj = {
   "/marketplace": string;
   "/inventory": string;
@@ -123,5 +124,10 @@ export type ContextType = {
   user: string | null;
   userSetter: (val: string) => void;
   logout: () => void;
+};
+
+export type HamburgerContexType = {
+  isMenuShown: boolean;
+  menuToggle: () => void;
 };
 //Protect Types

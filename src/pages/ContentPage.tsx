@@ -6,6 +6,8 @@ import MarketplacePage from "../components/Pages/MarketplacePage";
 import MyOrdersPage from "../components/Pages/MyOrdersPage";
 import PendingOrdersPage from "../components/Pages/PendingOrdersPage";
 import { useLocation } from "react-router-dom";
+import { HamburgerCtx } from "../context/hamburgerCtx";
+import { useContext } from "react";
 const pages: PagesObj = {
   "/marketplace": <MarketplacePage />,
   "/inventory": <InventoryPage />,
@@ -15,13 +17,13 @@ const pages: PagesObj = {
 
 const ContentPage = () => {
   const loc = useLocation();
-
+  const { isMenuShown } = useContext(HamburgerCtx);
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
         <Navigation />
-        {pages[loc.pathname as keyof PagesObj]}
+        {!isMenuShown && pages[loc.pathname as keyof PagesObj]}
       </div>
     </div>
   );

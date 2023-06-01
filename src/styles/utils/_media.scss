@@ -4,7 +4,7 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
   .logo-container {
     width: 70%;
     a {
@@ -31,9 +31,6 @@
       display: none;
     }
   }
-  .hamburger-lines {
-    display: block;
-  }
   .main-toggle{
     display: none;
   }
@@ -43,15 +40,6 @@
 
   .card-item {
     width: 100%;
-  }
-  .confirmation-popup {
-    &.market {
-      left: 0%;
-      bottom: -35%;
-    }
-  }
-  .confirmation-popup.market::before {
-    left: 87%;
   }
   .main-content-inventory {
     align-items: flex-start;
@@ -78,15 +66,6 @@
         }
         button {
           float: right;
-        }
-        .confirmation-popup {
-          height: auto;
-          width: 75vw;
-          left: 0;
-          bottom: -200%;
-          &::before {
-            left: 93%;
-          }
         }
       }
       td:nth-child(5) {
