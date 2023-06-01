@@ -4,8 +4,8 @@ import { useCompleteOrderMutation } from "../../../redux/dataSlice";
 import { toast } from "react-toastify";
 
 const PendingOrdersTableRow = ({
+  id,
   itemCode,
-  code,
   orderPrice,
   orderDate,
   orderedBy,
@@ -13,7 +13,7 @@ const PendingOrdersTableRow = ({
 }: PendingOrdersRowType) => {
   const [completeOrder] = useCompleteOrderMutation();
   const completeOrderHandler = () => {
-    completeOrder(code)
+    completeOrder(id)
       .unwrap()
       .then(() => toast.success("Order Completed!"))
       .catch((e) => console.log(e));

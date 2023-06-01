@@ -17,20 +17,23 @@ import { usePostNewOrderMutation } from "../../../redux/dataSlice";
 import { useNavigate } from "react-router-dom";
 import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 import { numbersToArr } from "../../../utils/numberToArr";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { toast } from "react-toastify";
 const CardItem = ({
+  id,
   code,
   price,
   category,
   quantityForSale,
   imageURL,
 }: FetcherDataType) => {
+  //states and hooks
   const [modalVisible, setModalVisible] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectVal, setSelectVal] = useState("1");
-  const [newOrder] = usePostNewOrderMutation();
   const navigate = useNavigate();
+  // RTK Query
+  const [newOrder] = usePostNewOrderMutation();
+  //Toggle handlers
   const toggleModal = (e: React.MouseEvent) => {
     e.preventDefault();
     setModalVisible((prevState) => !prevState);
@@ -38,24 +41,18 @@ const CardItem = ({
   const togglePopup = () => {
     setPopupVisible((prevState) => !prevState);
   };
-
+  //Action Handlers
   const buyHandler = () => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const parced = JSON.parse(user);
-      const email = parced.username;
-      newOrder({
-        itemCode: code,
-        quantity: Number(selectVal),
-        userEmail: email,
+    newOrder({
+      itemId: id,
+      quantity: Number(selectVal),
+    })
+      .unwrap()
+      .then(() => {
+        toast.success("Item bought succsessfuly!");
+        navigate("/myorders");
       })
-        .unwrap()
-        .then(() => {
-          toast.success("item bought succsessfuly");
-          navigate("/myorders");
-        })
-        .catch((error) => console.log(error));
-    }
+      .catch((error) => console.log(error));
 
     setPopupVisible((prevState) => !prevState);
   };
@@ -128,7 +125,7 @@ const CardItem = ({
         </Stack>
       </div>
       {modalVisible && (
-        <MarketModal open={modalVisible} onClose={toggleModal} code={code} />
+        <MarketModal open={modalVisible} onClose={toggleModal} code={id} />
       )}
     </div>
   );

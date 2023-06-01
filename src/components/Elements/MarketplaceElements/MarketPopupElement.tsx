@@ -7,7 +7,6 @@ const MarketPopupElement = ({
   price,
   quantity,
 }: MarketplacePopupProps) => {
-
   return (
     <Box
       padding={"10px"}
@@ -39,7 +38,6 @@ const MarketPopupElement = ({
         >
           Yes
         </Button>
-
         <Button
           onClick={onToggle}
           variant="outlined"

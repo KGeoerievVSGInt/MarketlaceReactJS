@@ -4,59 +4,6 @@
   overflow-x: auto;
   align-items: stretch;
 }
-//Search and Add New Button Properties
-.add-new {
-  // @include flex-container($justify: flex-end, $align: flex-end);
-  width: 400px;
-  margin-bottom: $xl;
-  &-input {
-    @include flex-container();
-    flex-grow: 1;
-    border-bottom: $border-black;
-    input {
-      width: 100%;
-      margin-left: 10px;
-      display: inline;
-      font-size: $font-default;
-    }
-    &::before {
-      content: "";
-      background-image: url("./assets/inventory/Vector_magnifying_glass.svg");
-      background-repeat: no-repeat;
-      width: $font-default;
-      height: $font-default;
-      outline: none;
-    }
-    &:focus-within {
-      outline: $border-black;
-    }
-  }
-
-  &-button {
-    cursor: pointer;
-    margin-left: 1.25em;
-    @include flex-container($justify: center, $align: center);
-    padding: $small + $tiny $medium + $xs;
-    border-radius: $radius-small;
-    background-color: $button-success;
-    color: $white;
-    gap: $medium;
-    transition: 500ms;
-    &:hover {
-      background-color: $button-success-hover;
-    }
-    &:active {
-      background-color: $button-success;
-    }
-    &-text {
-      white-space: nowrap;
-      flex-grow: 1;
-      font-size: $medium;
-      height: auto;
-      margin: auto;
-    }
-  }
-}
 
 //Inventory Modal Properties
 .item-management {

@@ -9,7 +9,6 @@ export type PagesObj = {
   "/myorders": JSX.Element;
 };
 //header types
-
 export type HeaderObj = {
   "/marketplace": string;
   "/inventory": string;
@@ -17,25 +16,17 @@ export type HeaderObj = {
   "/myorders": string;
 };
 //Markeplace types
-export type CardItemProps = {
-  code: number;
-  price: number;
-  category: string;
-  quantityForSale: number;
-  imageURL: string;
-};
 export type FetcherDataType = {
+  id: number;
   code: number;
   imageURL: string;
   price: number;
   category: string;
   quantityForSale: number;
 };
-export type MarketplaceCardItemProps = {
-  data: FetcherDataType;
-};
-export type QuantityDropdownProps = {
-  changeValueHandler: (element: React.RefObject<HTMLDivElement>) => void;
+export type SingleItemType = FetcherDataType & {
+  name: string;
+  description?: string;
 };
 export type MarketplacePopupProps = {
   quantity?: number;
@@ -49,9 +40,8 @@ export type MarketplaceModalProps = {
   onClose: (e: React.MouseEvent) => void;
 };
 export type MarketOrderType = {
-  itemCode: number;
+  itemId: number;
   quantity: number;
-  userEmail: string;
 };
 
 // inventory types
@@ -60,14 +50,13 @@ export type InventoryItemType = {
   name: string;
   category: string;
   code: number;
-  description: string;
-  imageURL: string | null;
-  price: number;
+  description?: string;
+  imageURL?: string | null;
+  price?: number;
   quantityForSale?: number;
   quantity: number;
   location: string;
   imageModified?: boolean;
-  oldCode?: number;
 };
 export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;
@@ -95,7 +84,7 @@ export type InventoryPopupProps = {
 
 //Pending Orders Types
 export type PendingOrdersRowType = {
-  code: number;
+  id: number;
   itemCode: number;
   orderDate: string;
   orderPrice: number;
@@ -105,7 +94,8 @@ export type PendingOrdersRowType = {
 // My Orders Types
 
 export type MyOrdersRowType = {
-  code: number;
+  id: number;
+  itemCode: number;
   name: string;
   orderDate: string;
   orderPrice: number;
@@ -113,21 +103,19 @@ export type MyOrdersRowType = {
   status: string;
 };
 export type MyOrdersPopupType = {
-  code: number;
+  id: number;
   onToggle: () => void;
 };
 //Context Types
 export type ProviderProps = {
   children: React.ReactNode;
 };
-export type ContextType = {
+export type AuthContextType = {
   user: string | null;
   userSetter: (val: string) => void;
   logout: () => void;
 };
-
 export type HamburgerContexType = {
   isMenuShown: boolean;
   menuToggle: () => void;
 };
-//Protect Types

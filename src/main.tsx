@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <HamburgerCtxProvider>
               <App />
             </HamburgerCtxProvider>
-            <ToastContainer position="bottom-right" />
+            <ToastContainer position="bottom-right" autoClose={1000}/>
           </BrowserRouter>
         </AuthCtxProvider>
       </Provider>

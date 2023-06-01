@@ -8,7 +8,6 @@
 .mainCommon {
   @extend .mainCommonPrimary;
   padding: $large $medium + $xs;
-  // @include flex-container($direction: column, $align: center);
 }
 .main-toogle{
   display: none;

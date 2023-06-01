@@ -4,9 +4,6 @@
   padding: $large + $small $medium + $xs;
   overflow: auto;
 }
-.main-hidden {
-  overflow: hidden;
-}
 .cardItem-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

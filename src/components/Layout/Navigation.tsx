@@ -6,6 +6,7 @@ const Navigation = () => {
   const { user, logout } = useContext(AuthCtx);
   const { isMenuShown, menuToggle } = useContext(HamburgerCtx);
   const typeArr = user ? JSON.parse(user).idTokenClaims.groups : [];
+  //toggle for mobile view
   const toggleMenu = () => {
     if (window.innerWidth < 600) menuToggle();
   };

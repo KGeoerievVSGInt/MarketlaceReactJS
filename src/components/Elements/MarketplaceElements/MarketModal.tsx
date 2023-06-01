@@ -7,6 +7,7 @@ import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 
 const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
   const { data } = useGetMarketDataQuery(code);
+  if (Array.isArray(data)) return null;
 
   return (
     <Dialog

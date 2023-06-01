@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
-import { ProviderProps, ContextType } from "../types";
-const defaultVal: ContextType = {
+import { ProviderProps, AuthContextType } from "../types";
+const defaultVal: AuthContextType = {
   user: "",
   userSetter: (val) => {},
   logout: () => {},
 };
 
-export const AuthCtx = createContext<ContextType>(defaultVal);
+export const AuthCtx = createContext<AuthContextType>(defaultVal);
 
 const savedUser = localStorage.getItem("user") ?? null;
 

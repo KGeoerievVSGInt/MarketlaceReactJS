@@ -25,6 +25,7 @@ import {
   useGetCategoryQuery,
 } from "../../../redux/dataSlice";
 import { toast } from "react-toastify";
+import { dataSanitizer } from "../../../utils/dataSanitizer";
 const InventoryModal = ({
   open,
   onClose,
@@ -50,9 +51,9 @@ const InventoryModal = ({
 
   //Handlers
   const onSubmit = (data: InventoryItemType) => {
-    addItem(data)
+    addItem(dataSanitizer<InventoryItemType>(data))
       .unwrap()
-      .then(() => toast.success("Item successfully added"))
+      .then(() => toast.success("Item added successfully!"))
       .catch((e) => console.log(e));
     onClose();
   };
@@ -61,10 +62,9 @@ const InventoryModal = ({
     editItem({
       ...data,
       imageModified: dirtyFields.imageURL ?? false,
-      oldCode: product?.code,
     })
       .unwrap()
-      .then(() => toast.success("Item successfully updated"))
+      .then(() => toast.success("Item updated successfully!"))
       .catch((e) => console.log(e));
     onClose();
   };

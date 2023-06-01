@@ -31,7 +31,7 @@
       display: none;
     }
   }
-  .main-toggle{
+  .main-toggle {
     display: none;
   }
   .cardItem-container {
@@ -95,66 +95,19 @@
       }
     }
   }
-  .modal {
-    align-items: stretch;
-    .modal-content {
-      img {
-        height: 25%;
-      }
-      width: 100%;
-      margin: 2em 1em 2em 1em;
-      .bubbles{
-        bottom: -30px;
-      }
-    }
-    .item-management {
-      box-sizing: border-box;
-      margin: 32px 16px;
-      .item-data {
-        &-form {
-          flex-direction: column;
-          &-left {
-            div {
-              label {
-                top: 0;
-              }
-              input:focus ~ label,
-              input:not(:placeholder-shown) ~ label {
-                display: block;
-              }
-            }
-          }
-          &-right {
-            div {
-              flex-direction: row;
-              button{
-                margin: $medium;
-              }
-            }
 
-          }
-          
-        }
-        &-button-container{
-          padding-bottom: $xl;
-        }
+  .item-management {
+    box-sizing: border-box;
+    margin: 32px 16px;
+    .item-data {
+      &-form {
+        flex-direction: column;
+      }
+      &-button-container {
+        padding-bottom: $xl;
       }
     }
   }
 }
-.item-description {
-  margin: 1em;
-}
-.item-info {
-  flex-direction: column;
-  &-left {
-    width: 100%;
-    &-name {
-      font-size: 1.25em;
-    }
-  }
-  &-right {
-    margin-top: 1em;
-    align-items: flex-start;
-  }
-}
+
+

@@ -17,6 +17,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { GridRowId } from "@mui/x-data-grid";
 import { InventoryItemType } from "../../types";
 import {
+  useGetCategoryQuery,
   useGetInventoryDataQuery,
   useGetLocationsQuery,
 } from "../../redux/dataSlice";
@@ -28,10 +29,12 @@ const InventoryPage = () => {
   const [rows, setRows] = useState<InventoryItemType[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentLocation, setCurrentLocation] = useState<string>("All");
+  const [currentCategory, setCurrentCategory] = useState<string>("All");
 
   //RTK Query
   const { data, error } = useGetInventoryDataQuery("");
   const { data: locations } = useGetLocationsQuery("");
+  const { data: categories } = useGetCategoryQuery("");
 
   //Search row and render data
   useEffect(() => {
@@ -52,16 +55,21 @@ const InventoryPage = () => {
             if (currentLocation === "All") return true;
             return row.location === currentLocation;
           })
+          //category filter
+          .filter((row) => {
+            if (currentCategory === "All") return true;
+            return row.category === currentCategory;
+          })
       );
     }
-  }, [data, searchValue, currentLocation]);
+  }, [data, searchValue, currentLocation, currentCategory]);
 
   //Modal Visibility Handler
   const modalHandler = (num?: GridRowId) => {
     setModalVisible((prevState) => !prevState);
 
     if (num) {
-      const rowData = rows.find((el) => el.code === num);
+      const rowData = rows.find((el) => el.id === num);
       if (rowData) setModalData(rowData);
     }
   };
@@ -75,9 +83,10 @@ const InventoryPage = () => {
       <Stack
         direction={"row"}
         marginBottom={3}
-        justifyContent={"space-between"}
+        spacing={2}
+        justifyContent={"flex-end"}
       >
-        <Stack direction={"row"} width={"200px"} alignItems={"flex-end"}>
+        <Stack direction={"row"} width={"200px"}>
           <LocationOnIcon
             sx={{
               color: "#ed1c25",
@@ -105,6 +114,26 @@ const InventoryPage = () => {
             </Select>
           </FormControl>
         </Stack>
+        <FormControl sx={{ width: "200px" }} size="small">
+          <InputLabel id="category-select-label">Category</InputLabel>
+          <Select
+            labelId="category-select-label"
+            variant="standard"
+            value={currentCategory}
+            onChange={(e: SelectChangeEvent) => {
+              setCurrentCategory(e.target.value as string);
+            }}
+          >
+            <MenuItem defaultChecked value={"All"}>
+              All
+            </MenuItem>
+            {categories?.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Stack direction={"row"} spacing={2} alignItems={"flex-end"}>
           <TextField
             id="standard-start-adornment"

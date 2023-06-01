@@ -4,6 +4,8 @@ import {
   MarketOrderType,
   MyOrdersRowType,
   PendingOrdersRowType,
+  FetcherDataType,
+  SingleItemType,
 } from "../types";
 import { objToFormData } from "../utils/objToFormData";
 const token = sessionStorage.getItem("token");
@@ -18,7 +20,10 @@ export const marketAPI = createApi({
   }),
   tagTypes: ["Market", "Inventory", "Pending", "MyOrders"],
   endpoints: (builder) => ({
-    getMarketData: builder.query<InventoryItemType, string | number>({
+    getMarketData: builder.query<
+      SingleItemType | FetcherDataType[],
+      string | number
+    >({
       query: (name) => `/Marketplace/${name}`,
       providesTags: ["Market"],
     }),
@@ -57,18 +62,13 @@ export const marketAPI = createApi({
       Partial<InventoryItemType>
     >({
       query: (data) => {
-        console.log({
-          ...data,
-          imageURL: data.imageModified ? data.imageURL : null,
-        });
-
         const formData = objToFormData({
           ...data,
           imageURL: data.imageModified ? data.imageURL : null,
         });
 
         return {
-          url: `/Inventory/Modify/${data.oldCode}`,
+          url: `/Inventory/Modify/${data.id}`,
           method: "PUT",
           body: formData,
         };
