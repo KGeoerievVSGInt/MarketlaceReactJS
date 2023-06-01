@@ -41,7 +41,7 @@ const InventoryPage = () => {
     if (data) {
       setRows(
         data
-          //search filter
+          // search filter
           .filter((row) => {
             if (searchValue === "") return true;
             return (

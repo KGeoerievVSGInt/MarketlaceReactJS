@@ -1,13 +1,20 @@
 import PendingOrdersTableRow from "../Elements/PendingOrdersElements/PendingOrdersTableRow";
 import { useGetPendingOrdersQuery } from "../../redux/dataSlice";
 import { PendingOrdersRowType } from "../../types";
+import EmptyTableRowElement from "../Layout/EmptyTableRowElement";
+import { Navigate } from "react-router-dom";
+import LoadingSpinner from "../Layout/LoadingSpinner";
 const PendingOrdersPage = () => {
-  const { data, isLoading } = useGetPendingOrdersQuery("");
+  const { data, isLoading, error } = useGetPendingOrdersQuery("");
 
+  // token expiration check
+  if (error && "data" in error && error.status === 401) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <main className="main-content-pending">
       {isLoading ? (
-        <div> Please wait</div>
+        <LoadingSpinner />
       ) : (
         <table className="pending-orders">
           <thead>
@@ -25,6 +32,9 @@ const PendingOrdersPage = () => {
               data.map((order: PendingOrdersRowType) => (
                 <PendingOrdersTableRow key={order.id} {...order} />
               ))}
+            {(!data || data.length == 0) && (
+              <EmptyTableRowElement text="There are no pending orders" />
+            )}
           </tbody>
         </table>
       )}
