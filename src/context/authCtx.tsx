@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { ProviderProps, AuthContextType } from "../types";
 const defaultVal: AuthContextType = {
   user: "",
-  userSetter: (val) => {},
+  userSetter: () => {},
   logout: () => {},
 };
 

@@ -2,7 +2,7 @@ import CardItem from "../Elements/MarketplaceElements/CardItem";
 import { useGetMarketDataQuery } from "../../redux/dataSlice";
 import { useContext } from "react";
 import { HamburgerCtx } from "../../context/hamburgerCtx";
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import LoadingSpinner from "../Layout/LoadingSpinner";
 
