@@ -9,7 +9,7 @@ import LoadingSpinner from "../Layout/LoadingSpinner";
 const MarketplacePage = () => {
   const { data, isLoading, error } = useGetMarketDataQuery("");
   const { isMenuShown } = useContext(HamburgerCtx);
-  if (!data || !Array.isArray(data) || isMenuShown) return null; // check for Array data
+  if (isMenuShown) return null; // menu toggle
 
   // token expiration check
   if (error && "data" in error && error.status === 401) {
@@ -21,7 +21,7 @@ const MarketplacePage = () => {
         <LoadingSpinner /> //loading element
       ) : (
         <div className="cardItem-container">
-          {data.length == 0 ? ( // no card items element
+          {!data || !Array.isArray(data) || data.length == 0 ? ( // no card items element
             <Typography
               color={"#9a9a9a"}
               textAlign={"center"}
