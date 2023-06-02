@@ -26,13 +26,13 @@ const MyOrdersPage = () => {
             </tr>
           </thead>
           <tbody>
+            {(!data || data.length === 0) && (
+              <EmptyTableRowElement text="You don't have recent orders" />
+            )}
             {data &&
               data.map((row) => {
                 return <MyOrdersTableRow key={row.id} {...row} />;
               })}
-            {(!data || data.length > 0) && (
-              <EmptyTableRowElement text="You don't have recent orders" />
-            )}
           </tbody>
         </table>
       )}

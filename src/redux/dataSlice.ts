@@ -102,7 +102,7 @@ export const marketAPI = createApi({
         url: `/MyOrders/DeleteOrder/${id}`,
         method: "PUT",
       }),
-      invalidatesTags: ["MyOrders", "Pending"],
+      invalidatesTags: ["MyOrders", "Pending", "Market"],
     }),
     getLocations: builder.query<string[], string>({
       query: () => "/GetLocations",
