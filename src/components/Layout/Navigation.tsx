@@ -43,6 +43,15 @@ const Navigation = () => {
                   <i className="fa-regular fa-clock"></i> Pending Orders
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  onClick={toggleMenu}
+                  to="/lent"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
+                  <i className="fa-solid fa-bag-shopping"></i> Lent Items
+                </NavLink>
+              </li>
             </>
           )}
           <li>

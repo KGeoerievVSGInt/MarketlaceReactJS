@@ -1,9 +1,5 @@
 @use "../" as *;
-.main-content {
-  @include main-common-primary;
-  padding: $large + $small $medium + $xs;
-  overflow: auto;
-}
+
 .cardItem-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

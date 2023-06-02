@@ -17,7 +17,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { GridRowId } from "@mui/x-data-grid";
 import { InventoryItemType } from "../../types";
 import {
-  useGetCategoryQuery,
   useGetInventoryDataQuery,
   useGetLocationsQuery,
 } from "../../redux/dataSlice";
@@ -29,13 +28,10 @@ const InventoryPage = () => {
   const [rows, setRows] = useState<InventoryItemType[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentLocation, setCurrentLocation] = useState<string>("All");
-  const [currentCategory, setCurrentCategory] = useState<string>("All");
 
   //RTK Query
   const { data, error } = useGetInventoryDataQuery("");
   const { data: locations } = useGetLocationsQuery("");
-  const { data: categories } = useGetCategoryQuery("");
-
   //Search row and render data
   useEffect(() => {
     if (data) {
@@ -55,14 +51,9 @@ const InventoryPage = () => {
             if (currentLocation === "All") return true;
             return row.location === currentLocation;
           })
-          //category filter
-          .filter((row) => {
-            if (currentCategory === "All") return true;
-            return row.category === currentCategory;
-          })
       );
     }
-  }, [data, searchValue, currentLocation, currentCategory]);
+  }, [data, searchValue, currentLocation]);
 
   //Modal Visibility Handler
   const modalHandler = (num?: GridRowId) => {
@@ -79,7 +70,7 @@ const InventoryPage = () => {
     return <Navigate to="/" replace />;
   }
   return (
-    <main className="main-content-inventory">
+    <main className="main-content">
       <Stack
         direction={"row"}
         marginBottom={3}
@@ -99,9 +90,9 @@ const InventoryPage = () => {
               labelId="location-select-label"
               variant="standard"
               value={currentLocation}
-              onChange={(e: SelectChangeEvent) =>
-                setCurrentLocation(e.target.value as string)
-              }
+              onChange={(e: SelectChangeEvent) => {
+                setCurrentLocation(e.target.value as string);
+              }}
             >
               <MenuItem defaultChecked value={"All"}>
                 All
@@ -114,26 +105,6 @@ const InventoryPage = () => {
             </Select>
           </FormControl>
         </Stack>
-        <FormControl sx={{ width: "200px" }} size="small">
-          <InputLabel id="category-select-label">Category</InputLabel>
-          <Select
-            labelId="category-select-label"
-            variant="standard"
-            value={currentCategory}
-            onChange={(e: SelectChangeEvent) => {
-              setCurrentCategory(e.target.value as string);
-            }}
-          >
-            <MenuItem defaultChecked value={"All"}>
-              All
-            </MenuItem>
-            {categories?.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <Stack direction={"row"} spacing={2} alignItems={"flex-end"}>
           <TextField
             id="standard-start-adornment"

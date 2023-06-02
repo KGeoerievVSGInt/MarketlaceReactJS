@@ -13,6 +13,7 @@ const App = () => {
         <Route path="/myorders" element={<ContentPage />} />
         <Route path="/inventory" element={<ContentPage />} />
         <Route path="/pending" element={<ContentPage />} />
+        <Route path="/lent" element={<ContentPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

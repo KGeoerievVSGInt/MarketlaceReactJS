@@ -7,6 +7,7 @@ export type PagesObj = {
   "/inventory": JSX.Element;
   "/pending": JSX.Element;
   "/myorders": JSX.Element;
+  "/lent": JSX.Element;
 };
 //header types
 export type HeaderObj = {

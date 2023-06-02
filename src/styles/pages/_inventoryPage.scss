@@ -1,9 +1,4 @@
 @use "../" as *;
-.main-content-inventory {
-  @include main-common;
-  overflow-x: auto;
-  align-items: stretch;
-}
 
 //Inventory Modal Properties
 .item-management {
@@ -19,7 +14,7 @@
     @include flex-container($direction: column, $align: center);
     padding: 0 20px;
   }
-  .item-image{
+  .item-image {
     max-width: 220px;
   }
 }

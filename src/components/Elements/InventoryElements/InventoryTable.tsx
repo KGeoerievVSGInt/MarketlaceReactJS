@@ -18,7 +18,7 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
       field: "name",
       renderHeader: () => <strong>Name</strong>,
       disableColumnMenu: true,
-      flex: 4,
+      flex: 3,
     },
     {
       field: "category",
@@ -27,16 +27,28 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
       flex: 2,
     },
     {
+      field: "location",
+      renderHeader: () => <strong>Location</strong>,
+      disableColumnMenu: true,
+      flex: 2,
+    },
+    {
       field: "quantityForSale",
       renderHeader: () => <strong>For Sale</strong>,
       disableColumnMenu: true,
-      flex: 2,
+      flex: 1,
     },
     {
       field: "quantity",
       renderHeader: () => <strong>QTY</strong>,
       disableColumnMenu: true,
-      flex: 2,
+      flex: 1,
+    },
+    {
+      field: "available",
+      renderHeader: () => <strong>Available</strong>,
+      disableColumnMenu: true,
+      flex: 1,
     },
     {
       field: "actions",
