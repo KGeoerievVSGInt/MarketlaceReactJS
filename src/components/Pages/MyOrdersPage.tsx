@@ -1,5 +1,5 @@
 import MyOrdersTableRow from "../Elements/MyOrdersElements/MyOrdersTableRow";
-import { useGetMyOrdersQuery } from "../../redux/dataSlice";
+import { useGetMyOrdersQuery } from "../../services/myOrdersService";
 import EmptyTableRowElement from "../Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
 import LoadingSpinner from "../Layout/LoadingSpinner";
@@ -27,7 +27,7 @@ const MyOrdersPage = () => {
           </thead>
           <tbody>
             {(!data || data.length === 0) && (
-              <EmptyTableRowElement text="You don't have recent orders" />
+              <EmptyTableRowElement text="You don't have recent orders" numofCols={5}/>
             )}
             {data &&
               data.map((row) => {

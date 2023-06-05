@@ -21,9 +21,9 @@ import { useEffect, useState } from "react";
 import {
   usePostInventoryDataMutation,
   useUpdateInventoryDataMutation,
-  useGetLocationsQuery,
-  useGetCategoryQuery,
-} from "../../../redux/dataSlice";
+} from "../../../services/inventoryService";
+import { useGetLocationsQuery } from "../../../services/locationService";
+import { useGetCategoryQuery } from "../../../services/categoryService";
 import { toast } from "react-toastify";
 import { dataSanitizer } from "../../../utils/dataSanitizer";
 const InventoryModal = ({
@@ -41,7 +41,7 @@ const InventoryModal = ({
   const { data: categories } = useGetCategoryQuery("");
   const [addItem] = usePostInventoryDataMutation();
   const [editItem] = useUpdateInventoryDataMutation();
-
+  //form controls
   const { register, control, handleSubmit, formState, reset, setValue } =
     useForm<InventoryItemType>({
       values: product ?? undefined,
@@ -164,7 +164,7 @@ const InventoryModal = ({
                   })}
                 >
                   {locations &&
-                    locations.map((location, i) => (
+                    locations.map((location:string, i) => (
                       <MenuItem key={i} value={location}>
                         {location}
                       </MenuItem>
@@ -275,7 +275,6 @@ const InventoryModal = ({
             }}
             onClick={() => {
               onClose();
-              // setProductData(defaultData);
               reset();
             }}
           >

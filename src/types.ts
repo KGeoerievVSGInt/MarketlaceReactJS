@@ -57,11 +57,17 @@ export type InventoryItemType = {
   quantityForSale?: number;
   quantity: number;
   location: string;
+  availableQuantity?: number;
   imageModified?: boolean;
 };
 export type InvenotryTableProps = {
   onToggle: (val: GridRowId) => void;
   data: InventoryItemType[];
+};
+export type InventoryActionCellType = {
+  onToggle: (id: number) => void;
+  cellId: number;
+  hasAvailable: number | undefined;
 };
 export type InventoryModalDataType = {
   id: number;
@@ -82,7 +88,15 @@ export type InventoryPopupProps = {
   onToggle: () => void;
   id: GridRowId | null;
 };
+export type InventoryLentModalType = {
+  data: InventoryItemType | undefined;
+};
 
+export type LentModalType = {
+  email: string;
+  quantity: number;
+  itemID: number;
+};
 //Pending Orders Types
 export type PendingOrdersRowType = {
   id: number;
@@ -91,6 +105,12 @@ export type PendingOrdersRowType = {
   orderPrice: number;
   orderedBy: string;
   quantity: number;
+};
+//Empty table type
+
+export type EmptyTableRow = {
+  text: string;
+  numofCols: number;
 };
 // My Orders Types
 
@@ -119,4 +139,14 @@ export type AuthContextType = {
 export type HamburgerContexType = {
   isMenuShown: boolean;
   menuToggle: () => void;
+};
+export type LentContextType = {
+  isLentModalVisible: boolean;
+  toggleLentModal: (id: number | null) => void;
+  itemId: number | null;
+};
+//Lent Items
+export type LentItemsType = {
+  key: string;
+  value: number;
 };

@@ -1,4 +1,8 @@
 @use "../" as *;
+.main-inventory {
+  display: flex;
+  flex-direction: column;
+}
 
 //Inventory Modal Properties
 .item-management {

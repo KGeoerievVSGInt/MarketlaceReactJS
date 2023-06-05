@@ -8,7 +8,7 @@ import PendingOrdersPage from "../components/Pages/PendingOrdersPage";
 import { useLocation } from "react-router-dom";
 import { HamburgerCtx } from "../context/hamburgerCtx";
 import { useContext } from "react";
-import LentItemsPage from "../components/Pages/LentItemsPAge";
+import LentItemsPage from "../components/Pages/LentItemsPage";
 const pages: PagesObj = {
   "/marketplace": <MarketplacePage />,
   "/inventory": <InventoryPage />,

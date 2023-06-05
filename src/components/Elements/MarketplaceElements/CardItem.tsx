@@ -13,7 +13,7 @@ import MarketModal from "./MarketModal";
 import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
 import { FetcherDataType } from "../../../types";
-import { usePostNewOrderMutation } from "../../../redux/dataSlice";
+import { usePostNewOrderMutation } from "../../../services/marketService";
 import { useNavigate } from "react-router-dom";
 import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 import { numbersToArr } from "../../../utils/numberToArr";

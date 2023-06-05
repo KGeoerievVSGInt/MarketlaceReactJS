@@ -1,5 +1,5 @@
 import { Box, Stack, Button } from "@mui/material";
-import { useDeleteInventoryDataMutation } from "../../../redux/dataSlice";
+import { useDeleteInventoryDataMutation } from "../../../services/inventoryService";
 import { InventoryPopupProps } from "../../../types";
 import { toast } from "react-toastify";
 

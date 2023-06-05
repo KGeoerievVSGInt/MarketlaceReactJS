@@ -1,5 +1,5 @@
 import CardItem from "../Elements/MarketplaceElements/CardItem";
-import { useGetMarketDataQuery } from "../../redux/dataSlice";
+import { useGetMarketDataQuery } from "../../services/marketService";
 import { useContext } from "react";
 import { HamburgerCtx } from "../../context/hamburgerCtx";
 import { Typography } from "@mui/material";

@@ -1,6 +1,6 @@
 import { Box, Stack, Button } from "@mui/material";
 import { MyOrdersPopupType } from "../../../types";
-import { useDeleteMyOrderMutation } from "../../../redux/dataSlice";
+import { useDeleteMyOrderMutation } from "../../../services/myOrdersService";
 import { toast } from "react-toastify";
 const MyOrdersPopup = ({ onToggle, id }: MyOrdersPopupType) => {
   const [deleteMyOrder] = useDeleteMyOrderMutation();

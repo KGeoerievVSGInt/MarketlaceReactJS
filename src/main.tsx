@@ -12,6 +12,7 @@ import { PublicClientApplication } from "@azure/msal-browser";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HamburgerCtxProvider from "./context/hamburgerCtx.tsx";
+import LentItemContextProvider from "./context/lentItemCtx.tsx";
 const msalInstance = new PublicClientApplication(msalConfig);
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -20,9 +21,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <AuthCtxProvider>
           <BrowserRouter>
             <HamburgerCtxProvider>
-              <App />
+              <LentItemContextProvider>
+                <App />
+              </LentItemContextProvider>
             </HamburgerCtxProvider>
-            <ToastContainer position="bottom-right" autoClose={1000}/>
+            <ToastContainer position="bottom-right" autoClose={1000} />
           </BrowserRouter>
         </AuthCtxProvider>
       </Provider>

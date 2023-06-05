@@ -1,5 +1,5 @@
 import PendingOrdersTableRow from "../Elements/PendingOrdersElements/PendingOrdersTableRow";
-import { useGetPendingOrdersQuery } from "../../redux/dataSlice";
+import { useGetPendingOrdersQuery } from "../../services/pendingService";
 import { PendingOrdersRowType } from "../../types";
 import EmptyTableRowElement from "../Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
@@ -33,7 +33,10 @@ const PendingOrdersPage = () => {
                 <PendingOrdersTableRow key={order.id} {...order} />
               ))}
             {(!data || data.length == 0) && (
-              <EmptyTableRowElement text="There are no pending orders" />
+              <EmptyTableRowElement
+                text="There are no pending orders"
+                numofCols={6}
+              />
             )}
           </tbody>
         </table>

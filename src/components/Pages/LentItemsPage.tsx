@@ -1,4 +1,6 @@
+
 const LentItemsPage = () => {
+
   return <main className="main-content"></main>;
 };
 

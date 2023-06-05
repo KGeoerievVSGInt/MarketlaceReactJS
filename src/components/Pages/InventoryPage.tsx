@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import InventoryModal from "../Elements/InventoryElements/InventoryModal";
 import InventoryTable from "../Elements/InventoryElements/InventoryTable";
 import {
@@ -16,11 +16,11 @@ import { Add, Search } from "@mui/icons-material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { GridRowId } from "@mui/x-data-grid";
 import { InventoryItemType } from "../../types";
-import {
-  useGetInventoryDataQuery,
-  useGetLocationsQuery,
-} from "../../redux/dataSlice";
+import { useGetInventoryDataQuery } from "../../services/inventoryService";
+import { useGetLocationsQuery } from "../../services/locationService";
 import { Navigate } from "react-router-dom";
+import { LentItemCtx } from "../../context/lentItemCtx";
+import InventoryLentModal from "../Elements/InventoryElements/InventoryLentModal";
 const InventoryPage = () => {
   //states
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,6 +28,8 @@ const InventoryPage = () => {
   const [rows, setRows] = useState<InventoryItemType[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentLocation, setCurrentLocation] = useState<string>("All");
+  //context
+  const { isLentModalVisible, itemId } = useContext(LentItemCtx);
 
   //RTK Query
   const { data, error } = useGetInventoryDataQuery("");
@@ -69,8 +71,9 @@ const InventoryPage = () => {
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
   }
+
   return (
-    <main className="main-content">
+    <main className="main-content main-inventory">
       <Stack
         direction={"row"}
         marginBottom={3}
@@ -145,6 +148,9 @@ const InventoryPage = () => {
           onClose={modalHandler}
           product={modalData}
         />
+      )}
+      {isLentModalVisible && (
+        <InventoryLentModal data={rows.find((el) => el.id === itemId)} />
       )}
     </main>
   );

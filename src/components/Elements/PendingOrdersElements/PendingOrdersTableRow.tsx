@@ -1,6 +1,6 @@
 import { PendingOrdersRowType } from "../../../types";
 import { dateFormat } from "../../../utils/dataFormat";
-import { useCompleteOrderMutation } from "../../../redux/dataSlice";
+import { useCompleteOrderMutation } from "../../../services/pendingService";
 import { toast } from "react-toastify";
 
 const PendingOrdersTableRow = ({

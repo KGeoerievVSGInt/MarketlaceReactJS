@@ -4,6 +4,7 @@
   align-items: stretch;
   overflow: auto;
   .pending-orders {
+    border-collapse: separate;
     border-spacing: 0 1.25em;
     tr {
       border: $border-gray-pending;
@@ -34,6 +35,10 @@
       border-top: $border-gray-pending;
       border-bottom: $border-gray-pending;
     }
+    .empty-cell{
+      text-align: center;
+      border-radius: 10px !important;
+    }
     .action {
       @include flex-container($justify: flex-end);
       button {
@@ -53,3 +58,6 @@
     }
   }
 }
+// .empty-cell{
+//   border-radius: 10px;
+// }

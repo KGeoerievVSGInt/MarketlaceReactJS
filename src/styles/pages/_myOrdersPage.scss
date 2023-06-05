@@ -37,6 +37,10 @@
       border-top: $border-gray-pending;
       border-bottom: $border-gray-pending;
     }
+    .empty-cell{
+      text-align: center;
+      border-radius: 10px !important;
+    }
     .action {
       position: relative;
       @include flex-container($justify: space-around);

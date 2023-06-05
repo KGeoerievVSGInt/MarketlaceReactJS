@@ -1,12 +1,11 @@
-const EmptyTableRowElement = ({ text }: { text: string }) => {
+import { EmptyTableRow } from "../../types";
+
+const EmptyTableRowElement = ({ text, numofCols }: EmptyTableRow) => {
   return (
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>{text}</td>
-      <td></td>
-      <td></td>
+      <td colSpan={numofCols} className="empty-cell">
+        {text}
+      </td>
     </tr>
   );
 };
