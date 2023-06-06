@@ -17,7 +17,6 @@ const InventoryActionCell = ({
   const togglePopup = () => {
     setIsVisible((prevState) => !prevState);
   };
-
   return (
     <Stack direction={"row"}>
       <IconButton
@@ -43,7 +42,7 @@ const InventoryActionCell = ({
           }}
         />
       </IconButton>
-      {hasAvailable && (
+      {!!hasAvailable && (
         <IconButton
           size="small"
           onClick={() => {

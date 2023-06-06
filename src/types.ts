@@ -8,6 +8,7 @@ export type PagesObj = {
   "/pending": JSX.Element;
   "/myorders": JSX.Element;
   "/lent": JSX.Element;
+  "/borrowed": JSX.Element;
 };
 //header types
 export type HeaderObj = {
@@ -50,7 +51,7 @@ export type InventoryItemType = {
   id: number;
   name: string;
   category: string;
-  code: number;
+  code: string;
   description?: string;
   imageURL?: string | null;
   price?: number;
@@ -93,7 +94,7 @@ export type InventoryLentModalType = {
 };
 
 export type LentModalType = {
-  email: string;
+  orderedBy: string;
   quantity: number;
   itemID: number;
 };
@@ -147,6 +148,14 @@ export type LentContextType = {
 };
 //Lent Items
 export type LentItemsType = {
-  key: string;
-  value: number;
+  email: string;
+  count: number;
+};
+export type BorrowedItemsType = {
+  id: number;
+  itemId: number;
+  orderedBy: string;
+  quantity: number;
+  loanStartDate: string;
+  loanEndDate: string | null;
 };

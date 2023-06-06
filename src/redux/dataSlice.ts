@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { inventoryTag, marketTag, myOrderTag, pendingTag } from "./tags";
+import {
+  borrowedItemsTag,
+  inventoryTag,
+  lentItemsTag,
+  marketTag,
+  myOrderTag,
+  pendingTag,
+} from "./tags";
 const BASE_URL = "https://localhost:5174";
 const token = sessionStorage.getItem("token");
 export const marketAPI = createApi({
@@ -11,7 +18,13 @@ export const marketAPI = createApi({
       return headers;
     },
   }),
-  tagTypes: [marketTag, inventoryTag, pendingTag, myOrderTag],
+  tagTypes: [
+    marketTag,
+    inventoryTag,
+    pendingTag,
+    myOrderTag,
+    lentItemsTag,
+    borrowedItemsTag,
+  ],
   endpoints: () => ({}),
-
 });

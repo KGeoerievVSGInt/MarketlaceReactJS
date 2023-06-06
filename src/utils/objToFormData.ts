@@ -8,10 +8,13 @@ export const objToFormData = (data: Partial<InventoryItemType>) => {
     category: data.category,
     quantity: data.quantity,
     quantityForSale: data.quantityForSale,
+    availableQuantity: data.availableQuantity,
     description: data.description,
     image: data.imageURL && data.imageURL[0],
     location: data.location,
     imageChanges: data.imageModified,
   };
+  console.log(newData);
+
   return serialize(newData);
 };

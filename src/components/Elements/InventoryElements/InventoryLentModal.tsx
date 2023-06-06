@@ -9,46 +9,44 @@ import {
   MenuItem,
   FormHelperText,
   Button,
+  TextField,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LentItemCtx } from "../../../context/lentItemCtx";
 import { InventoryLentModalType, LentModalType } from "../../../types";
 import { numbersToArr } from "../../../utils/numberToArr";
 import { usePostLentItemMutation } from "../../../services/inventoryService";
-const users = [
-  "kgeorgiev@vsgbg.com",
-  "vdenchev@vsgbg.com",
-  "snikolov@vsgbg.com",
-  "ykurtev@vsgbg.com",
-  "eredzhepov@vsgbg.com",
-  "sstoyanov@vsgbg.com",
-  "sdimitrov@vsgbg.com",
-  "zkerozov@vsgbg.com",
-  "adragiev@vsgbg.com",
-];
+import { toast } from "react-toastify";
 
 const InventoryLentModal = ({ data }: InventoryLentModalType) => {
   const { isLentModalVisible, toggleLentModal } = useContext(LentItemCtx);
-  const { register, handleSubmit, formState, reset, setValue } =
-    useForm<LentModalType>({
-      defaultValues: {
-        email: "",
-        quantity: 0,
-      },
-    });
+  const { register, handleSubmit, formState, reset } = useForm<LentModalType>({
+    defaultValues: {
+      orderedBy: "",
+      quantity: 0,
+    },
+  });
   const [postLentItem] = usePostLentItemMutation();
   const { errors, isSubmitSuccessful } = formState;
-
   const availableQuantityArr = numbersToArr(data?.availableQuantity ?? 0);
 
   const onSubmit = (fetchData: LentModalType) => {
     if (data) {
       const readyData: LentModalType = { ...fetchData, itemID: data.id };
-      postLentItem(readyData);
+      postLentItem(readyData)
+        .unwrap()
+        .then(() => {
+          toast.success("Item updated successfully!");
+        })
+        .catch((e) => console.log(e));
+      toggleLentModal(null);
     }
   };
+  useEffect(() => {
+    isSubmitSuccessful && reset();
+  }, [isSubmitSuccessful]);
   return (
     <Dialog
       open={isLentModalVisible}
@@ -70,26 +68,20 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
             <Typography variant="h5" fontWeight={700} textAlign={"center"}>
               {data?.name}
             </Typography>
-            <FormControl variant="standard" error={!!errors.email}>
-              <InputLabel id="email-select-label">Email</InputLabel>
-              <Select
-                labelId="email-select-label"
-                defaultValue={""}
-                required
-                label="Email "
-                variant="standard"
-                {...register("email", {
-                  required: "Please, select email!",
-                })}
-              >
-                {users.map((user, i) => (
-                  <MenuItem key={i} value={user}>
-                    {user}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{errors.email?.message}</FormHelperText>
-            </FormControl>
+            <TextField
+              error={!!errors.orderedBy}
+              helperText={errors.orderedBy?.message}
+              variant="standard"
+              required
+              label="Email"
+              {...register("orderedBy", {
+                required: "Please, enter code!",
+                pattern: {
+                  value: /[\w]+@vsgbg\.com/i,
+                  message: "Please, use valid VSG Bulgaria email!",
+                },
+              })}
+            />
             <FormControl variant="standard" error={!!errors.quantity}>
               <InputLabel id="quantity-select-label">Quantity</InputLabel>
               <Select
@@ -108,7 +100,7 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText>{errors.email?.message}</FormHelperText>
+              <FormHelperText>{errors.quantity?.message}</FormHelperText>
             </FormControl>
             <Button
               variant="contained"

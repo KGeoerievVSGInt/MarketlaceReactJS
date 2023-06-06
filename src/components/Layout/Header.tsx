@@ -7,6 +7,7 @@ import { HamburgerCtx } from "../../context/hamburgerCtx";
 import { useContext } from "react";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { getUsername } from "../../utils/getUsername";
 const headerObj: HeaderObj = {
   "/marketplace": "Marketplace",
   "/inventory": "Inventory",
@@ -18,7 +19,7 @@ const Header = () => {
   const loc = location.pathname;
   const { user, logout } = useContext(AuthCtx);
   const { menuToggle } = useContext(HamburgerCtx);
-  const username = user ? JSON.parse(user).username : null;
+  const username = getUsername(user)
 
   return (
     <header>

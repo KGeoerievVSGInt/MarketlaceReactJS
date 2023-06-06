@@ -9,12 +9,14 @@ import { useLocation } from "react-router-dom";
 import { HamburgerCtx } from "../context/hamburgerCtx";
 import { useContext } from "react";
 import LentItemsPage from "../components/Pages/LentItemsPage";
+import BorrowedItemsPage from "../components/Pages/BorrowedItemsPage";
 const pages: PagesObj = {
   "/marketplace": <MarketplacePage />,
   "/inventory": <InventoryPage />,
   "/pending": <PendingOrdersPage />,
   "/myorders": <MyOrdersPage />,
   "/lent": <LentItemsPage />,
+  "/borrowed": <BorrowedItemsPage />,
 };
 
 const ContentPage = () => {

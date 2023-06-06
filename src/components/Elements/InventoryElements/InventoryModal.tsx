@@ -88,7 +88,7 @@ const InventoryModal = ({
         style: {
           borderRadius: "20px",
           width: "600px",
-          height: "760px",
+          height: "800px",
         },
       }}
     >
@@ -164,7 +164,7 @@ const InventoryModal = ({
                   })}
                 >
                   {locations &&
-                    locations.map((location:string, i) => (
+                    locations.map((location: string, i) => (
                       <MenuItem key={i} value={location}>
                         {location}
                       </MenuItem>
@@ -177,6 +177,14 @@ const InventoryModal = ({
                 label="Qty For Sale"
                 type="number"
                 {...register("quantityForSale", {
+                  valueAsNumber: true,
+                })}
+              />
+              <TextField
+                variant="standard"
+                label="Available Quantity"
+                type="number"
+                {...register("availableQuantity", {
                   valueAsNumber: true,
                 })}
               />

@@ -63,6 +63,15 @@ const Navigation = () => {
               <i className="fa-solid fa-bag-shopping"></i> My Orders
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              onClick={toggleMenu}
+              to="/borrowed"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              <i className="fa-solid fa-bag-shopping"></i> My Borrowed Items
+            </NavLink>
+          </li>
           <li id="logout">
             <NavLink to="/" onClick={logout}>
               <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout

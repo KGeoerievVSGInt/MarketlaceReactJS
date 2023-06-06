@@ -1,6 +1,12 @@
-import { serialize } from "object-to-formdata";
 import { marketAPI } from "../redux/dataSlice";
-import { inventoryTag, marketTag, myOrderTag, pendingTag } from "../redux/tags";
+import {
+  borrowedItemsTag,
+  inventoryTag,
+  lentItemsTag,
+  marketTag,
+  myOrderTag,
+  pendingTag,
+} from "../redux/tags";
 import { InventoryItemType, LentModalType } from "../types";
 import { objToFormData } from "../utils/objToFormData";
 
@@ -52,13 +58,16 @@ const inventoryService = marketAPI.injectEndpoints({
 
     postLentItem: builder.mutation({
       query: (data: LentModalType) => {
-        
         return {
           url: `/Inventory/Loan/${data.itemID}`,
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(data),
         };
       },
+      invalidatesTags: [inventoryTag, lentItemsTag, borrowedItemsTag],
     }),
   }),
 });
