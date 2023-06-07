@@ -24,7 +24,7 @@ const MyOrdersTableRow = ({
       <td>{quantity}</td>
       <td>{orderPrice}BGN</td>
       <td>{dateFormat(orderDate)}</td>
-      <td className="action">
+      <td className="orders-action">
         <p>{status}</p>
         {status === "Pending" && (
           <button

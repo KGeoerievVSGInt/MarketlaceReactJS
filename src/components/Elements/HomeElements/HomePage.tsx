@@ -1,8 +1,8 @@
-import image from "../../assets/main/vsg_marketplace_logo 2.png";
+import image from "../../../assets/main/vsg_marketplace_logo 2.png";
 import { Link } from "react-router-dom";
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
-import { loginRequest } from "../../auth/authConfig";
-import { AuthCtx } from "../../context/authCtx";
+import { loginRequest } from "../../../auth/authConfig";
+import { AuthCtx } from "../../../context/authCtx";
 import { useContext, useEffect } from "react";
 
 const HomePage = () => {
@@ -17,6 +17,8 @@ const HomePage = () => {
     instance.loginRedirect(loginRequest);
   }
   useEffect(() => {
+    console.log("working");
+
     if (isAuthenticated) {
       instance.acquireTokenSilent(accessTokenRequest).then((tokenData) => {
         sessionStorage.setItem("token", tokenData.accessToken);

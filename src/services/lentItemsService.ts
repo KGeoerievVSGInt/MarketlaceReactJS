@@ -1,5 +1,5 @@
 import { marketAPI } from "../redux/dataSlice";
-import { borrowedItemsTag, lentItemsTag } from "../redux/tags";
+import { borrowedItemsTag, inventoryTag, lentItemsTag } from "../redux/tags";
 import { BorrowedItemsType, LentItemsType } from "../types";
 
 const lentItemsService = marketAPI.injectEndpoints({
@@ -17,7 +17,7 @@ const lentItemsService = marketAPI.injectEndpoints({
         url: `/LentItems/Return/${id}`,
         method: "PUT",
       }),
-      invalidatesTags: [borrowedItemsTag, lentItemsTag],
+      invalidatesTags: [borrowedItemsTag, lentItemsTag, inventoryTag],
     }),
   }),
 });

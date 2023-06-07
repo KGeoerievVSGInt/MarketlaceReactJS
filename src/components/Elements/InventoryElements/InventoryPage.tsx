@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import InventoryModal from "../Elements/InventoryElements/InventoryModal";
-import InventoryTable from "../Elements/InventoryElements/InventoryTable";
+import InventoryModal from "./InventoryModal";
+import InventoryTable from "./InventoryTable";
 import {
   Stack,
   TextField,
@@ -15,12 +15,12 @@ import {
 import { Add, Search } from "@mui/icons-material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { GridRowId } from "@mui/x-data-grid";
-import { InventoryItemType } from "../../types";
-import { useGetInventoryDataQuery } from "../../services/inventoryService";
-import { useGetLocationsQuery } from "../../services/locationService";
+import { InventoryItemType } from "../../../types";
+import { useGetInventoryDataQuery } from "../../../services/inventoryService";
+import { useGetLocationsQuery } from "../../../services/locationService";
 import { Navigate } from "react-router-dom";
-import { LentItemCtx } from "../../context/lentItemCtx";
-import InventoryLentModal from "../Elements/InventoryElements/InventoryLentModal";
+import { LentItemCtx } from "../../../context/lentItemCtx";
+import InventoryLentModal from "./InventoryLentModal";
 const InventoryPage = () => {
   //states
   const [modalVisible, setModalVisible] = useState(false);

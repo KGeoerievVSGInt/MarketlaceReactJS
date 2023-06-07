@@ -1,8 +1,8 @@
-import MyOrdersTableRow from "../Elements/MyOrdersElements/MyOrdersTableRow";
-import { useGetMyOrdersQuery } from "../../services/myOrdersService";
-import EmptyTableRowElement from "../Layout/EmptyTableRowElement";
+import MyOrdersTableRow from "./MyOrdersTableRow";
+import { useGetMyOrdersQuery } from "../../../services/myOrdersService";
+import EmptyTableRowElement from "../../Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
-import LoadingSpinner from "../Layout/LoadingSpinner";
+import LoadingSpinner from "../../Layout/LoadingSpinner";
 const MyOrdersPage = () => {
   const { data, isLoading, error } = useGetMyOrdersQuery("");
 
@@ -11,7 +11,7 @@ const MyOrdersPage = () => {
     return <Navigate to="/" replace />;
   }
   return (
-    <main className="main-content-orders">
+    <main className="main-content">
       {isLoading ? (
         <LoadingSpinner />
       ) : (

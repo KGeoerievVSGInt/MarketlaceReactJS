@@ -1,15 +1,15 @@
 import { PagesObj } from "../types";
 import Header from "../components/Layout/Header";
 import Navigation from "../components/Layout/Navigation";
-import InventoryPage from "../components/Pages/InventoryPage";
-import MarketplacePage from "../components/Pages/MarketplacePage";
-import MyOrdersPage from "../components/Pages/MyOrdersPage";
-import PendingOrdersPage from "../components/Pages/PendingOrdersPage";
+import InventoryPage from "../components/Elements/InventoryElements/InventoryPage";
+import MarketplacePage from "../components/Elements/MarketplaceElements/MarketplacePage";
+import MyOrdersPage from "../components/Elements/MyOrdersElements/MyOrdersPage";
+import PendingOrdersPage from "../components/Elements/PendingOrdersElements/PendingOrdersPage";
 import { useLocation } from "react-router-dom";
 import { HamburgerCtx } from "../context/hamburgerCtx";
 import { useContext } from "react";
-import LentItemsPage from "../components/Pages/LentItemsPage";
-import BorrowedItemsPage from "../components/Pages/BorrowedItemsPage";
+import LentItemsPage from "../components/Elements/LentItemsElements/LentItemsPage";
+import BorrowedItemsPage from "../components/Elements/BorrowedItemsElements/BorrowedItemsPage";
 const pages: PagesObj = {
   "/marketplace": <MarketplacePage />,
   "/inventory": <InventoryPage />,

@@ -1,9 +1,9 @@
-import PendingOrdersTableRow from "../Elements/PendingOrdersElements/PendingOrdersTableRow";
-import { useGetPendingOrdersQuery } from "../../services/pendingService";
-import { PendingOrdersRowType } from "../../types";
-import EmptyTableRowElement from "../Layout/EmptyTableRowElement";
+import PendingOrdersTableRow from "./PendingOrdersTableRow";
+import { useGetPendingOrdersQuery } from "../../../services/pendingService";
+import { PendingOrdersRowType } from "../../../types";
+import EmptyTableRowElement from "../../Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
-import LoadingSpinner from "../Layout/LoadingSpinner";
+import LoadingSpinner from "../../Layout/LoadingSpinner";
 const PendingOrdersPage = () => {
   const { data, isLoading, error } = useGetPendingOrdersQuery("");
 
@@ -12,7 +12,7 @@ const PendingOrdersPage = () => {
     return <Navigate to="/" replace />;
   }
   return (
-    <main className="main-content-pending">
+    <main className="main-content">
       {isLoading ? (
         <LoadingSpinner />
       ) : (

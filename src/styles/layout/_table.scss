@@ -1,0 +1,71 @@
+@use "../" as *;
+.pending-orders {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1.25em;
+  tr {
+    border: $border-gray-pending;
+  }
+  th {
+    &:first-child {
+      border-radius: $radius-pending-list-first-child;
+    }
+    &:last-child {
+      border-radius: $radius-pending-list-last-child;
+      text-align: center;
+      padding-right: $xl;
+    }
+    background-color: $pending-header;
+    text-align: left;
+    padding: 1em 1.5em;
+  }
+  td {
+    &:first-child {
+      border-radius: $radius-pending-list-first-child;
+      border-left: $border-gray-pending;
+    }
+    &:last-child {
+      border-radius: $radius-pending-list-last-child;
+      border-right: $border-gray-pending;
+    }
+    padding: 0.5em 1.5em;
+    border-top: $border-gray-pending;
+    border-bottom: $border-gray-pending;
+  }
+}
+//pending orders action cell
+.action {
+  @include flex-container($justify: flex-end);
+  button {
+    cursor: pointer;
+    background-color: $default-red;
+    color: $white;
+    font-weight: 700;
+    font-size: 1.25em;
+    padding: 0.625em 1.25em;
+    border-radius: 0.325em;
+    box-shadow: $shadow-main-logo;
+    transition: 500ms;
+    &:hover {
+      background-color: $default-red-hover;
+    }
+  }
+}
+
+//my orders action cell
+.orders-action {
+  @include flex-container($justify: space-around);
+  position: relative;
+  .delete-button {
+    cursor: pointer;
+    background: none;
+  }
+}
+//borrowed items status cell
+.borrow-status{
+  text-align: center;
+}
+.empty-cell {
+  text-align: center;
+  border-radius: 10px !important;
+}

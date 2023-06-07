@@ -21,17 +21,23 @@ import { usePostLentItemMutation } from "../../../services/inventoryService";
 import { toast } from "react-toastify";
 
 const InventoryLentModal = ({ data }: InventoryLentModalType) => {
+  //states
   const { isLentModalVisible, toggleLentModal } = useContext(LentItemCtx);
+  //form controls
   const { register, handleSubmit, formState, reset } = useForm<LentModalType>({
     defaultValues: {
       orderedBy: "",
       quantity: 0,
     },
   });
-  const [postLentItem] = usePostLentItemMutation();
   const { errors, isSubmitSuccessful } = formState;
-  const availableQuantityArr = numbersToArr(data?.availableQuantity ?? 0);
-
+  useEffect(() => {
+    isSubmitSuccessful && reset();
+  }, [isSubmitSuccessful]);
+  ///fetchers
+  const [postLentItem] = usePostLentItemMutation();
+  const availableQuantityArr = numbersToArr(data?.availableQuantity ?? 0); //quantity check to avoid undefined
+  //handlers
   const onSubmit = (fetchData: LentModalType) => {
     if (data) {
       const readyData: LentModalType = { ...fetchData, itemID: data.id };
@@ -44,9 +50,7 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
       toggleLentModal(null);
     }
   };
-  useEffect(() => {
-    isSubmitSuccessful && reset();
-  }, [isSubmitSuccessful]);
+
   return (
     <Dialog
       open={isLentModalVisible}
@@ -77,7 +81,7 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
               {...register("orderedBy", {
                 required: "Please, enter code!",
                 pattern: {
-                  value: /[\w]+@vsgbg\.com/i,
+                  value: /[\w]+@vsgbg\.com$/i,
                   message: "Please, use valid VSG Bulgaria email!",
                 },
               })}

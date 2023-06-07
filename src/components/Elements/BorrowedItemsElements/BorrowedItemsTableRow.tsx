@@ -9,13 +9,13 @@ const BorrowedItemsTableRow = ({
   quantity,
 }: BorrowedItemsType) => {
   const { data } = useGetMarketDataQuery(itemId);
-  if (!data || Array.isArray(data)) return null;
+  if (!data || Array.isArray(data)) return null; //check data type
   return (
     <tr>
       <td>{data.name}</td>
       <td>{quantity}</td>
       <td>{dateFormat(loanStartDate)}</td>
-      <td>{loanEndDate ? dateFormat(loanEndDate) : "Ongoing"}</td>
+      <td className="borrow-status">{loanEndDate ? dateFormat(loanEndDate) : "Ongoing"}</td>
     </tr>
   );
 };

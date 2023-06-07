@@ -1,3 +1,4 @@
+import noImagePlaceholder from "../../../assets/inventory/no_image-placeholder.png";
 import {
   Dialog,
   TextField,
@@ -13,7 +14,6 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import noImagePlaceholder from "../../../assets/inventory/no_image-placeholder.png";
 import { InvenotryDialogModalProps, InventoryItemType } from "../../../types";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";

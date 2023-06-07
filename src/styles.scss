@@ -4,9 +4,8 @@
 @use "./styles/layout/body";
 @use "./styles/layout/aside";
 @use "./styles/layout/main";
+@use "./styles//layout//table";
 @use "./styles/pages/marketPage";
 @use "./styles/pages/inventoryPage";
-@use "./styles/pages/pendingOrdersPage";
-@use "./styles/pages/myOrdersPage";
 @use "./styles/utils/media";
 @use "./styles/utils/keyframes";

@@ -1,17 +1,17 @@
-import { useState, useContext } from "react";
-import { LentItemCtx } from "../../../context/lentItemCtx";
-import { Stack, IconButton } from "@mui/material";
-import { Edit, DeleteOutline, ContentPasteGo } from "@mui/icons-material";
-import { Tooltip } from "react-tooltip";
 import InventoryPopupElement from "./InventoryPopupElement";
+import { Edit, DeleteOutline, ContentPasteGo } from "@mui/icons-material";
 import { InventoryActionCellType } from "../../../types";
+import { useState, useContext } from "react";
+import { Stack, IconButton } from "@mui/material";
+import { LentItemCtx } from "../../../context/lentItemCtx";
+import { Tooltip } from "react-tooltip";
 
 const InventoryActionCell = ({
   onToggle,
   cellId,
   hasAvailable,
 }: InventoryActionCellType) => {
-  const [isVisible, setIsVisible] = useState(false); // local state and toggle for single row
+  const [isVisible, setIsVisible] = useState(false);
   const { toggleLentModal } = useContext(LentItemCtx);
 
   const togglePopup = () => {

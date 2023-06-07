@@ -1,4 +1,4 @@
-import HomePage from "./components/Pages/HomePage";
+import HomePage from "./components/Elements/HomeElements/HomePage";
 import ContentPage from "./pages/ContentPage";
 import { Routes, Route } from "react-router-dom";
 import Protected from "./routes/Protected";
