@@ -34,6 +34,9 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
             fontWeight="700"
             lineHeight="25px"
             margin="0px"
+            sx={{
+              wordBreak: "break-all",
+            }}
           >
             {data?.name}
           </Typography>
@@ -58,7 +61,13 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
         </Box>
       </Stack>
       <Box margin={"16px 32px 16px 16px"}>
-        {data?.description === "" ? "No description" : data?.description}
+        <Typography
+          sx={{
+            wordBreak: "break-all",
+          }}
+        >
+          {data?.description === "" ? "No description" : data?.description}
+        </Typography>
       </Box>
       <IconButton
         onClick={onClose}

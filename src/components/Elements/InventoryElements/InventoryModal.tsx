@@ -42,10 +42,17 @@ const InventoryModal = ({
   const [addItem] = usePostInventoryDataMutation();
   const [editItem] = useUpdateInventoryDataMutation();
   //form controls
-  const { register, control, handleSubmit, formState, reset, setValue } =
-    useForm<InventoryItemType>({
-      values: product ?? undefined,
-    });
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    reset,
+    setValue,
+    getValues,
+  } = useForm<InventoryItemType>({
+    values: product ?? undefined,
+  });
 
   const { errors, isSubmitSuccessful, dirtyFields } = formState;
 
@@ -73,6 +80,9 @@ const InventoryModal = ({
     setValue("imageURL", "", { shouldDirty: true });
     setImage(noImagePlaceholder);
   };
+  const quantity = getValues("quantity");
+  const quantityForSale = getValues("quantityForSale") ?? 0;
+  const availableQuantity = getValues("availableQuantity") ?? 0;
 
   //Form reset
   useEffect(() => {
@@ -173,19 +183,45 @@ const InventoryModal = ({
                 <FormHelperText>{errors.location?.message}</FormHelperText>
               </FormControl>
               <TextField
+                error={!!errors.quantityForSale && dirtyFields.quantityForSale}
                 variant="standard"
+                helperText={
+                  errors.quantityForSale && dirtyFields.quantityForSale
+                    ? errors.quantityForSale.message
+                    : ""
+                }
                 label="Qty For Sale"
                 type="number"
                 {...register("quantityForSale", {
                   valueAsNumber: true,
+                  max: {
+                    value: quantity - availableQuantity,
+                    message: `The available quantity is ${
+                      quantity - availableQuantity
+                    }`,
+                  },
                 })}
               />
               <TextField
+                error={
+                  !!errors.availableQuantity && dirtyFields.availableQuantity
+                }
+                helperText={
+                  errors.availableQuantity && dirtyFields.availableQuantity
+                    ? errors.availableQuantity.message
+                    : ""
+                }
                 variant="standard"
                 label="Available Quantity"
                 type="number"
                 {...register("availableQuantity", {
                   valueAsNumber: true,
+                  max: {
+                    value: quantity - quantityForSale,
+                    message: `The available quantity is ${
+                      quantity - quantityForSale
+                    }`,
+                  },
                 })}
               />
               <TextField
@@ -206,6 +242,12 @@ const InventoryModal = ({
                 {...register("quantity", {
                   valueAsNumber: true,
                   required: "Please, select quantity!",
+                  min: {
+                    value: quantityForSale + availableQuantity,
+                    message: `The quantity cannot be lower than ${
+                      quantityForSale + availableQuantity
+                    }`,
+                  },
                 })}
               />
             </Stack>
