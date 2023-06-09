@@ -1,5 +1,4 @@
 import { marketAPI } from "../redux/dataSlice";
-
 const categoryService = marketAPI.injectEndpoints({
   endpoints: (builder) => ({
     getCategory: builder.query<string[], string>({

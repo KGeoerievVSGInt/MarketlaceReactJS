@@ -2,16 +2,13 @@ import BorrowedItemsTableRow from "./BorrowedItemsTableRow";
 import EmptyTableRowElement from "../../Layout/EmptyTableRowElement";
 import LoadingSpinner from "../../Layout/LoadingSpinner";
 import { useGetBorrowerOrdersQuery } from "../../../services/lentItemsService";
-import { getUsername } from "../../../utils/getUsername";
-import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthCtx } from "../../../context/authCtx";
+import { useMsal } from "@azure/msal-react";
 
 const BorrowedItemsPage = () => {
-  const { user } = useContext(AuthCtx);
-  const { data, isLoading, error } = useGetBorrowerOrdersQuery(
-    getUsername(user)
-  );
+  const { instance } = useMsal();
+  const username = instance.getActiveAccount()?.username;
+  const { data, isLoading, error } = useGetBorrowerOrdersQuery(username ?? "");
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
   }

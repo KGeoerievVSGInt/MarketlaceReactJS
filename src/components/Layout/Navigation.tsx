@@ -1,11 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { AuthCtx } from "../../context/authCtx";
 import { HamburgerCtx } from "../../context/hamburgerCtx";
 import { useContext } from "react";
+import { useMsal } from "@azure/msal-react";
 const Navigation = () => {
-  const { user, logout } = useContext(AuthCtx);
+  const { instance } = useMsal();
+  const activeAccount = instance.getActiveAccount();
   const { isMenuShown, menuToggle } = useContext(HamburgerCtx);
-  const typeArr = user ? JSON.parse(user).idTokenClaims.groups : [];
+  const typeArr = activeAccount?.idTokenClaims
+    ? (activeAccount.idTokenClaims.groups as string[])
+    : [];
+  const handleLogout = () => {
+    instance.logoutRedirect();
+  };
   //toggle for mobile view
   const toggleMenu = () => {
     if (window.innerWidth < 600) menuToggle();
@@ -73,7 +79,7 @@ const Navigation = () => {
             </NavLink>
           </li>
           <li id="logout">
-            <NavLink to="/" onClick={logout}>
+            <NavLink to="/" onClick={handleLogout}>
               <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout
             </NavLink>
           </li>

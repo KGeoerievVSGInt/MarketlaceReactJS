@@ -2,12 +2,11 @@ import homeLogo from "../../assets/marketPage/vsg_marketplace-mini-logo 1.png";
 import defaultUserIcon from "../../assets/marketPage/Profile Img.png";
 import { HeaderObj } from "../../types";
 import { Link } from "react-router-dom";
-import { AuthCtx } from "../../context/authCtx";
 import { HamburgerCtx } from "../../context/hamburgerCtx";
 import { useContext } from "react";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { getUsername } from "../../utils/getUsername";
+import { useMsal } from "@azure/msal-react";
 const headerObj: HeaderObj = {
   "/marketplace": "Marketplace",
   "/inventory": "Inventory",
@@ -17,13 +16,16 @@ const headerObj: HeaderObj = {
 
 const Header = () => {
   const loc = location.pathname;
-  const { user, logout } = useContext(AuthCtx);
   const { menuToggle } = useContext(HamburgerCtx);
-  const username = getUsername(user)
+  const { instance } = useMsal();
+  const username = instance.getActiveAccount()?.username;
+  const handleLogout = () => {
+    instance.logoutRedirect();
+  };
 
   return (
     <header>
-      <Link to="/" onClick={logout}>
+      <Link to="/" onClick={handleLogout}>
         <img src={homeLogo} alt="VSG Logo" className="homeLogo" />
       </Link>
       <p className="marketplace-header">{headerObj[loc as keyof HeaderObj]}</p>
