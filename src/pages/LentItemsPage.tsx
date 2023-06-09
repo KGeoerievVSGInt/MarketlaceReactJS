@@ -1,4 +1,4 @@
-import { useGetLentItemsQuery } from "../../../services/lentItemsService";
+import { useGetLentItemsQuery } from "../services/lentItemsService";
 import {
   Paper,
   Table,
@@ -8,8 +8,8 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
-import LentItemsTableRow from "./LentItemsTableRow";
-import LoadingSpinner from "../../Layout/LoadingSpinner";
+import LentItemsTableRow from "../components/Elements/LentItemsElements/LentItemsTableRow";
+import LoadingSpinner from "../components/Layout/LoadingSpinner";
 import { Navigate } from "react-router-dom";
 const LentItemsPage = () => {
   const { data, isLoading, error } = useGetLentItemsQuery("");

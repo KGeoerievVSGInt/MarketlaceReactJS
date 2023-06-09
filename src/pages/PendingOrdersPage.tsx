@@ -1,9 +1,9 @@
-import PendingOrdersTableRow from "./PendingOrdersTableRow";
-import { useGetPendingOrdersQuery } from "../../../services/pendingService";
-import { PendingOrdersRowType } from "../../../types";
-import EmptyTableRowElement from "../../Layout/EmptyTableRowElement";
+import PendingOrdersTableRow from "../components/Elements/PendingOrdersElements/PendingOrdersTableRow";
+import { useGetPendingOrdersQuery } from "../services/pendingService";
+import { PendingOrdersRowType } from "../types";
+import EmptyTableRowElement from "../components/Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
-import LoadingSpinner from "../../Layout/LoadingSpinner";
+import LoadingSpinner from "../components/Layout/LoadingSpinner";
 const PendingOrdersPage = () => {
   const { data, isLoading, error } = useGetPendingOrdersQuery("");
 

@@ -1,4 +1,4 @@
-import image from "../../../assets/main/vsg_marketplace_logo 2.png";
+import image from "../assets/main/vsg_marketplace_logo 2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 

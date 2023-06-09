@@ -11,7 +11,6 @@ const Protected = () => {
   const typeArr = activeAccount?.idTokenClaims
     ? (activeAccount.idTokenClaims.groups as string[])
     : [];
-  console.log(typeArr);
 
   if (
     !typeArr.includes("f2123818-3d51-4fe4-990b-b072a80da143") &&

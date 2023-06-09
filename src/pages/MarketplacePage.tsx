@@ -1,7 +1,7 @@
-import LoadingSpinner from "../../Layout/LoadingSpinner";
-import CardItem from "./CardItem";
-import { useGetMarketDataQuery } from "../../../services/marketService";
-import { HamburgerCtx } from "../../../context/hamburgerCtx";
+import LoadingSpinner from "../components/Layout/LoadingSpinner";
+import CardItem from "../components/Elements/MarketplaceElements/CardItem";
+import { useGetMarketDataQuery } from "../services/marketService";
+import { HamburgerCtx } from "../context/hamburgerCtx";
 import { Typography } from "@mui/material";
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";

@@ -1,8 +1,8 @@
-import MyOrdersTableRow from "./MyOrdersTableRow";
-import { useGetMyOrdersQuery } from "../../../services/myOrdersService";
-import EmptyTableRowElement from "../../Layout/EmptyTableRowElement";
+import MyOrdersTableRow from "../components/Elements/MyOrdersElements/MyOrdersTableRow";
+import { useGetMyOrdersQuery } from "../services/myOrdersService";
+import EmptyTableRowElement from "../components/Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
-import LoadingSpinner from "../../Layout/LoadingSpinner";
+import LoadingSpinner from "../components/Layout/LoadingSpinner";
 const MyOrdersPage = () => {
   const { data, isLoading, error } = useGetMyOrdersQuery("");
 
