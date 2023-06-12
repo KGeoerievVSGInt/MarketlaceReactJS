@@ -39,7 +39,6 @@ const inventoryService = marketAPI.injectEndpoints({
           ...data,
           imageURL: data.imageModified ? data.imageURL : null,
         });
-
         return {
           url: `/Inventory/Modify/${data.id}`,
           method: "PUT",

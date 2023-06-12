@@ -19,6 +19,7 @@ import { InventoryLentModalType, LentModalType } from "../../../types";
 import { numbersToArr } from "../../../utils/numberToArr";
 import { usePostLentItemMutation } from "../../../services/inventoryService";
 import { toast } from "react-toastify";
+import { useGetAllUserQuery } from "../../../redux/userSlice";
 
 const InventoryLentModal = ({ data }: InventoryLentModalType) => {
   //states
@@ -36,6 +37,10 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
   }, [isSubmitSuccessful]);
   ///fetchers
   const [postLentItem] = usePostLentItemMutation();
+  const { data: users } = useGetAllUserQuery("");
+
+  console.log(users);
+
   const availableQuantityArr = numbersToArr(data?.availableQuantity ?? 0); //quantity check to avoid undefined
   //handlers
   const onSubmit = (fetchData: LentModalType) => {

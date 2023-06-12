@@ -5,9 +5,10 @@ const token = sessionStorage.getItem("token");
 export const userAPI = createApi({
   reducerPath: "userAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://graph.microsoft.com/v1.0/me/",
+    baseUrl:
+      "https://sm-server.netlify.app/api/get_all_employees_data_from_bob",
     prepareHeaders: (headers) => {
-      if (token) headers.set("Authorization", `Bearer ${token}`);
+      if (token) headers.set("x-token", "vanessa&radostina");
       return headers;
     },
   }),
