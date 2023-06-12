@@ -30,19 +30,28 @@ pca.addEventCallback((event) => {
     const account = payload.account;
     pca.setActiveAccount(account);
   }
+  if (event.eventType === EventType.LOGOUT_SUCCESS) {
+    return;
+  }
+});
+pca.handleRedirectPromise().then(() => {
+  const acc = pca.getActiveAccount();
+  if (!acc) {
+    pca.loginRedirect();
+  }
 });
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MsalProvider instance={pca}>
       <Provider store={store}>
-          <BrowserRouter>
-            <HamburgerCtxProvider>
-              <LentItemContextProvider>
-                <App />
-              </LentItemContextProvider>
-            </HamburgerCtxProvider>
-            <ToastContainer position="bottom-right" autoClose={1000} />
-          </BrowserRouter>
+        <BrowserRouter>
+          <HamburgerCtxProvider>
+            <LentItemContextProvider>
+              <App />
+            </LentItemContextProvider>
+          </HamburgerCtxProvider>
+          <ToastContainer position="bottom-right" autoClose={1000} />
+        </BrowserRouter>
       </Provider>
     </MsalProvider>
   </React.StrictMode>

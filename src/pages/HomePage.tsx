@@ -10,12 +10,8 @@ const HomePage = () => {
       .loginRedirect({
         scopes: ["user.read"],
       })
-      .then(() => {
-        console.log("nav");
-        nav("/marketplace");
-      });
+      .then(() => nav("/marketplace"));
   };
-
   return (
     <div className="container">
       <div className="logo-container">
