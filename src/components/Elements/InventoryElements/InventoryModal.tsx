@@ -196,7 +196,7 @@ const InventoryModal = ({
                   valueAsNumber: true,
                   max: {
                     value: quantity - availableQuantity,
-                    message: `The available quantity is ${
+                    message: `The available quantity for sale is ${
                       quantity - availableQuantity
                     }`,
                   },
@@ -218,7 +218,7 @@ const InventoryModal = ({
                   valueAsNumber: true,
                   max: {
                     value: quantity - quantityForSale,
-                    message: `The available quantity is ${
+                    message: `The available quantity for borrow is ${
                       quantity - quantityForSale
                     }`,
                   },
