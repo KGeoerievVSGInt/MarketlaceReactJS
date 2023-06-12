@@ -77,7 +77,7 @@ const InventoryModal = ({
   };
 
   const onImageDelete = () => {
-    setValue("imageURL", "", { shouldDirty: true });
+    setValue("imageURL", null, { shouldDirty: true });
     setImage(noImagePlaceholder);
   };
   const quantity = getValues("quantity");
