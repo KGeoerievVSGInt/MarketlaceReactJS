@@ -12,7 +12,7 @@ import { objToFormData } from "../utils/objToFormData";
 
 const inventoryService = marketAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getInventoryData: builder.query<InventoryItemType[], string>({
+    getInventoryData: builder.query<InventoryItemType[], void>({
       query: () => "/Inventory",
       providesTags: [inventoryTag],
     }),

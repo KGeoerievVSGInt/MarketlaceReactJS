@@ -37,8 +37,8 @@ const InventoryModal = ({
   );
 
   //fetchers
-  const { data: locations } = useGetLocationsQuery("");
-  const { data: categories } = useGetCategoryQuery("");
+  const { data: locations } = useGetLocationsQuery();
+  const { data: categories } = useGetCategoryQuery();
   const [addItem] = usePostInventoryDataMutation();
   const [editItem] = useUpdateInventoryDataMutation();
   //form controls

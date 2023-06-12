@@ -9,13 +9,17 @@ import {
   MenuItem,
   FormHelperText,
   Button,
-  TextField,
+  Avatar,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LentItemCtx } from "../../../context/lentItemCtx";
-import { InventoryLentModalType, LentModalType } from "../../../types";
+import {
+  InventoryLentModalType,
+  LentModalType,
+  UserType,
+} from "../../../types";
 import { numbersToArr } from "../../../utils/numberToArr";
 import { usePostLentItemMutation } from "../../../services/inventoryService";
 import { toast } from "react-toastify";
@@ -24,6 +28,7 @@ import { useGetAllUserQuery } from "../../../redux/userSlice";
 const InventoryLentModal = ({ data }: InventoryLentModalType) => {
   //states
   const { isLentModalVisible, toggleLentModal } = useContext(LentItemCtx);
+  const [users, setUsers] = useState<UserType[]>([]);
   //form controls
   const { register, handleSubmit, formState, reset } = useForm<LentModalType>({
     defaultValues: {
@@ -37,13 +42,13 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
   }, [isSubmitSuccessful]);
   ///fetchers
   const [postLentItem] = usePostLentItemMutation();
-  const { data: users } = useGetAllUserQuery("");
-
-  console.log(users);
+  const { data: fetchedUsers } = useGetAllUserQuery();
 
   const availableQuantityArr = numbersToArr(data?.availableQuantity ?? 0); //quantity check to avoid undefined
   //handlers
   const onSubmit = (fetchData: LentModalType) => {
+    console.log(fetchData);
+
     if (data) {
       const readyData: LentModalType = { ...fetchData, itemID: data.id };
       postLentItem(readyData)
@@ -55,6 +60,11 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
       toggleLentModal(null);
     }
   };
+  useEffect(() => {
+    if (fetchedUsers) {
+      setUsers(fetchedUsers.employees);
+    }
+  }, [fetchedUsers]);
 
   return (
     <Dialog
@@ -77,20 +87,28 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
             <Typography variant="h5" fontWeight={700} textAlign={"center"}>
               {data?.name}
             </Typography>
-            <TextField
-              error={!!errors.orderedBy}
-              helperText={errors.orderedBy?.message}
-              variant="standard"
-              required
-              label="Email"
-              {...register("orderedBy", {
-                required: "Please, enter code!",
-                pattern: {
-                  value: /[\w]+@vsgbg\.com$/i,
-                  message: "Please, use valid VSG Bulgaria email!",
-                },
-              })}
-            />
+            <FormControl variant="standard" error={!!errors.orderedBy}>
+              <InputLabel id="user-select-label">Users</InputLabel>
+              <Select
+                labelId="user-select-label"
+                required
+                defaultValue={""}
+                label="Users "
+                variant="standard"
+                {...register("orderedBy", {
+                  required: "Please, select user!",
+                })}
+              >
+                {/* <MenuItem>One</MenuItem> */}
+                {users.map((user) => (
+                  <MenuItem key={user.email} value={user.email}>
+                    <Avatar src={user.avatar} alt={user.name} />
+                    <Typography marginLeft={1}>{user.name}</Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>{errors.quantity?.message}</FormHelperText>
+            </FormControl>
             <FormControl variant="standard" error={!!errors.quantity}>
               <InputLabel id="quantity-select-label">Quantity</InputLabel>
               <Select

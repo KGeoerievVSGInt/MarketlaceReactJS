@@ -4,7 +4,7 @@ import { BorrowedItemsType, LentItemsType } from "../types";
 
 const lentItemsService = marketAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getLentItems: builder.query<LentItemsType[], string>({
+    getLentItems: builder.query<LentItemsType[], void>({
       query: () => "/LentItems",
       providesTags: [lentItemsTag],
     }),

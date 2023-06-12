@@ -159,3 +159,9 @@ export type BorrowedItemsType = {
   loanStartDate: string;
   loanEndDate: string | null;
 };
+//Users Type
+export type UserType = {
+  avatar: string;
+  name: string;
+  email: string;
+};

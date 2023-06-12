@@ -32,8 +32,8 @@ const InventoryPage = () => {
   const { isLentModalVisible, itemId } = useContext(LentItemCtx);
 
   //RTK Query
-  const { data, error } = useGetInventoryDataQuery("");
-  const { data: locations } = useGetLocationsQuery("");
+  const { data, error } = useGetInventoryDataQuery();
+  const { data: locations } = useGetLocationsQuery();
   //Search row and render data
   useEffect(() => {
     if (data) {

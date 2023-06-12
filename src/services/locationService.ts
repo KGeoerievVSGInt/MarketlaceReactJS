@@ -2,7 +2,7 @@ import { marketAPI } from "../redux/dataSlice";
 
 const locationService = marketAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getLocations: builder.query<string[], string>({
+    getLocations: builder.query<string[], void>({
       query: () => "/GetLocations",
     }),
   }),

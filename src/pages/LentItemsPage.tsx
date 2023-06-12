@@ -12,7 +12,7 @@ import LentItemsTableRow from "../components/Elements/LentItemsElements/LentItem
 import LoadingSpinner from "../components/Layout/LoadingSpinner";
 import { Navigate } from "react-router-dom";
 const LentItemsPage = () => {
-  const { data, isLoading, error } = useGetLentItemsQuery("");
+  const { data, isLoading, error } = useGetLentItemsQuery();
 
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
