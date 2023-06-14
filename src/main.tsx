@@ -30,15 +30,6 @@ pca.addEventCallback((event) => {
     const account = payload.account;
     pca.setActiveAccount(account);
   }
-  if (event.eventType === EventType.LOGOUT_SUCCESS) {
-    return;
-  }
-});
-pca.handleRedirectPromise().then(() => {
-  const acc = pca.getActiveAccount();
-  if (!acc) {
-    pca.loginRedirect();
-  }
 });
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

@@ -8,13 +8,15 @@ const Protected = () => {
 
   if (!activeAccount) return <Navigate to="/" replace />;
 
-  const typeArr = activeAccount?.idTokenClaims
+  const typeArr = activeAccount.idTokenClaims
     ? (activeAccount.idTokenClaims.groups as string[])
     : [];
 
   if (
     !typeArr.includes("f2123818-3d51-4fe4-990b-b072a80da143") &&
-    (location === "/inventory" || location === "/pending")
+    (location === "/inventory" ||
+      location === "/pending" ||
+      location === "/lent")
   )
     return <Navigate to="/marketplace" replace />;
   else return <Outlet />;

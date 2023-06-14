@@ -35,24 +35,16 @@ const InventoryModal = ({
   const [image, setImage] = useState(
     product ? product.imageURL : noImagePlaceholder
   );
-
   //fetchers
   const { data: locations } = useGetLocationsQuery();
   const { data: categories } = useGetCategoryQuery();
   const [addItem] = usePostInventoryDataMutation();
   const [editItem] = useUpdateInventoryDataMutation();
   //form controls
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState,
-    reset,
-    setValue,
-    getValues,
-  } = useForm<InventoryItemType>({
-    values: product ?? undefined,
-  });
+  const { register, control, handleSubmit, formState, reset, setValue, watch } =
+    useForm<InventoryItemType>({
+      values: product ?? undefined,
+    });
 
   const { errors, isSubmitSuccessful, dirtyFields } = formState;
 
@@ -80,9 +72,10 @@ const InventoryModal = ({
     setValue("imageURL", null, { shouldDirty: true });
     setImage(noImagePlaceholder);
   };
-  const quantity = getValues("quantity");
-  const quantityForSale = getValues("quantityForSale") ?? 0;
-  const availableQuantity = getValues("availableQuantity") ?? 0;
+  const quantity = watch("quantity") ?? 0;
+  const quantityForSale = watch("quantityForSale") ?? 0;
+  const availableQuantity = watch("availableQuantity") ?? 0;
+  console.log(quantity, quantityForSale, availableQuantity);
 
   //Form reset
   useEffect(() => {
@@ -183,10 +176,16 @@ const InventoryModal = ({
                 <FormHelperText>{errors.location?.message}</FormHelperText>
               </FormControl>
               <TextField
-                error={!!errors.quantityForSale && dirtyFields.quantityForSale}
+                error={
+                  product
+                    ? !!errors.quantityForSale && dirtyFields.quantityForSale
+                    : false
+                }
                 variant="standard"
                 helperText={
-                  errors.quantityForSale && dirtyFields.quantityForSale
+                  product &&
+                  errors.quantityForSale &&
+                  dirtyFields.quantityForSale
                     ? errors.quantityForSale.message
                     : ""
                 }
@@ -196,18 +195,21 @@ const InventoryModal = ({
                   valueAsNumber: true,
                   max: {
                     value: quantity - availableQuantity,
-                    message: `The available quantity for sale is ${
-                      quantity - availableQuantity
-                    }`,
+                    message: `Not enough available quantity for sale`,
                   },
                 })}
               />
               <TextField
                 error={
-                  !!errors.availableQuantity && dirtyFields.availableQuantity
+                  product
+                    ? !!errors.availableQuantity &&
+                      dirtyFields.availableQuantity
+                    : false
                 }
                 helperText={
-                  errors.availableQuantity && dirtyFields.availableQuantity
+                  product &&
+                  errors.availableQuantity &&
+                  dirtyFields.availableQuantity
                     ? errors.availableQuantity.message
                     : ""
                 }
@@ -218,9 +220,8 @@ const InventoryModal = ({
                   valueAsNumber: true,
                   max: {
                     value: quantity - quantityForSale,
-                    message: `The available quantity for borrow is ${
-                      quantity - quantityForSale
-                    }`,
+                    message: `Not enough available quantity for borrow
+                    `,
                   },
                 })}
               />
@@ -233,8 +234,12 @@ const InventoryModal = ({
                 })}
               />
               <TextField
-                error={!!errors.quantity}
-                helperText={errors.quantity?.message}
+                error={!!errors.quantity && dirtyFields.quantity}
+                helperText={
+                  errors.quantity && dirtyFields.quantity
+                    ? errors.quantity.message
+                    : ""
+                }
                 variant="standard"
                 required
                 label="Qty"
@@ -244,8 +249,7 @@ const InventoryModal = ({
                   required: "Please, select quantity!",
                   min: {
                     value: quantityForSale + availableQuantity,
-                    message: `The quantity cannot be lower than ${
-                      quantityForSale + availableQuantity
+                    message: `The quantity cannot be lower than the sum of Qty for Sale and Available Quantity
                     }`,
                   },
                 })}

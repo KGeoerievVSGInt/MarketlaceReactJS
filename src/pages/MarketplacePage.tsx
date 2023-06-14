@@ -9,7 +9,8 @@ import { Navigate } from "react-router-dom";
 const MarketplacePage = () => {
   const { data, isLoading, error } = useGetMarketDataQuery("");
   const { isMenuShown } = useContext(HamburgerCtx);
-  if (isMenuShown) return null; // menu toggle
+  // menu toggle
+  if (isMenuShown) return null;
 
   // token expiration check
   if (error && "data" in error && error.status === 401) {
@@ -18,10 +19,12 @@ const MarketplacePage = () => {
   return (
     <main className="main-content">
       {isLoading ? (
-        <LoadingSpinner /> //loading element
+        //loading element
+        <LoadingSpinner />
       ) : (
         <div className="cardItem-container">
-          {!data || !Array.isArray(data) || data.length == 0 ? ( // no card items element
+          {!data || !Array.isArray(data) || data.length == 0 ? (
+            // no card items element
             <Typography
               color={"#9a9a9a"}
               textAlign={"center"}

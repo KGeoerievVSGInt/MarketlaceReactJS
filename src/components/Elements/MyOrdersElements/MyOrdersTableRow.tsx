@@ -19,7 +19,7 @@ const MyOrdersTableRow = ({
   };
 
   return (
-    <tr>
+    <tr role="order-row">
       <td>{name}</td>
       <td>{quantity}</td>
       <td>{orderPrice}BGN</td>

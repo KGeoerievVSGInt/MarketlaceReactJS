@@ -56,8 +56,8 @@ const App = () => {
           <Route path="/pending" element={<PendingOrdersPage />} />
           <Route path="/lent" element={<LentItemsPage />} />
           <Route path="/borrowed" element={<BorrowedItemsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

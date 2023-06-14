@@ -7,7 +7,7 @@ import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 
 const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
   const { data } = useGetMarketDataQuery(code);
-  if (Array.isArray(data)) return null;
+  if (!data || Array.isArray(data)) return null;
 
   return (
     <Dialog
@@ -21,8 +21,8 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
       }}
     >
       <img
-        src={data?.imageURL ?? defaultImage}
-        alt="Hard Coded Text"
+        src={data.imageURL ?? defaultImage}
+        alt={data.name}
         className="dialog-image"
       />
       <Stack direction="row" justifyContent="space-between" margin="16px">
@@ -38,10 +38,10 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
               wordBreak: "break-all",
             }}
           >
-            {data?.name}
+            {data.name}
           </Typography>
           <Typography variant="body2" sx={{ color: "#9a9a9a" }}>
-            {data?.category}
+            {data.category}
           </Typography>
         </Box>
         <Box>
@@ -53,10 +53,10 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
             lineHeight="25px"
             marginBottom="0px"
           >
-            {data?.price}BGN
+            {data.price}BGN
           </Typography>
           <Typography variant="body2" sx={{ color: "#9a9a9a" }}>
-            Qty {data?.quantityForSale}
+            Qty {data.quantityForSale}
           </Typography>
         </Box>
       </Stack>
@@ -66,7 +66,7 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
             wordBreak: "break-all",
           }}
         >
-          {data?.description === "" ? "No description" : data?.description}
+          {data.description === "" ? "No description" : data.description}
         </Typography>
       </Box>
       <IconButton

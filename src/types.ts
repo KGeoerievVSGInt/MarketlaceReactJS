@@ -16,6 +16,8 @@ export type HeaderObj = {
   "/inventory": string;
   "/pending": string;
   "/myorders": string;
+  "/borrowed": string;
+  "/lent": string;
 };
 //Markeplace types
 export type FetcherDataType = {
