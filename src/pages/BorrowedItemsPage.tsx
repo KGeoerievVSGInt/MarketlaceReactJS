@@ -1,14 +1,17 @@
-import BorrowedItemsTableRow from "./BorrowedItemsTableRow";
-import EmptyTableRowElement from "../../Layout/EmptyTableRowElement";
-import LoadingSpinner from "../../Layout/LoadingSpinner";
-import { useGetBorrowerOrdersQuery } from "../../../services/lentItemsService";
+import BorrowedItemsTableRow from "../components/Elements/BorrowedItemsElements/BorrowedItemsTableRow";
+import EmptyTableRowElement from "../components/Layout/EmptyTableRowElement";
+import LoadingSpinner from "../components/Layout/LoadingSpinner";
+import { useGetBorrowerOrdersQuery } from "../services/lentItemsService";
 import { Navigate } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 
 const BorrowedItemsPage = () => {
+  //Auth hooks
   const { instance } = useMsal();
   const username = instance.getActiveAccount()?.username;
+  //RTK Query
   const { data, isLoading, error } = useGetBorrowerOrdersQuery(username ?? "");
+  //token expiration check
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
   }

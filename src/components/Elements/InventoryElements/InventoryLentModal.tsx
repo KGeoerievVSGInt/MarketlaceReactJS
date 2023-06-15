@@ -37,9 +37,6 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
     },
   });
   const { errors, isSubmitSuccessful } = formState;
-  useEffect(() => {
-    isSubmitSuccessful && reset();
-  }, [isSubmitSuccessful]);
   ///fetchers
   const [postLentItem] = usePostLentItemMutation();
   const { data: fetchedUsers } = useGetAllUserQuery();
@@ -60,6 +57,11 @@ const InventoryLentModal = ({ data }: InventoryLentModalType) => {
       toggleLentModal(null);
     }
   };
+  //form reset
+  useEffect(() => {
+    isSubmitSuccessful && reset();
+  }, [isSubmitSuccessful]);
+  //set users
   useEffect(() => {
     if (fetchedUsers) {
       setUsers(fetchedUsers.employees);

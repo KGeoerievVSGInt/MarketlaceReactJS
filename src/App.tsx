@@ -10,7 +10,7 @@ import MyOrdersPage from "./pages/MyOrdersPage";
 import InventoryPage from "./pages/InventoryPage";
 import PendingOrdersPage from "./pages/PendingOrdersPage";
 import LentItemsPage from "./pages/LentItemsPage";
-import BorrowedItemsPage from "./components/Elements/BorrowedItemsElements/BorrowedItemsPage";
+import BorrowedItemsPage from "./pages/BorrowedItemsPage";
 import Header from "./components/Layout/Header";
 
 const App = () => {

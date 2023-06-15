@@ -25,6 +25,7 @@ const HomePage = () => {
       console.log(e);
     }
   };
+  //redirect on successful authentication
   useEffect(() => {
     if (isAuthenticated) {
       if (!!error) {

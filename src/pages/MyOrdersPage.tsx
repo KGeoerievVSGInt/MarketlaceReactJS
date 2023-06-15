@@ -27,7 +27,10 @@ const MyOrdersPage = () => {
           </thead>
           <tbody>
             {(!data || data.length === 0) && (
-              <EmptyTableRowElement text="You don't have recent orders" numofCols={5}/>
+              <EmptyTableRowElement
+                text="You don't have recent orders"
+                numofCols={5}
+              />
             )}
             {data &&
               data.map((row) => {

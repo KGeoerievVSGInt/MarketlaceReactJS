@@ -2,54 +2,47 @@ import { GridRowId } from "@mui/x-data-grid";
 import React from "react";
 
 //content page types
-export type PagesObj = {
-  "/marketplace": JSX.Element;
-  "/inventory": JSX.Element;
-  "/pending": JSX.Element;
-  "/myorders": JSX.Element;
-  "/lent": JSX.Element;
-  "/borrowed": JSX.Element;
-};
+
 //header types
-export type HeaderObj = {
+export interface HeaderObj {
   "/marketplace": string;
   "/inventory": string;
   "/pending": string;
   "/myorders": string;
   "/borrowed": string;
   "/lent": string;
-};
+}
 //Markeplace types
-export type FetcherDataType = {
+export interface FetcherDataType {
   id: number;
   code: number;
   imageURL: string;
   price: number;
   category: string;
   quantityForSale: number;
-};
+}
 export type SingleItemType = FetcherDataType & {
   name: string;
   description?: string;
 };
-export type MarketplacePopupProps = {
+export interface MarketplacePopupProps {
   quantity?: number;
   price?: number;
   onToggle: () => void;
   itemId: number;
-};
-export type MarketplaceModalProps = {
+}
+export interface MarketplaceModalProps {
   code: number;
   open: boolean;
   onClose: (e: React.MouseEvent) => void;
-};
-export type MarketOrderType = {
+}
+export interface MarketOrderType {
   itemId: number;
   quantity: number;
-};
+}
 
 // inventory types
-export type InventoryItemType = {
+export interface InventoryItemType {
   id: number;
   name: string;
   category: string;
@@ -62,16 +55,16 @@ export type InventoryItemType = {
   location: string;
   availableQuantity?: number;
   imageModified?: boolean;
-};
-export type InvenotryTableProps = {
+}
+export interface InvenotryTableProps {
   onToggle: (val: GridRowId) => void;
   data: InventoryItemType[];
-};
-export type InventoryActionCellType = {
+}
+export interface InventoryActionCellType {
   onToggle: (id: number) => void;
   cellId: number;
   hasAvailable: boolean;
-};
+}
 export type InventoryModalDataType = {
   id: number;
   name: string;
@@ -82,42 +75,42 @@ export type InventoryModalDataType = {
   img: string;
 } | null;
 
-export type InvenotryDialogModalProps = {
+export interface InvenotryDialogModalProps {
   open: boolean;
   onClose: (val?: GridRowId) => void;
   product: InventoryItemType | null;
-};
-export type InventoryPopupProps = {
+}
+export interface InventoryPopupProps {
   onToggle: () => void;
   id: GridRowId | null;
-};
-export type InventoryLentModalType = {
+}
+export interface InventoryLentModalType {
   data: InventoryItemType | undefined;
-};
+}
 
-export type LentModalType = {
+export interface LentModalType {
   orderedBy: string;
   quantity: number;
   itemID: number;
-};
+}
 //Pending Orders Types
-export type PendingOrdersRowType = {
+export interface PendingOrdersRowType {
   id: number;
   itemCode: number;
   orderDate: string;
   orderPrice: number;
   orderedBy: string;
   quantity: number;
-};
+}
 //Empty table type
 
-export type EmptyTableRow = {
+export interface EmptyTableRow {
   text: string;
   numofCols: number;
-};
+}
 // My Orders Types
 
-export type MyOrdersRowType = {
+export interface MyOrdersRowType {
   id: number;
   itemCode: number;
   name: string;
@@ -125,45 +118,45 @@ export type MyOrdersRowType = {
   orderPrice: number;
   quantity: number;
   status: string;
-};
-export type MyOrdersPopupType = {
+}
+export interface MyOrdersPopupType {
   id: number;
   onToggle: () => void;
-};
+}
 //Context Types
-export type LentItemsProviderProps = {
+export interface LentItemsProviderProps {
   children: React.ReactNode;
-};
-export type AuthContextType = {
+}
+export interface AuthContextType {
   user: string | null;
   userSetter: (val: string) => void;
   logout: () => void;
-};
-export type HamburgerContexType = {
+}
+export interface HamburgerContexType {
   isMenuShown: boolean;
   menuToggle: () => void;
-};
-export type LentContextType = {
+}
+export interface LentContextType {
   isLentModalVisible: boolean;
   toggleLentModal: (id: number | null) => void;
   itemId: number | null;
-};
+}
 //Lent Items
-export type LentItemsType = {
+export interface LentItemsType {
   email: string;
   count: number;
-};
-export type BorrowedItemsType = {
+}
+export interface BorrowedItemsType {
   id: number;
   itemId: number;
   orderedBy: string;
   quantity: number;
   loanStartDate: string;
   loanEndDate: string | null;
-};
+}
 //Users Type
-export type UserType = {
+export interface UserType {
   avatar: string;
   name: string;
   email: string;
-};
+}
