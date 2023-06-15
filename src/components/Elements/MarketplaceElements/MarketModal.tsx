@@ -11,6 +11,7 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
 
   return (
     <Dialog
+      role="market-modal"
       open={open}
       PaperProps={{
         style: {
@@ -70,6 +71,7 @@ const MarketModal = ({ open, onClose, code }: MarketplaceModalProps) => {
         </Typography>
       </Box>
       <IconButton
+        role="close-button"
         onClick={onClose}
         sx={{ position: "absolute", right: "4px", top: "4px" }}
       >

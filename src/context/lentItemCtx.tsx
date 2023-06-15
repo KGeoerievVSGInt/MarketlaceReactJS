@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { LentContextType, ProviderProps } from "../types";
+import { LentContextType, LentItemsProviderProps } from "../types";
 
 const defaultValues: LentContextType = {
   isLentModalVisible: false,
@@ -9,8 +9,8 @@ const defaultValues: LentContextType = {
 
 export const LentItemCtx = createContext<LentContextType>(defaultValues);
 
-const LentItemContextProvider = ({ children }: ProviderProps) => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+const LentItemContextProvider = ({ children }: LentItemsProviderProps) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [lentItemId, setLentItemId] = useState<number | null>(null);
 
   const toggleModal: LentContextType["toggleLentModal"] = (id) => {

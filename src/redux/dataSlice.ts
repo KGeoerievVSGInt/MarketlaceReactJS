@@ -8,12 +8,15 @@ import {
   pendingTag,
 } from "./tags";
 const BASE_URL = "https://localhost:5174";
-const token = sessionStorage.getItem("token");
+
 export const marketAPI = createApi({
   reducerPath: "marketAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
+      const token = sessionStorage.getItem("token");
+      console.log(token);
+
       if (token) headers.set("Authorization", `Bearer ${token}`);
       return headers;
     },

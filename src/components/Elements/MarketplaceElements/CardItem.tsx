@@ -13,11 +13,9 @@ import MarketModal from "./MarketModal";
 import "react-tooltip/dist/react-tooltip.css";
 import MarketPopupElement from "./MarketPopupElement";
 import { FetcherDataType } from "../../../types";
-import { usePostNewOrderMutation } from "../../../services/marketService";
-import { useNavigate } from "react-router-dom";
 import defaultImage from "../../../assets/inventory/no_image-placeholder.png";
 import { numbersToArr } from "../../../utils/numberToArr";
-import { toast } from "react-toastify";
+
 const CardItem = ({
   id,
   code,
@@ -30,9 +28,6 @@ const CardItem = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectVal, setSelectVal] = useState("1");
-  const navigate = useNavigate();
-  // RTK Query
-  const [newOrder] = usePostNewOrderMutation();
   //Toggle handlers
   const toggleModal = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -41,24 +36,10 @@ const CardItem = ({
   const togglePopup = () => {
     setPopupVisible((prevState) => !prevState);
   };
-  //Action Handlers
-  const buyHandler = () => {
-    newOrder({
-      itemId: id,
-      quantity: Number(selectVal),
-    })
-      .unwrap()
-      .then(() => {
-        toast.success("Item bought succsessfuly!");
-        navigate("/myorders");
-      })
-      .catch((error) => console.log(error));
 
-    setPopupVisible((prevState) => !prevState);
-  };
   return (
     <div className="card-item">
-      <a href="" onClick={toggleModal}>
+      <a role="link-el" href="" onClick={toggleModal}>
         <img src={imageURL ?? defaultImage} alt="Product Image" />
       </a>
       <div className="item-options">
@@ -80,6 +61,7 @@ const CardItem = ({
               onChange={(e: SelectChangeEvent) => {
                 setSelectVal(e.target.value);
               }}
+              role="dropdown"
             >
               {numbersToArr(quantityForSale).map((num) => {
                 return (
@@ -118,7 +100,7 @@ const CardItem = ({
                 onToggle={togglePopup}
                 quantity={Number(selectVal)}
                 price={price}
-                onBuy={buyHandler}
+                itemId={id}
               />
             </Tooltip>
           )}

@@ -72,11 +72,10 @@ const InventoryModal = ({
     setValue("imageURL", null, { shouldDirty: true });
     setImage(noImagePlaceholder);
   };
+  //quantity watchers
   const quantity = watch("quantity") ?? 0;
   const quantityForSale = watch("quantityForSale") ?? 0;
   const availableQuantity = watch("availableQuantity") ?? 0;
-  console.log(quantity, quantityForSale, availableQuantity);
-
   //Form reset
   useEffect(() => {
     isSubmitSuccessful && reset();
@@ -328,8 +327,8 @@ const InventoryModal = ({
               top: "-10px",
             }}
             onClick={() => {
-              onClose();
               reset();
+              onClose();
             }}
           >
             <Close sx={{ color: "#000" }} />

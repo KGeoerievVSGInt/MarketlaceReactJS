@@ -60,7 +60,7 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
           <InventoryActionCell
             onToggle={onToggle}
             cellId={id as number}
-            hasAvailable={el?.availableQuantity}
+            hasAvailable={!!el?.availableQuantity ?? false}
           />
         );
       },

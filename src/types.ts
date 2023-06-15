@@ -36,7 +36,7 @@ export type MarketplacePopupProps = {
   quantity?: number;
   price?: number;
   onToggle: () => void;
-  onBuy: () => void;
+  itemId: number;
 };
 export type MarketplaceModalProps = {
   code: number;
@@ -70,7 +70,7 @@ export type InvenotryTableProps = {
 export type InventoryActionCellType = {
   onToggle: (id: number) => void;
   cellId: number;
-  hasAvailable: number | undefined;
+  hasAvailable: boolean;
 };
 export type InventoryModalDataType = {
   id: number;
@@ -131,7 +131,7 @@ export type MyOrdersPopupType = {
   onToggle: () => void;
 };
 //Context Types
-export type ProviderProps = {
+export type LentItemsProviderProps = {
   children: React.ReactNode;
 };
 export type AuthContextType = {

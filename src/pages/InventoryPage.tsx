@@ -26,8 +26,8 @@ const InventoryPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState<InventoryItemType | null>(null);
   const [rows, setRows] = useState<InventoryItemType[]>([]);
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [currentLocation, setCurrentLocation] = useState<string>("All");
+  const [searchValue, setSearchValue] = useState("");
+  const [currentLocation, setCurrentLocation] = useState("All");
   //context
   const { isLentModalVisible, itemId } = useContext(LentItemCtx);
 

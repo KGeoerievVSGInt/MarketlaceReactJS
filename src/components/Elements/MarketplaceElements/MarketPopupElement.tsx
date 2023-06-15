@@ -1,12 +1,31 @@
 import { Box, Stack, Button } from "@mui/material";
 import { MarketplacePopupProps } from "../../../types";
+import { usePostNewOrderMutation } from "../../../services/marketService";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MarketPopupElement = ({
-  onBuy,
+  itemId,
   onToggle,
   price,
   quantity,
 }: MarketplacePopupProps) => {
+  const navigate = useNavigate();
+  const [newOrder] = usePostNewOrderMutation();
+  const buyHandler = () => {
+    newOrder({
+      itemId,
+      quantity,
+    })
+      .unwrap()
+      .then(() => {
+        toast.success("Item bought succsessfuly!");
+        navigate("/myorders");
+      })
+      .catch((error) => console.log(error));
+
+    onToggle();
+  };
   return (
     <Box
       padding={"10px"}
@@ -26,7 +45,7 @@ const MarketPopupElement = ({
         justifyContent={"flex-end"}
       >
         <Button
-          onClick={onBuy}
+          onClick={buyHandler}
           variant="contained"
           size="small"
           sx={{

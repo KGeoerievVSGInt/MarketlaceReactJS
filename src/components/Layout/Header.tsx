@@ -24,6 +24,7 @@ const Header = () => {
   const username = instance.getActiveAccount()?.username;
   const handleLogout = () => {
     instance.logoutRedirect();
+    sessionStorage.removeItem("token");
   };
 
   useEffect(() => {

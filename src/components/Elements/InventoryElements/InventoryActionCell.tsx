@@ -42,11 +42,11 @@ const InventoryActionCell = ({
           }}
         />
       </IconButton>
-      {!!hasAvailable && (
+      {hasAvailable && (
         <IconButton
           size="small"
           onClick={() => {
-            toggleLentModal(cellId as number);
+            toggleLentModal(cellId);
           }}
         >
           <ContentPasteGo

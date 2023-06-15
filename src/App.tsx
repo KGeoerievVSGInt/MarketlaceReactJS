@@ -2,9 +2,7 @@ import HomePage from "./pages/HomePage";
 import { Routes, Route, Outlet } from "react-router-dom";
 import Protected from "./routes/Protected";
 import NotFoundPage from "./pages/NotFoundPage";
-import { useIsAuthenticated, useMsalAuthentication } from "@azure/msal-react";
-import { useEffect, useContext } from "react";
-import { InteractionType } from "@azure/msal-browser";
+import { useContext } from "react";
 import Navigation from "./components/Layout/Navigation";
 import { HamburgerCtx } from "./context/hamburgerCtx";
 import MarketplacePage from "./pages/MarketplacePage";
@@ -17,22 +15,6 @@ import Header from "./components/Layout/Header";
 
 const App = () => {
   const { isMenuShown } = useContext(HamburgerCtx);
-  const { result, error } = useMsalAuthentication(InteractionType.Silent, {
-    scopes: ["user.read"],
-  });
-  const isAuthenticated = useIsAuthenticated();
-  useEffect(() => {
-    if (isAuthenticated) {
-      if (!!error) {
-        console.log(error);
-        return;
-      }
-      if (result) {
-        const { idToken } = result;
-        sessionStorage.setItem("token", idToken);
-      }
-    }
-  }, [isAuthenticated]);
 
   return (
     <Routes>

@@ -11,6 +11,7 @@ const Navigation = () => {
     : [];
   const handleLogout = () => {
     instance.logoutRedirect();
+    sessionStorage.removeItem("token");
   };
   //toggle for mobile view
   const toggleMenu = () => {

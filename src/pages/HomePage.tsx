@@ -1,17 +1,44 @@
 import image from "../assets/main/vsg_marketplace_logo 2.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useMsal } from "@azure/msal-react";
+import {
+  useMsal,
+  useMsalAuthentication,
+  useIsAuthenticated,
+} from "@azure/msal-react";
+import { useEffect } from "react";
+import { InteractionType } from "@azure/msal-browser";
 
 const HomePage = () => {
   const { instance } = useMsal();
   const nav = useNavigate();
-  const handleLogin = () => {
-    instance
-      .loginRedirect({
+  const { result, error } = useMsalAuthentication(InteractionType.Silent, {
+    scopes: ["user.read"],
+  });
+  const isAuthenticated = useIsAuthenticated();
+  const handleLogin = async () => {
+    try {
+      const res = await instance.loginPopup({
         scopes: ["user.read"],
-      })
-      .then(() => nav("/marketplace"));
+      });
+      instance.setActiveAccount(res.account);
+    } catch (e) {
+      console.log(e);
+    }
   };
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (!!error) {
+        console.log(error);
+        return;
+      }
+      if (result) {
+        const { idToken } = result;
+        sessionStorage.setItem("token", idToken);
+        nav("/marketplace");
+      }
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className="container">
       <div className="logo-container">

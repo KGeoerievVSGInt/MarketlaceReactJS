@@ -27,79 +27,80 @@ const MockTable = ({
     </table>
   );
 };
-it("should render element properly", () => {
-  render(
-    <MockTable
-      id={1}
-      itemCode={12}
-      orderDate={orderDate}
-      orderPrice={400}
-      status="Pending"
-      quantity={4}
-      name="test"
-    />
-  );
-  const row = screen.getByRole("order-row");
-  const dateCell = screen.getByText("2023-06-12 16:27");
-  expect(row).toBeInTheDocument();
-  expect(dateCell).toBeInTheDocument();
-});
-it("should render date properly", () => {
-  render(
-    <MockTable
-      id={1}
-      itemCode={12}
-      orderDate={orderDate}
-      orderPrice={400}
-      status="Pending"
-      quantity={4}
-      name="test"
-    />
-  );
-
-});
-it("should render delete button with pending status", () => {
-  render(
-    <MockTable
-      id={1}
-      itemCode={12}
-      orderDate={orderDate}
-      orderPrice={400}
-      status="Pending"
-      quantity={4}
-      name="test"
-    />
-  );
-  const statusBtn = screen.getByRole("button");
-  expect(statusBtn).toBeInTheDocument();
-});
-it("should not render delete button with another status", () => {
-  render(
-    <MockTable
-      id={1}
-      itemCode={12}
-      orderDate={orderDate}
-      orderPrice={400}
-      status="test"
-      quantity={4}
-      name="test"
-    />
-  );
-  const statusBtn = screen.queryByRole("button");
-  expect(statusBtn).not.toBeInTheDocument();
-});
-it("should render 5 cells", () => {
-  render(
-    <MockTable
-      id={1}
-      itemCode={12}
-      orderDate={orderDate}
-      orderPrice={400}
-      status="Pending"
-      quantity={4}
-      name="test"
-    />
-  );
-  const cells = screen.getAllByRole("cell");
-  expect(cells.length).toBe(5);
+describe("MyOrdersTableRow", () => {
+  it("should render element properly", () => {
+    render(
+      <MockTable
+        id={1}
+        itemCode={12}
+        orderDate={orderDate}
+        orderPrice={400}
+        status="Pending"
+        quantity={4}
+        name="test"
+      />
+    );
+    const row = screen.getByRole("order-row");
+    const dateCell = screen.getByText("2023-06-12 16:27");
+    expect(row).toBeInTheDocument();
+    expect(dateCell).toBeInTheDocument();
+  });
+  it("should render date properly", () => {
+    render(
+      <MockTable
+        id={1}
+        itemCode={12}
+        orderDate={orderDate}
+        orderPrice={400}
+        status="Pending"
+        quantity={4}
+        name="test"
+      />
+    );
+  });
+  it("should render delete button with pending status", () => {
+    render(
+      <MockTable
+        id={1}
+        itemCode={12}
+        orderDate={orderDate}
+        orderPrice={400}
+        status="Pending"
+        quantity={4}
+        name="test"
+      />
+    );
+    const statusBtn = screen.getByRole("button");
+    expect(statusBtn).toBeInTheDocument();
+  });
+  it("should not render delete button with another status", () => {
+    render(
+      <MockTable
+        id={1}
+        itemCode={12}
+        orderDate={orderDate}
+        orderPrice={400}
+        status="test"
+        quantity={4}
+        name="test"
+      />
+    );
+    const statusBtn = screen.queryByRole("button");
+    expect(statusBtn).not.toBeInTheDocument();
+  });
+  it("should render 5 cells", () => {
+    render(
+      <MockTable
+        id={1}
+        itemCode={12}
+        orderDate={orderDate}
+        orderPrice={400}
+        status="Pending"
+        quantity={4}
+        name="test"
+      />
+    );
+    const cells = screen.getAllByRole("cell");
+    expect(cells.length).toBe(5);
+  });
 });
