@@ -15,8 +15,6 @@ export const marketAPI = createApi({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
       const token = sessionStorage.getItem("token");
-      console.log(token);
-
       if (token) headers.set("Authorization", `Bearer ${token}`);
       return headers;
     },

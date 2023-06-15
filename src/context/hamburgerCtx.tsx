@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { HamburgerContexType, ProviderProps } from "../types";
+import { HamburgerContexType, LentItemsProviderProps } from "../types";
 const defaultValues: HamburgerContexType = {
   isMenuShown: true,
   menuToggle: () => {},
@@ -7,7 +7,7 @@ const defaultValues: HamburgerContexType = {
 
 export const HamburgerCtx = createContext<HamburgerContexType>(defaultValues);
 
-const HamburgerCtxProvider = ({ children }: ProviderProps) => {
+const HamburgerCtxProvider = ({ children }: LentItemsProviderProps) => {
   const [isMenuShown, setIsMenuShown] = useState<boolean>(false);
 
   const menuToggle = () => {
