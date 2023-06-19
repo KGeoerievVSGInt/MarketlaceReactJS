@@ -2,6 +2,15 @@ import { NavLink } from "react-router-dom";
 import { HamburgerCtx } from "../../context/hamburgerCtx";
 import { useContext } from "react";
 import { useMsal } from "@azure/msal-react";
+import {
+  StorefrontOutlined,
+  ContentPaste,
+  AccessTime,
+  Archive,
+  Inventory,
+  Payment,
+  Logout,
+} from "@mui/icons-material/";
 const Navigation = () => {
   const { instance } = useMsal();
   const activeAccount = instance.getActiveAccount();
@@ -27,7 +36,7 @@ const Navigation = () => {
               className={({ isActive }) => (isActive ? "active-link" : "")}
               onClick={toggleMenu}
             >
-              <i className="fa-solid fa-store"></i> Marketplace
+              <StorefrontOutlined className="icon" /> Marketplace
             </NavLink>
           </li>
           {typeArr.includes("f2123818-3d51-4fe4-990b-b072a80da143") && (
@@ -38,7 +47,7 @@ const Navigation = () => {
                   to="/inventory"
                   className={({ isActive }) => (isActive ? "active-link" : "")}
                 >
-                  <i className="fa-regular fa-clipboard"></i> Inventory
+                  <Inventory className="icon" /> Inventory
                 </NavLink>
               </li>
               <li>
@@ -47,7 +56,7 @@ const Navigation = () => {
                   to="/pending"
                   className={({ isActive }) => (isActive ? "active-link" : "")}
                 >
-                  <i className="fa-regular fa-clock"></i> Pending Orders
+                  <AccessTime className="icon" /> Pending Orders
                 </NavLink>
               </li>
               <li>
@@ -56,7 +65,7 @@ const Navigation = () => {
                   to="/lent"
                   className={({ isActive }) => (isActive ? "active-link" : "")}
                 >
-                  <i className="fa-solid fa-bag-shopping"></i> Lent Items
+                  <ContentPaste className="icon" /> Lent Items
                 </NavLink>
               </li>
             </>
@@ -67,7 +76,7 @@ const Navigation = () => {
               to="/myorders"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
-              <i className="fa-solid fa-bag-shopping"></i> My Orders
+              <Archive className="icon" /> My Orders
             </NavLink>
           </li>
           <li>
@@ -76,12 +85,12 @@ const Navigation = () => {
               to="/borrowed"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
-              <i className="fa-solid fa-bag-shopping"></i> My Borrowed Items
+              <Payment className="icon" /> My Borrowed Items
             </NavLink>
           </li>
           <li id="logout">
             <NavLink to="/" onClick={handleLogout}>
-              <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              <Logout className="icon" /> Logout
             </NavLink>
           </li>
         </ul>

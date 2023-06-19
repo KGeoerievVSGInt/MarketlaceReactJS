@@ -1,8 +1,7 @@
 import { GridRowId } from "@mui/x-data-grid";
 import React from "react";
 
-//content page types
-
+//layot types
 //header types
 export interface HeaderObj {
   "/marketplace": string;
@@ -11,6 +10,21 @@ export interface HeaderObj {
   "/myorders": string;
   "/borrowed": string;
   "/lent": string;
+}
+//pagination types
+export interface PaginationPropsType {
+  nextPage: () => void;
+  prevPage: () => void;
+  currPage: number;
+  maxPage: number;
+}
+// Table types
+
+export interface CustomTableProps<T> {
+  data: T[] | undefined;
+  columns: (keyof T)[];
+  type: "pending" | "myOrders" | "borrowed";
+  maxItems: number;
 }
 //Markeplace types
 export interface FetcherDataType {
@@ -120,7 +134,7 @@ export interface MyOrdersRowType {
   status: string;
 }
 export interface MyOrdersPopupType {
-  id: number;
+  id: number | string;
   onToggle: () => void;
 }
 //Context Types

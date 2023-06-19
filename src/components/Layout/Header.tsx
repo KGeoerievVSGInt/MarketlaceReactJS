@@ -7,6 +7,7 @@ import { useContext, useState, useEffect } from "react";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useMsal } from "@azure/msal-react";
+import { useGetAllUserQuery } from "../../redux/userSlice";
 const headerObj: HeaderObj = {
   "/marketplace": "Marketplace",
   "/inventory": "Inventory",
@@ -18,17 +19,26 @@ const headerObj: HeaderObj = {
 
 const Header = () => {
   const [headerText, setHeadetText] = useState("Marketplace");
+  const [avatar, setAvatar] = useState<string>(defaultUserIcon);
+  const { data } = useGetAllUserQuery();
   const loc = useLocation();
   const { menuToggle } = useContext(HamburgerCtx);
   const { instance } = useMsal();
   const username = instance.getActiveAccount()?.username;
+
   const handleLogout = () => {
     instance.logoutRedirect();
     sessionStorage.removeItem("token");
   };
-
+  useEffect(() => {
+    const user = data?.employees.find(
+      (user) => user.email === username?.toLowerCase()
+    );
+    if (user && user?.avatar !== null) setAvatar(user.avatar);
+  }, []);
   useEffect(() => {
     setHeadetText(headerObj[loc.pathname as keyof HeaderObj]);
+    document.title = `VSG - ${headerObj[loc.pathname as keyof HeaderObj]}`;
   }, [loc]);
   return (
     <header>
@@ -39,7 +49,7 @@ const Header = () => {
       <ul>
         <li>Hi, {username}</li>
         <li>
-          <img src={defaultUserIcon} alt="User Logo" />
+          <img src={avatar} alt="User Logo" />
         </li>
       </ul>
       <IconButton

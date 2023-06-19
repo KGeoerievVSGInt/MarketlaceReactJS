@@ -1,8 +1,8 @@
-import MyOrdersTableRow from "../components/Elements/MyOrdersElements/MyOrdersTableRow";
 import { useGetMyOrdersQuery } from "../services/myOrdersService";
-import EmptyTableRowElement from "../components/Layout/EmptyTableRowElement";
 import { Navigate } from "react-router-dom";
 import LoadingSpinner from "../components/Layout/LoadingSpinner";
+import Table from "../components/Layout/Table/Table";
+import { MyOrdersRowType } from "../types";
 const MyOrdersPage = () => {
   const { data, isLoading, error } = useGetMyOrdersQuery("");
 
@@ -10,34 +10,23 @@ const MyOrdersPage = () => {
   if (error && "data" in error && error.status === 401) {
     return <Navigate to="/" replace />;
   }
+  const columns: (keyof MyOrdersRowType)[] = [
+    "name",
+    "quantity",
+    "orderPrice",
+    "orderDate",
+  ];
   return (
     <main className="main-content">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <table className="pending-orders">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>QTY</th>
-              <th>Price</th>
-              <th>Order Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(!data || data.length === 0) && (
-              <EmptyTableRowElement
-                text="You don't have recent orders"
-                numofCols={5}
-              />
-            )}
-            {data &&
-              data.map((row) => {
-                return <MyOrdersTableRow key={row.id} {...row} />;
-              })}
-          </tbody>
-        </table>
+        <Table<MyOrdersRowType>
+          data={data}
+          columns={columns}
+          type="myOrders"
+          maxItems={10}
+        />
       )}
     </main>
   );

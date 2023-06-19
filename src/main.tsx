@@ -35,6 +35,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </BrowserRouter>
       </Provider>
     </MsalProvider>
-    <ToastContainer position="bottom-right" autoClose={1000} />
+    <ToastContainer position="bottom-right" autoClose={2000} />
   </React.StrictMode>
 );

@@ -1,11 +1,15 @@
 @use "../" as *;
-
+.main-market {
+  display: flex;
+  flex-direction: column;
+}
 .cardItem-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   align-content: start;
   justify-content: start;
   gap: $large;
+  flex-grow: 1;
 }
 .card-item {
   position: relative;

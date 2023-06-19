@@ -32,7 +32,7 @@ describe("MarketModal", () => {
       const nameElement = screen.getByText("Test Product");
       expect(nameElement).toBeInTheDocument();
     });
-    it("renders product name correctly", () => {
+    it("renders close button correctly", () => {
       render(<MarketModal open={true} onClose={jest.fn()} code={1} />);
       const closeButton = screen.getByRole("close-button");
       expect(closeButton).toBeInTheDocument();
@@ -44,7 +44,6 @@ describe("MarketModal", () => {
       render(<MarketModal open={true} onClose={onCloseMock} code={1} />);
       const closeButton = screen.getByRole("close-button");
       fireEvent.click(closeButton);
-
       expect(onCloseMock).toHaveBeenCalled();
     });
   });

@@ -225,10 +225,16 @@ const InventoryModal = ({
                 })}
               />
               <TextField
+                error={!!errors.price}
+                helperText={errors.price?.message ?? ""}
                 variant="standard"
                 label="Sale Price"
                 type="number"
                 {...register("price", {
+                  required: {
+                    value: quantityForSale > 0,
+                    message: "Please, specify price!",
+                  },
                   valueAsNumber: true,
                 })}
               />

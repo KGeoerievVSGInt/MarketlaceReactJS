@@ -79,7 +79,10 @@ const InventoryTable = ({ onToggle, data }: InvenotryTableProps) => {
       <DataGrid
         columns={columns}
         rows={data}
-        pageSizeOptions={[1]}
+        rowHeight={58}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 10 } },
+        }}
         disableRowSelectionOnClick
         disableColumnSelector
         sx={{

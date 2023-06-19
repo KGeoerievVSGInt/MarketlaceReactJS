@@ -34,9 +34,9 @@
           transition: 750ms;
           .active-link {
             background-color: $default-red;
-            color: white;
+            color: $white;
             border-radius: $radius-medium;
-            i {
+            .icon {
               color: $white;
             }
           }
@@ -44,9 +44,11 @@
             padding: $medium;
             display: block;
             font-size: $font-links;
-            i {
+            .icon {
+              font-size: $font-medium;
               color: $default-red;
-              margin-right: $font-medium;
+              margin-right: $font-small;
+              vertical-align: text-bottom;
             }
           }
           &:hover {
@@ -55,7 +57,7 @@
             a {
               color: $white;
             }
-            i {
+            .icon {
               color: $white;
             }
           }
@@ -67,7 +69,7 @@
     }
   }
 }
+
 .aside-show {
   display: flex !important;
 }
-

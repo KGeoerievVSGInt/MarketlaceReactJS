@@ -95,6 +95,9 @@ const CardItem = ({
               variant="light"
               className="tooltip"
               clickable={true}
+              style={{
+                zIndex: "5",
+              }}
             >
               <MarketPopupElement
                 onToggle={togglePopup}
