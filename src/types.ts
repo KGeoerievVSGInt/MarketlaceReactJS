@@ -26,6 +26,17 @@ export interface CustomTableProps<T> {
   type: "pending" | "myOrders" | "borrowed";
   maxItems: number;
 }
+
+export interface TableHeadProps {
+  columns: string[];
+  fractions: string[];
+}
+
+export interface CustomTableRowProps<T> {
+  item: T;
+  columns: (keyof T)[];
+  type: string;
+}
 //Markeplace types
 export interface FetcherDataType {
   id: number;
@@ -159,6 +170,7 @@ export interface LentContextType {
 export interface LentItemsType {
   email: string;
   count: number;
+  avatar: UserType | undefined;
 }
 export interface BorrowedItemsType {
   id: number;

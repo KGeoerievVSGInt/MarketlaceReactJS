@@ -1,9 +1,4 @@
-import {
-  TableRow as MUIRow,
-  TableCell,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { TableRow as MUIRow, Button, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
@@ -11,16 +6,14 @@ import { dateFormat } from "../../../utils/dataFormat";
 import { useCompleteOrderMutation } from "../../../services/pendingService";
 import { toast } from "react-toastify";
 import MyOrdersPopup from "../../Elements/MyOrdersElements/MyOrdersPopup";
+import { CustomTableRowProps } from "../../../types";
+import { StyledCell } from "./StyledTableComponents";
 
 const TableRow = <T extends { id: number; status?: string }>({
   item,
   columns,
   type,
-}: {
-  item: T;
-  columns: (keyof T)[];
-  type: string;
-}) => {
+}: CustomTableRowProps<T>) => {
   const [visible, setVisible] = useState(false);
   const [completeOrder] = useCompleteOrderMutation();
   const togglePopup = () => {
@@ -37,44 +30,57 @@ const TableRow = <T extends { id: number; status?: string }>({
       {columns.map((column) => {
         if (column === "orderDate" || column === "loanStartDate")
           return (
-            <TableCell key={column as string}>
+            <StyledCell key={column as string}>
               {dateFormat(item[column] as string)}
-            </TableCell>
+            </StyledCell>
           );
         if (column === "orderPrice")
           return (
-            <TableCell key={column as string}>
+            <StyledCell key={column as string}>
               {item[column] as string} BGN
-            </TableCell>
+            </StyledCell>
           );
         if (column === "loanEndDate")
           return (
-            <TableCell key={column as string}>
+            <StyledCell key={column as string}>
               {dateFormat(item[column] as string) ?? "Ongoing"}
-            </TableCell>
+            </StyledCell>
           );
         return (
-          <TableCell key={column as string}>
+          <StyledCell key={column as string}>
             {item[column] as React.ReactNode}
-          </TableCell>
+          </StyledCell>
         );
       })}
       {type === "pending" && (
-        <TableCell>
+        <StyledCell>
           <Button
+            variant="contained"
+            sx={{
+              bgcolor: "#ed1c25",
+              color: "#FFF",
+              fontWeight: 700,
+              ":hover": {
+                bgcolor: "#f69296",
+              },
+            }}
             onClick={() => {
               completeOrderHandler(item.id);
             }}
           >
             Complete
           </Button>
-        </TableCell>
+        </StyledCell>
       )}
       {type === "myOrders" && (
-        <TableCell>
+        <StyledCell>
           {item.status}
           {item.status === "Pending" && (
             <IconButton
+              sx={{
+                padding: 0,
+                marginLeft: "8px",
+              }}
               onClick={togglePopup}
               data-tooltip-id={`my-tooltip-${item.id}`}
             >
@@ -97,7 +103,7 @@ const TableRow = <T extends { id: number; status?: string }>({
               <MyOrdersPopup onToggle={togglePopup} id={item.id} />
             </Tooltip>
           )}
-        </TableCell>
+        </StyledCell>
       )}
     </MUIRow>
   );

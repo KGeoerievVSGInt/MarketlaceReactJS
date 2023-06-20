@@ -1,12 +1,14 @@
 import { EmptyTableRow } from "../../types";
+import { TableRow } from "@mui/material";
+import { StyledCell } from "./Table/StyledTableComponents";
 
 const EmptyTableRowElement = ({ text, numofCols }: EmptyTableRow) => {
   return (
-    <tr>
-      <td colSpan={numofCols} className="empty-cell">
+    <TableRow>
+      <StyledCell colSpan={numofCols} className="empty-cell">
         {text}
-      </td>
-    </tr>
+      </StyledCell>
+    </TableRow>
   );
 };
 

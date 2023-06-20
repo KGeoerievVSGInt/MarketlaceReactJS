@@ -25,7 +25,7 @@ const MyOrdersPage = () => {
           data={data}
           columns={columns}
           type="myOrders"
-          maxItems={10}
+          maxItems={8}
         />
       )}
     </main>

@@ -31,28 +31,6 @@ const BorrowedItemsPage = () => {
           maxItems={7}
           type="borrowed"
         />
-        // <table className="pending-orders">
-        //   <thead>
-        //     <tr>
-        //       <th>Name</th>
-        //       <th>QTY</th>
-        //       <th>Loan Start Date</th>
-        //       <th>Loand End Date</th>
-        //     </tr>
-        //   </thead>
-        //   <tbody>
-        //     {(!data || data.length === 0) && (
-        //       <EmptyTableRowElement
-        //         text="You don't have recent orders"
-        //         numofCols={4}
-        //       />
-        //     )}
-        //     {data &&
-        //       data.map((row) => {
-        //         return <BorrowedItemsTableRow key={row.id} {...row} />;
-        //       })}
-        //   </tbody>
-        // </table>
       )}
     </main>
   );

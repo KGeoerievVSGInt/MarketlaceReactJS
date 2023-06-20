@@ -1,11 +1,15 @@
-import { TableHead as MUITableHead, TableRow, TableCell } from "@mui/material";
+import { TableHead as MUITableHead, TableRow } from "@mui/material";
+import { TableHeadProps } from "../../../types";
+import { StyledCell } from "./StyledTableComponents";
 
-const TableHead = ({ columns }: { columns: string[] }) => {
+const TableHead = ({ columns, fractions }: TableHeadProps) => {
   return (
     <MUITableHead>
       <TableRow>
-        {columns.map((column) => (
-          <TableCell key={column}>{column}</TableCell>
+        {columns.map((column, index) => (
+          <StyledCell key={column} width={fractions[index]}>
+            {column}
+          </StyledCell>
         ))}
       </TableRow>
     </MUITableHead>
